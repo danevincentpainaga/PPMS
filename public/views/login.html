@@ -1,0 +1,24 @@
+<div class="col-md-4"></div>
+<div class="col-md-4">
+<div class="container" ng-controller="loginCtrl as lg">
+  <br /><br /><br />
+  <h1 class="center" style="font-family: Footlight MT Light;">Login</h1>
+  <div class="alert alert-danger center" ng-if="!lg.valid">
+    <strong>Username/Password Incorrect!</strong>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+   <form>
+    <div class="form-group">
+      <label for="usr">Email:</label>
+      <input type="text" class="form-control" ng-model="lg.email" required>
+      <label for="usr" style="margin-top: 5px;">Password:</label>
+      <input type="text" class="form-control" ng-model="lg.password" required>
+    </div>
+    <button type="submit" class="btn btn-info form-control" ng-click="lg.login()" >Submit</button> 
+  </form>
+  </div>
+  </div>
+</div>
+</div>
+<div class="col-md-4"></div>
