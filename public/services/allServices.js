@@ -103,9 +103,8 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         data: venueDetails,
         headers: {
           "Content-Type": "application/json",
-          Authorization: 'Bearer ' + $cookies.getObject('auth').success.token
+          Authorization: 'Bearer ' + $rootScope.token
         }
-
       });
     },
     getVenues: function getVenues() {
@@ -118,6 +117,76 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
           Authorization: 'Bearer ' + $rootScope.token
         }
       });
+    },
+    deleteVenue: function deleteVenue(venueId) {
+      var config = {
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        },
+        params: {
+          venue: venueId
+        }
+      };
+      return $http.delete(baseUrl + 'api/deleteVenue', config);
+    },
+    getDepartments: function getDepartments() {
+      return $http({
+        method: 'GET',
+        url: baseUrl + 'api/getDepartments',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
+    getUserTypes: function getUserTypes() {
+      return $http({
+        method: 'GET',
+        url: baseUrl + 'api/getUserTypes',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
+    addUser: function addUser(userDetails) {
+      return $http({
+        method: 'POST',
+        url: baseUrl + 'api/addUser',
+        data: userDetails,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
+    getUsers: function getUsers() {
+      return $http({
+        method: 'GET',
+        url: baseUrl + 'api/getUsers',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
+    deleteUsers: function deleteUsers(userId) {
+      var config = {
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        },
+        params: {
+          user_id: userId
+        }
+      };
+      return $http.delete(baseUrl + 'api/deleteUsers', config);
     }
   };
 }]);

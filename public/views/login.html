@@ -1,26 +1,34 @@
 <div class="col-md-4"></div>
 <div class="col-md-4">
-<div class="container" ng-controller="loginCtrl as lg">
-  <br /><br /><br />
-  <h1 class="center" style="font-family: Footlight MT Light;">Login</h1>
-  <div class="alert alert-danger center" ng-if="!lg.valid">
-    <strong>Username/Password Incorrect!</strong>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-   <form>
-    <div class="form-group">
-      <label for="usr">Email:</label>
-      <input type="text" class="form-control" ng-model="lg.email" required>
-      <label for="usr" style="margin-top: 5px;">Password:</label>
-      <input type="text" class="form-control" ng-model="lg.password" required>
+<br /><br />
+<div class="card">
+  <div class="card-header"></div>
+  <div class="card-body">
+    <div class="container" ng-controller="loginCtrl as lg">
+      <br />
+      <h1 class="center" style="font-family: Footlight MT Light;">Login</h1>
+      <div class="alert alert-danger center" ng-if="!lg.valid">
+        <strong>Username/Password Incorrect!</strong>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+       <form>
+        <div class="form-group">
+          <label for="usr">Email:</label>
+          <input type="text" class="form-control" ng-model="lg.email" required>
+          <label for="usr" style="margin-top: 5px;">Password:</label>
+          <input type="password" class="form-control" ng-model="lg.password" required>
+        </div>
+        <button type="submit" class="btn btn-info form-control verdana" ng-click="lg.login()" >
+          {{ lg.buttonMessage }}
+        </button> 
+      </form>
+      </div>
+      </div>
     </div>
-    <button type="submit" class="btn btn-info form-control verdana" ng-click="lg.login()" >
-      {{ lg.buttonMessage }}
-    </button> 
-  </form>
-  </div>
-  </div>
+  </div> 
+  <div class="card-footer"></div>
 </div>
 </div>
 <div class="col-md-4"></div>
+

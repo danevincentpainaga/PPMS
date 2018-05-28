@@ -1,0 +1,37 @@
+<div class="tab-content" ng-controller="userCtrl as au">
+  <div id="users" class="container tab-pane active">
+    <br />
+    <div class="row" ng-if="!au.isLoading">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>User Type</th>
+            <th>Department</th>
+            <th>Date Created</th>
+            <th class="center min-width-155">password</th>
+            <th class="center min-width-155">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="user in au.users">
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.userType }}</td>
+            <td>{{ user.department_name }}</td>
+            <td>{{ user.created_at }}</td>
+            <td class="center min-width-155">
+              <button class="btn btn-basic btn-sm" type="button"  >View Password</button>
+            </td>
+            <td class="center min-width-155">
+              <button class="btn btn-success btn-sm" type="button" >Edit</button>
+              <button class="btn btn-danger btn-sm" type="button" ng-click="au.deleteUser(user)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <strong ng-if="au.isLoading">Loading...</strong>
+</div>

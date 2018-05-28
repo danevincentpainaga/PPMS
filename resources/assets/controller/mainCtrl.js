@@ -9,8 +9,8 @@
  */
 
 var app = angular.module('myApp')
-app.controller('mainCtrl',['$scope', '$rootScope', '$location', '$http', '$ngConfirm','$filter', '$timeout', function ($scope, $rootScope, $location, 
- $http, $ngConfirm, $filter, $timeout) {
+app.controller('mainCtrl',['$scope', '$rootScope', '$location', '$http', '$ngConfirm','$filter', '$timeout', '$cookies',
+  function ($scope, $rootScope, $location, $http, $ngConfirm, $filter, $timeout, $cookies) {
   $scope.selected = 1;
 
   $scope.isActivated = function(destination){
@@ -23,7 +23,13 @@ app.controller('mainCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCon
 
   $scope.isSelected = function(selectedId){
     return $scope.selected === selectedId;
-  } 
+  }
+
+  $scope.logout= function(){
+    $cookies.remove('auth');
+    $rootScope.header = false;
+    $location.path('/');
+  }
 }]);
 
 app.directive('navHeight',['$window', function($window){

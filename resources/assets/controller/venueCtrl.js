@@ -37,7 +37,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   }
 
   vc.deleteVenue = function(venue){
-      // vc.venues.splice(indexOf(venue));
+      confirmDialog(venue);
       console.log(venue);
   }
 
@@ -50,7 +50,38 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
     }, function(error){
       console.log(error);
     });
-  } 
+  }
+
+  function confirmDialog(venue){
+    $ngConfirm({
+        title: '',
+        content: 'Delete this venue?',
+        type: 'blue',
+        typeAnimated: true,
+          buttons: {
+            Yes: {
+              text: 'Yes',
+              btnClass: 'btn-red',
+              action: function(){
+                deleteVenue(venue);
+                $ngConfirm('Venue deleted');
+              }
+            },
+            Cancel: {
+              text: 'No',
+              btnClass: 'btn-blue',
+            }
+          }
+    });
+  }
+
+  function deleteVenue(venue){
+    apiService.deleteVenue(venue.venue_id).then(function(response){
+      vc.venues.splice(vc.venues.indexOf(venue), 1);
+    }, function(error){
+      console.log(error);
+    })
+  }
 }]);
 
 

@@ -38,8 +38,25 @@ angular
     })
     .state('manage_users', {
       url: '/manage_users',
-      templateUrl: 'views/users.html',
-      controller: 'mainCtrl',
+      views:{
+        '':{
+          templateUrl: 'views/users.html',
+          controller: 'mainCtrl',
+        },
+        'users-view@manage_users':{
+          templateUrl: 'views/add_user.html',
+          controller: 'userCtrl',
+        }
+      }
+    })
+    .state('manage_users.users_list', {
+      url: '/users_list',
+      views:{
+        'users-view@manage_users':{
+         templateUrl: 'views/users_list.html',
+          controller: 'userCtrl',
+        }
+      }
     })
     .state('reservation', {
       url: '/reservation',
@@ -89,7 +106,7 @@ angular
       $state.go('/');
     }else{
       if(transitions.to().name === '/'){
-        $state.go('dashboard')
+        $state.go('dashboard');
         $rootScope.header = false;  
       }else{
         $rootScope.header = true;

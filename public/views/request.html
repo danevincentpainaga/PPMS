@@ -8,9 +8,13 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
+            <th>Requester Name</th>
+            <th>Venue</th>
+            <th>Reservation Date</th>
+            <th>Purpose</th>
+            <th>Date Requested</th>
+            <th class="center min-width-155">Details</th>
+            <th class="center min-width-155">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -18,16 +22,15 @@
             <td>John</td>
             <td>Doe</td>
             <td>john@example.com</td>
-          </tr>
-          <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-          </tr>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
+            <td>John</td>
+            <td>Doe</td>
+            <td class="center min-width-155">
+              <button class="btn btn-basic btn-sm" type="button"  >View Details</button>
+            </td>
+            <td class="center min-width-155">
+              <button class="btn btn-success btn-sm" type="button" >Approve</button>
+              <button class="btn btn-danger btn-sm" type="button" ng-click="vc.deleteVenue(venue)">Delete</button>
+            </td>
           </tr>
         </tbody>
       </table>

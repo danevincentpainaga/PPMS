@@ -1,5 +1,16 @@
  <div class="tab-content" ng-controller="venueCtrl as vc">
-  <div id="users" class="container tab-pane active" ng-if="!vc.isLoading"><br>
+  <div id="users" class="container tab-pane active" ng-if="!vc.isLoading">
+    <br />
+    <div class="row" ng-if="false">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" >
+        </div>
+        <div class="col-md-2 padding-0">
+          <button class="btn btn-success btn-md" style="font-size: 13px;">Update</button>
+        </div>
+    </div>
     <div class="row">
       <button class="btn btn-info btn-sm " type="button" data-toggle="modal" data-target="#myModal">Add Venue</button>
     </div>
@@ -15,8 +26,8 @@
         </thead>
         <tbody>
           <tr ng-repeat="venue in vc.venues">
-            <td>{{venue.venue_name}}</td>
-            <td>{{venue.created_at}}</td>
+            <td>{{ venue.venue_name }}</td>
+            <td>{{ venue.created_at }}</td>
             <td class="center min-width-155">
               <button class="btn btn-success btn-sm" type="button" class="btn btn-primary" >Edit</button>
               <button class="btn btn-danger btn-sm" type="button" class="btn btn-primary" ng-click="vc.deleteVenue(venue)">Delete</button>

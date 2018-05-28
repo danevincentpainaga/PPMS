@@ -4,7 +4,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" ng-if="header">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="col-md-10 collapse navbar-collapse" id="collapsibleNavbar">
+  <div class="col-md-9 collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav" ng-if="header">
       <li class="nav-item">
         <a class="nav-link" ng-class="{actives: isSelected(1)}" ng-click="selectedTown(1)" href="#!/dashboard">Dashboard</a>
@@ -18,13 +18,18 @@
       <li class="nav-item">
         <a class="nav-link" ng-class="{actives: isSelected(4)}" ng-click="selectedTown(4)" href="#!/maintenance">Maintenance</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" ng-class="{actives: isSelected(5)}" ng-click="selectedTown(5)" href="#!/department">Department</a>
+      </li>
     </ul>
   </div>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav" ng-if="header">
-      <li class="nav-item">
-        <a class="nav-link" >{{ userLogName }}</a>
-      </li>   
-    </ul>
+  <div class="collapse navbar-collapse col-md-2" id="collapsibleNavbar">
+    <div class="dropdown" ng-if="header">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">{{ userLogName }}</a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" ng-click="logout()">Logout</a>
+      </div>
+    </div>
+  </div>
   </div>  
 </nav>

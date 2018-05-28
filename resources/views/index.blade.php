@@ -72,6 +72,7 @@
     <ng-include src="'views/header.html'"></ng-include> 
     <div class="container">
         <div class="row" ui-view=""></div>
+        <script src="{{asset('node_modules/jquery/dist/jquery.min.js')}}" type="text/javascript"></script>
         <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
         <script src="{{asset('node_modules/@uirouter/angularjs/release/angular-ui-router.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('node_modules/angular-animate/angular-animate.min.js')}}" type="text/javascript"></script>
