@@ -9,29 +9,32 @@
  */
 var app = angular.module('myApp')
   app.controller('loginCtrl',['$scope', '$rootScope', '$cookies',
-  '$window', '$location', '$timeout', 'validateUserLogin',
-  function ($scope, $rootScope, $cookies, $window, $location, $timeout, validateUserLogin) {
+  '$window', '$location', '$timeout', 'apiService',
+  function ($scope, $rootScope, $cookies, $window, $location, $timeout, apiService) {
 
   var lg = this;
   lg.valid= true;
+  lg.buttonMessage = 'Submit';
+
   lg.login =function(){
     if(!lg.email && !lg.password){
         console.log('unAuthenticated');
     }else{
-      console.log(lg.email);
-      console.log(lg.password);
+      lg.buttonMessage = 'Logging In...';
       var credentials = {
         email: lg.email,
         password: lg.password
       }
 
-      validateUserLogin.validateLogin(credentials)
+      apiService.validateLogin(credentials)
         .then(function(response){
           console.log(response);
-          $cookies.put('auth', response.data);
+          $cookies.putObject('auth', response.data);
+          console.log($cookies.getObject('auth'));
           $location.path('/dashboard');
       }, function(error){
-        lg.valid = false; 
+        lg.valid = false;
+        lg.buttonMessage = 'Submit'; 
           $timeout(function(){
             lg.valid = true;
           },3000);
@@ -42,29 +45,3 @@ var app = angular.module('myApp')
 
 
 }]);
-
-//Services
-app.factory('validateUserLogin', ['$http', '$cookies', function($http, $cookies){
-  return{
-    validateLogin: function(credData){
-      return $http({
-        method:'POST',
-        url: baseUrl+'api/login',
-        data: credData,
-        headers: {
-          Accept: "application/json",   
-        }
-      });
-    },
-    AuthenticatedUser: function(){
-      var status = $cookies.get('auth');
-        if(status){
-          return true;
-        }else{
-          return false;
-        }
-    },
-  }
-}]);
-
-

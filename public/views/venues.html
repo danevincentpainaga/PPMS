@@ -1,10 +1,10 @@
- <div class="tab-content">
-  <div id="users" class="container tab-pane active"><br>
+ <div class="tab-content" ng-controller="venueCtrl as vc">
+  <div id="users" class="container tab-pane active" ng-if="!vc.isLoading"><br>
     <div class="row">
       <button class="btn btn-info btn-sm " type="button" data-toggle="modal" data-target="#myModal">Add Venue</button>
     </div>
     <br />
-    <div class="row">        
+    <div class="row">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -14,31 +14,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td class="center">
+          <tr ng-repeat="venue in vc.venues">
+            <td>{{venue.venue_name}}</td>
+            <td>{{venue.created_at}}</td>
+            <td class="center min-width-155">
               <button class="btn btn-success btn-sm" type="button" class="btn btn-primary" >Edit</button>
-              <button class="btn btn-danger btn-sm" type="button" class="btn btn-primary" >Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td class="center">
-              <button class="btn btn-success btn-sm" type="button" class="btn btn-primary" >Edit</button>
-              <button class="btn btn-danger btn-sm" type="button" class="btn btn-primary" >Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td class="center">
-              <button class="btn btn-success btn-sm" type="button" class="btn btn-primary" >Edit</button>
-              <button class="btn btn-danger btn-sm" type="button" class="btn btn-primary" >Delete</button>
+              <button class="btn btn-danger btn-sm" type="button" class="btn btn-primary" ng-click="vc.deleteVenue(venue)">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+  <br />
+  <strong ng-if="vc.isLoading">Loading...</strong>
+</div>

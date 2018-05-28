@@ -21,5 +21,7 @@ Route::post('login', 'API\PassportController@login');
 Route::post('register', 'API\PassportController@register');
 Route::group(['middleware'=>'auth:api'], function(){
 	Route::get('get-details', 'API\PassportController@getDetails');
+	Route::get('getVenues', 'API\reservationController@getVenues');
+	Route::post('addVenue', 'API\reservationController@addVenue');
 });
 

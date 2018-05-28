@@ -10037,3 +10037,27 @@ a.text-dark:focus {
   text-align: center !important;
 }
 
+/*min-width*/
+
+.min-width-155 {
+  min-width: 155px !important;
+}
+
+/*font-family*/
+
+.verdana {
+  font-family: verdana !important;
+}
+
+/*backgrounds*/
+
+.whitesmoke {
+  background-color: whitesmoke !important;
+}
+
+/*paddings*/
+
+.padding-7px {
+  padding: 7px !important;
+}
+

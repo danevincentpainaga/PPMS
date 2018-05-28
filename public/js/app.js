@@ -13732,8 +13732,8 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
     url: '/venues',
     views: {
       'new-view@reservation': {
-        templateUrl: 'views/venues.html'
-        // controller: 'mainCtrl',
+        templateUrl: 'views/venues.html',
+        controller: 'venueCtrl'
       }
     }
   }).state('reservation.approved', {
@@ -13750,12 +13750,13 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
     controller: 'mainCtrl'
   });
   $urlRouterProvider.otherwise('/');
-}).run(['$transitions', '$rootScope', 'validateUserLogin', function ($transitions, $rootScope, validateUserLogin) {
+}).run(['$transitions', '$rootScope', 'apiService', '$cookies', function ($transitions, $rootScope, apiService, $cookies) {
   $transitions.onStart({}, function (transitions) {
-    var cookies = false;
+    console.log($cookies.getObject('auth'));
+    var auth = $cookies.getObject('auth');
     var $state = transitions.router.stateService;
-    console.log($state);
-    if (!validateUserLogin.AuthenticatedUser()) {
+
+    if (!apiService.AuthenticatedUser()) {
       $state.go('/');
     } else {
       if (transitions.to().name === '/') {
@@ -13763,6 +13764,9 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
         $rootScope.header = false;
       } else {
         $rootScope.header = true;
+        $rootScope.userLoginId = auth.user_id;
+        $rootScope.token = $cookies.getObject('auth').success.token;
+        $rootScope.userLogName = $cookies.getObject('auth').name;
       }
     }
   });

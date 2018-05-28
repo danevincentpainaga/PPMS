@@ -12,7 +12,7 @@
         <link href="{{asset('node_modules/angularjs-datepicker/dist/angular-datepicker.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('node_modules/angular-confirm/dist/angular-confirm.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        
+
 
         <!-- Styles -->
         <style>
@@ -68,11 +68,10 @@
             }
         </style>
     </head>
-    <body  ng-controller="mainCtrl">
+    <body ng-cloak ng-controller="mainCtrl">
     <ng-include src="'views/header.html'"></ng-include> 
     <div class="container">
-        <div class="row" ui-view=""></div><!-- 
-        <script src="{{asset('node_modules/angular/angular.js')}}" type="text/javascript"></script> -->
+        <div class="row" ui-view=""></div>
         <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
         <script src="{{asset('node_modules/@uirouter/angularjs/release/angular-ui-router.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('node_modules/angular-animate/angular-animate.min.js')}}" type="text/javascript"></script>
@@ -85,81 +84,13 @@
         <script>var baseUrl = "{{url('/')}}/";</script>
 
     </div>
+
+        <ng-include src="'views/modal.html'"></ng-include> 
+
         <script type="text/javascript" src="{{asset('controller/mainCtrl.js')}}"></script>
-    </body>\
+        <script type="text/javascript" src="{{asset('services/allServices.js')}}"></script>
 
-
-
-
-  <!-- The Modal -->
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+    </body>
       
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Add Venue</h4>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-           <form action="/action_page.php">
-            <div class="form-group">
-              <label for="usr">Venue:</label>
-              <input type="text" class="form-control" id="usr" name="">
-            </div>
-            <button type="submit" class="btn btn-success">Submit</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </form>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="requestModal" >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content" >
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Request</h4>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-           <form action="/action_page.php">
-            <div class="form-group">
-              <label for="usr">Requester Name:</label>
-              <input type="text" class="form-control" id="usr" name="">
-            </div>
-            <div class="form-group">
-              <label for="usr">Department</label>
-              <input type="text" class="form-control" id="usr" name="">
-            </div>
-            <div class="form-group">
-              <label for="usr">Reserve Date:</label>
-                <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control">
-                  <div class="input-group">
-                    <input class="form-control" ng-model="apps.appdata.academic_year_to" style="border-top-right-radius: 4px;
-                    border-bottom-right-radius: 4px;" />
-                  </div>
-                </datepicker>
-            </div>
-            <div class="form-group">
-              <label for="usr">Venue:</label>
-              <input type="text" class="form-control" id="usr" name="">
-            </div>
-            <div class="form-group">
-              <label for="usr">Remarks:</label>
-              <textarea class="form-control" ></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">Submit</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </html>

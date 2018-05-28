@@ -9,29 +9,32 @@
  */
 var app = angular.module('myApp')
   app.controller('loginCtrl',['$scope', '$rootScope', '$cookies',
-  '$window', '$location', '$timeout', 'validateUserLogin',
-  function ($scope, $rootScope, $cookies, $window, $location, $timeout, validateUserLogin) {
+  '$window', '$location', '$timeout', 'apiService',
+  function ($scope, $rootScope, $cookies, $window, $location, $timeout, apiService) {
 
   var lg = this;
   lg.valid= true;
+  lg.buttonMessage = 'Submit';
+
   lg.login =function(){
     if(!lg.email && !lg.password){
         console.log('unAuthenticated');
     }else{
-      console.log(lg.email);
-      console.log(lg.password);
+      lg.buttonMessage = 'Logging In...';
       var credentials = {
         email: lg.email,
         password: lg.password
       }
 
-      validateUserLogin.validateLogin(credentials)
+      apiService.validateLogin(credentials)
         .then(function(response){
           console.log(response);
-          $cookies.put('auth', response.data);
+          $cookies.putObject('auth', response.data);
+          console.log($cookies.getObject('auth'));
           $location.path('/dashboard');
       }, function(error){
-        lg.valid = false; 
+        lg.valid = false;
+        lg.buttonMessage = 'Submit'; 
           $timeout(function(){
             lg.valid = true;
           },3000);
@@ -42,32 +45,6 @@ var app = angular.module('myApp')
 
 
 }]);
-
-//Services
-app.factory('validateUserLogin', ['$http', '$cookies', function($http, $cookies){
-  return{
-    validateLogin: function(credData){
-      return $http({
-        method:'POST',
-        url: baseUrl+'api/login',
-        data: credData,
-        headers: {
-          Accept: "application/json",   
-        }
-      });
-    },
-    AuthenticatedUser: function(){
-      var status = $cookies.get('auth');
-        if(status){
-          return true;
-        }else{
-          return false;
-        }
-    },
-  }
-}]);
-
-
 
 'use strict';
 
@@ -113,4 +90,61 @@ app.directive('navHeight',['$window', function($window){
       }
     };
  }]);
+
+
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name mytodoApp.controller:venueCtrl
+ * @description
+ * # venueCtrl
+ * Controller of the mytodoApp
+ */
+
+var app = angular.module('myApp')
+app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngConfirm','$filter', '$timeout', 'apiService',
+ function ($scope, $rootScope, $location, $http, $ngConfirm, $filter, $timeout, apiService) {
+  
+  var vc = this;
+  vc.response = false;
+  getAllVenues();
+
+  vc.addVenue = function(){
+    if(vc.venue){
+      var venueDetails =  { venue_name: vc.venue, user_id: $rootScope.userLoginId };
+      apiService.addVenue(venueDetails).then(function(response){
+        console.log(response);
+        vc.response = true;
+        vc.message = 'Venue Added Successfully';
+      }, function(error){
+        vc.response = true;
+        vc.message = 'failed! please try again.';
+        console.log(error);
+      });
+    }
+  }  
+
+  vc.close = function(){
+      vc.venue = "";
+      vc.response = false;
+  }
+
+  vc.deleteVenue = function(venue){
+      // vc.venues.splice(indexOf(venue));
+      console.log(venue);
+  }
+
+  function getAllVenues(){
+    vc.isLoading = true;
+    apiService.getVenues().then(function(response){
+      console.log(response.data);
+      vc.isLoading = false;
+      vc.venues = response.data;
+    }, function(error){
+      console.log(error);
+    });
+  } 
+}]);
+
 
