@@ -107,6 +107,28 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         }
       });
     },
+    getReservations: function getReservations() {
+      return $http({
+        method: 'GET',
+        url: baseUrl + 'api/getReservations',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
+    addReservation: function addReservation(reservationDetails) {
+      return $http({
+        method: 'POST',
+        url: baseUrl + 'api/addReservation',
+        data: reservationDetails,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
     getVenues: function getVenues() {
       return $http({
         method: 'GET',

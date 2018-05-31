@@ -60,6 +60,41 @@ var app = angular.module('myApp')
 app.controller('mainCtrl',['$scope', '$rootScope', '$location', '$http', '$ngConfirm','$filter', '$timeout', '$cookies',
   function ($scope, $rootScope, $location, $http, $ngConfirm, $filter, $timeout, $cookies) {
   $scope.selected = 1;
+    var events = [
+      {
+        title: "Yehey Test",
+        start: '2018-05-02',// moment().subtract(6, "hours"),
+        end: '2018-05-02' //moment().subtract(6, "hours").add(30, "minutes")
+      },
+      {
+        title: "Yehey Test",
+        start: '2018-05-02',// moment().subtract(6, "hours"),
+        end: '2018-05-02' //moment().subtract(6, "hours").add(30, "minutes")
+      }
+    ];
+
+  $scope.eventSources = [events];
+
+    $scope.uiConfig = {
+      calendar:{
+        height: 450,
+        editable: true,
+        header:{
+          left: 'month basicWeek basicDay agendaWeek agendaDay',
+          center: 'title',
+          right: 'today prev,next'
+        },
+        dayClick: function( date, allDay, jsEvent, view ) {
+            var start=moment(date).format('YYYY-MM-DD');
+            console.log(start);
+        },
+        eventClick: function (event) {
+            console.log(event);
+        }
+      }
+    };
+
+
 
   $scope.isActivated = function(destination){
     return destination == $location.path();
@@ -251,6 +286,8 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   var vc = this;
   vc.response = false;
   getAllVenues();
+  departments();
+  getAllReservations();
 
   vc.addVenue = function(){
     if(vc.venue){
@@ -266,6 +303,21 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
       });
     }
   }  
+
+  vc.addReservation = function(){
+    if(!vc.requester || !vc.selectedDepartment || !vc.selectedVenue || !vc.purpose ){
+        alert('Complete all the Fields');
+    }else{
+      var reservationDetails = {
+        requester_name: vc.requester,
+        departmentId: vc.selectedDepartment.department_id,
+        venueId: vc.selectedVenue.venue_id,
+        purpose: vc.purpose,
+        reservationDate: vc.reservation_date,
+      }
+      reservation(reservationDetails);
+    }
+  }
 
   vc.close = function(){
       vc.venue = "";
@@ -317,6 +369,32 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
     }, function(error){
       console.log(error);
     })
+  }
+
+  function departments(){
+    apiService.getDepartments().then(function(response){
+      console.log(response);
+      vc.departments = response.data;
+    }, function(error){
+      console.log(error);
+    });
+  }
+
+  function reservation(reservationDetails){
+    apiService.addReservation(reservationDetails).then(function(response){
+      console.log(response)
+    }, function(error){
+      console.log(error);
+    });
+  }
+
+  function getAllReservations(){
+    apiService.getReservations().then(function(response){
+      console.log(response)
+      vc.reservations = response.data;
+    }, function(error){
+      console.log(error);
+    });
   }
 }]);
 

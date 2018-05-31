@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use DB;
+
 use App\user;
 use App\venue;
 use App\department;
 use App\user_type;
+use App\client_reservation;
+use App\client;
 
 class reservationController extends Controller
 {
@@ -25,7 +29,7 @@ class reservationController extends Controller
 
     public function getVenues()
     {
-        $allVenues = venue::all();
+        $allVenues = venue::orderBy('venue_name')->get();
         return $allVenues;
     }
 
@@ -37,7 +41,7 @@ class reservationController extends Controller
 
     public function getDepartments()
     {
-        $alldepartments = department::all();
+        $alldepartments = department::orderBy('department_name')->get();
         return $alldepartments;
     }
 
@@ -45,5 +49,62 @@ class reservationController extends Controller
     {
         $allUser_type = user_type::all()->except(1);
         return $allUser_type;
+    }
+
+    public function addReservation(Request $request){
+
+        $name = $request->input('requester_name');
+        $purpose = $request->input('purpose');
+        $department = $request->input('departmentId');
+        $venue = $request->input('venueId');
+        $reservedDate = $request->input('reservationDate');
+
+        $client = null;
+        $clientId = null;
+        $client_name = DB::table('clients')
+                    ->where('client_name', 'like', "%{$name}%")
+                    ->get();
+        foreach ($client_name as $key => $value) {
+            $client = $value->client_name;
+            $clientId = $value->client_id;
+        };
+
+        if($client){
+            $cl = new client_reservation;
+            $cl->clientId = $clientId;
+            $cl->purpose = $purpose;
+            $cl->departmentId = $department;
+            $cl->venueId = $venue;
+            $cl->reservation_date = $reservedDate;
+            $cl->date_created = '2019-02-28';
+            $cl->save();
+            return $cl;
+        }else{
+            $c = new client;
+            $c->client_name = $name;
+            $c->save();
+            $cl = new client_reservation;
+            $cl->clientId = $c->client_id;
+            $cl->purpose = $purpose;
+            $cl->departmentId = $department;
+            $cl->venueId = $venue;
+            $cl->reservation_date = $reservedDate;
+            $cl->date_created = '2019-02-28';
+            $cl->save();
+            return $cl;
+        }
+    }
+
+    public function getReservations()
+    {
+      $reservations = DB::table('client_reservations')//->where('id', '=', Auth::id())
+      ->join('clients', 'client_reservations.clientId', '=', 'clients.client_id')
+      ->join('departments', 'client_reservations.departmentId', '=', 'departments.department_id')
+      ->join('venues', 'client_reservations.venueId', '=', 'venues.venue_id')
+      ->select('client_reservations.*', 'clients.*', 'departments.department_name', 'venues.venue_name')
+      ->orderBy('reservation_date')
+      ->get();
+
+      return $reservations;  
     }
 }

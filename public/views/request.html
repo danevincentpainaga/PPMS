@@ -1,14 +1,16 @@
- <div class="tab-content">
-  <div id="users" class="container tab-pane active"><br>
+ <div class="tab-content" ng-controller="venueCtrl as vc">
+  <div id="users" class="container tab-pane active" ng-if="!vc.isLoading">
+    <br>
     <div class="row">
       <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#requestModal">Add Request</button>        
     </div>
     <br />
-    <div class="row">
-      <table class="table table-striped">
+    <div class="row" style="overflow-x: auto;">
+      <table class="table table-striped" style="min-width: 915px; ">
         <thead>
           <tr>
             <th>Requester Name</th>
+            <th>Department</th>
             <th>Venue</th>
             <th>Reservation Date</th>
             <th>Purpose</th>
@@ -18,12 +20,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-            <td>John</td>
-            <td>Doe</td>
+          <tr ng-repeat="reserved in vc.reservations">
+            <td>{{reserved.client_name}}</td>
+            <td>{{reserved.department_name}}</td>
+            <td>{{reserved.venue_name}}</td>
+            <td>{{reserved.reservation_date}}</td>
+            <td>{{reserved.purpose}}</td>
+            <td>{{reserved.date_created}}</td>
             <td class="center min-width-155">
               <button class="btn btn-basic btn-sm" type="button"  >View Details</button>
             </td>
@@ -36,3 +39,6 @@
       </table>
     </div>
   </div>
+  <br />
+  <strong ng-if="vc.isLoading">Loading...</strong>
+</div>

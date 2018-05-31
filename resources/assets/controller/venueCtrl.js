@@ -15,6 +15,8 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   var vc = this;
   vc.response = false;
   getAllVenues();
+  departments();
+  getAllReservations();
 
   vc.addVenue = function(){
     if(vc.venue){
@@ -30,6 +32,21 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
       });
     }
   }  
+
+  vc.addReservation = function(){
+    if(!vc.requester || !vc.selectedDepartment || !vc.selectedVenue || !vc.purpose ){
+        alert('Complete all the Fields');
+    }else{
+      var reservationDetails = {
+        requester_name: vc.requester,
+        departmentId: vc.selectedDepartment.department_id,
+        venueId: vc.selectedVenue.venue_id,
+        purpose: vc.purpose,
+        reservationDate: vc.reservation_date,
+      }
+      reservation(reservationDetails);
+    }
+  }
 
   vc.close = function(){
       vc.venue = "";
@@ -81,6 +98,32 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
     }, function(error){
       console.log(error);
     })
+  }
+
+  function departments(){
+    apiService.getDepartments().then(function(response){
+      console.log(response);
+      vc.departments = response.data;
+    }, function(error){
+      console.log(error);
+    });
+  }
+
+  function reservation(reservationDetails){
+    apiService.addReservation(reservationDetails).then(function(response){
+      console.log(response)
+    }, function(error){
+      console.log(error);
+    });
+  }
+
+  function getAllReservations(){
+    apiService.getReservations().then(function(response){
+      console.log(response)
+      vc.reservations = response.data;
+    }, function(error){
+      console.log(error);
+    });
   }
 }]);
 

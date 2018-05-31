@@ -23,7 +23,8 @@ angular
   'ngSanitize',
   'ngTouch',
   'cp.ngConfirm',
-  '720kb.datepicker'
+  '720kb.datepicker',
+  'ui.calendar'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('/', {
@@ -107,7 +108,6 @@ angular
     }else{
       if(transitions.to().name === '/'){
         $state.go('dashboard');
-        $rootScope.header = false;  
       }else{
         $rootScope.header = true;
         $rootScope.userLoginId = auth.user_id;
@@ -117,5 +117,8 @@ angular
     }
   });
   $transitions.onSuccess({}, function(transitions) {
+      if(transitions.to().name === '/'){
+        $rootScope.header = false;  
+      }
   });
 }]);
