@@ -68,7 +68,7 @@ angular
         },
         'new-view@reservation':{
           templateUrl: 'views/request.html',
-          controller: 'mainCtrl',
+          controller: 'venueCtrl',
         }
       }
     })
@@ -99,7 +99,7 @@ angular
 })
 .run(['$transitions', '$rootScope', 'apiService', '$cookies', function($transitions, $rootScope, apiService, $cookies) {
   $transitions.onStart({}, function(transitions) {
-    console.log($cookies.getObject('auth'));
+    // console.log($cookies.getObject('auth'));
     var auth = $cookies.getObject('auth');
     var $state = transitions.router.stateService;
     

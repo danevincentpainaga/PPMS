@@ -107,10 +107,10 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         }
       });
     },
-    getReservations: function getReservations() {
+    getReservations: function getReservations(reserveDate) {
       return $http({
         method: 'GET',
-        url: baseUrl + 'api/getReservations',
+        url: baseUrl + 'api/getReservations/' + reserveDate,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",

@@ -19,7 +19,8 @@ class CreateClientReservationsTable extends Migration
             $table->string('purpose');
             $table->unsignedInteger('departmentId')->nullable();
             $table->unsignedInteger('venueId')->nullable();
-            $table->date('reservation_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->date('date_created');
             $table->foreign('clientId')->references('client_id')->on('clients');
             $table->foreign('departmentId')->references('department_id')->on('departments');

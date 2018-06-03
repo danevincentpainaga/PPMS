@@ -14,6 +14,7 @@
         <link href="{{asset('node_modules/components-font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
         <!-- <link rel="stylesheet" href="{{asset('bower_components/fullcalendar/dist/fullcalendar.css')}}"/> -->
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+        <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar-scheduler/1.9.4/scheduler.css"> -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
@@ -72,8 +73,8 @@
         </style>
     </head>
     <body ng-cloak ng-controller="mainCtrl">
-    <ng-include src="'views/header.html'"></ng-include> 
-    <div class="container">
+    <ng-include src="'views/header.html'" ></ng-include> 
+    <div class="container padding-0">
         <div class="row" ui-view=""></div>
 
 
@@ -81,6 +82,7 @@
 
         <script type="text/javascript" src="{{asset('bower_components/moment/min/moment.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('bower_components/fullcalendar/dist/fullcalendar.min.js')}}"></script>
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar-scheduler/1.9.4/scheduler.min.js"></script> -->
         <script type="text/javascript" src="{{asset('bower_components/fullcalendar/dist/gcal.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
         <script type="text/javascript" src="{{asset('bower_components/angular-ui-calendar/src/calendar.js')}}"></script>

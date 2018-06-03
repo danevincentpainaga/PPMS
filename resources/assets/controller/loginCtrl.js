@@ -20,7 +20,7 @@ var app = angular.module('myApp')
     if(!lg.email || !lg.password){
         console.log('unAuthenticated');
     }else{
-      lg.buttonMessage = 'Logging In...';
+      lg.buttonMessage = 'Signing In...';
       var credentials = {
         email: lg.email,
         password: lg.password

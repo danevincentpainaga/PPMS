@@ -13768,7 +13768,7 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
   $urlRouterProvider.otherwise('/');
 }).run(['$transitions', '$rootScope', 'apiService', '$cookies', function ($transitions, $rootScope, apiService, $cookies) {
   $transitions.onStart({}, function (transitions) {
-    console.log($cookies.getObject('auth'));
+    // console.log($cookies.getObject('auth'));
     var auth = $cookies.getObject('auth');
     var $state = transitions.router.stateService;
 

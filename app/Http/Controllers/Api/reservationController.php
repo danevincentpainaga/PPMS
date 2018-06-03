@@ -57,7 +57,10 @@ class reservationController extends Controller
         $purpose = $request->input('purpose');
         $department = $request->input('departmentId');
         $venue = $request->input('venueId');
-        $reservedDate = $request->input('reservationDate');
+        $startDate = $request->input('start_date');
+        $startTime = $request->input('start_time');
+        $endDate = $request->input('end_date');
+        $endTime = $request->input('end_time');
 
         $client = null;
         $clientId = null;
@@ -75,7 +78,10 @@ class reservationController extends Controller
             $cl->purpose = $purpose;
             $cl->departmentId = $department;
             $cl->venueId = $venue;
-            $cl->reservation_date = $reservedDate;
+            $cl->start_date = $startDate;
+            $cl->start_time = $startTime;
+            $cl->end_date = $endDate;
+            $cl->end_time = $endTime;
             $cl->date_created = '2019-02-28';
             $cl->save();
             return $cl;
@@ -88,23 +94,41 @@ class reservationController extends Controller
             $cl->purpose = $purpose;
             $cl->departmentId = $department;
             $cl->venueId = $venue;
-            $cl->reservation_date = $reservedDate;
-            $cl->date_created = '2019-02-28';
+            $cl->start_date = $startDate;
+            $cl->start_time = $startTime;
+            $cl->end_date = $endDate;
+            $cl->end_time = $endTime;
+            $cl->date_created = '2019-06-01';
             $cl->save();
             return $cl;
         }
     }
 
-    public function getReservations()
+    public function getReservations($reserveDate)
     {
-      $reservations = DB::table('client_reservations')//->where('id', '=', Auth::id())
-      ->join('clients', 'client_reservations.clientId', '=', 'clients.client_id')
-      ->join('departments', 'client_reservations.departmentId', '=', 'departments.department_id')
-      ->join('venues', 'client_reservations.venueId', '=', 'venues.venue_id')
-      ->select('client_reservations.*', 'clients.*', 'departments.department_name', 'venues.venue_name')
-      ->orderBy('reservation_date')
-      ->get();
+        $reservations = null;
 
+        if($reserveDate === '*'){
+        $reservations = DB::table('client_reservations')//->where('id', '=', Auth::id())
+          ->join('clients', 'client_reservations.clientId', '=', 'clients.client_id')
+          ->join('departments', 'client_reservations.departmentId', '=', 'departments.department_id')
+          ->join('venues', 'client_reservations.venueId', '=', 'venues.venue_id')
+          ->join('statuses', 'client_reservations.statusId', '=', 'statuses.status_id')
+          ->select('client_reservations.*', 'clients.*', 'departments.department_name', 'venues.venue_name', 'statuses.status')
+          ->orderBy('start_date')
+          ->get();
+        }
+        else
+        {
+        $reservations = DB::table('client_reservations')->where('start_date', '=', $reserveDate)
+          ->join('clients', 'client_reservations.clientId', '=', 'clients.client_id')
+          ->join('departments', 'client_reservations.departmentId', '=', 'departments.department_id')
+          ->join('venues', 'client_reservations.venueId', '=', 'venues.venue_id')
+          ->join('statuses', 'client_reservations.statusId', '=', 'statuses.status_id')
+          ->select('client_reservations.*', 'clients.*', 'departments.department_name', 'venues.venue_name', 'statuses.status')
+          ->orderBy('start_date')
+          ->get();   
+        }
       return $reservations;  
     }
 }

@@ -31,7 +31,7 @@ var app = angular.module('myApp')
         usertypeId: au.selectedUserType.usertype_id,
         departmentId: au.selectedDepartment.department_id
       }
-      addUserDetails(userDetails);
+      // addUserDetails(userDetails);
     }
   }
 
