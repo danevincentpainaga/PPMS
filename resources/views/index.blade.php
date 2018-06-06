@@ -74,7 +74,7 @@
     </head>
     <body ng-cloak ng-controller="mainCtrl">
     <ng-include src="'views/header.html'" ></ng-include> 
-    <div class="container padding-0">
+    <div class="container ">
         <div class="row" ui-view=""></div>
 
 

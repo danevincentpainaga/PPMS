@@ -29,6 +29,17 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
         }
       });
     },
+    updateVenue: function(updatedVenueDetails){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/updateVenue',
+        data: updatedVenueDetails,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
     getReservations: function(reserveDate){
       return $http({
         method:'GET',
@@ -40,11 +51,44 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
         }
       });
     },
+    approvedReservations: function(approvedDate){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/approvedReservations/'+approvedDate,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    approvedReservationsDetails: function(approvedDetails){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/approvedReservationsDetails',
+        data: approvedDetails,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
     addReservation: function(reservationDetails){
       return $http({
         method:'POST',
         url: baseUrl+'api/addReservation',
         data: reservationDetails,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    updateReservation: function(updatedDetails){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/updateReservation',
+        data: updatedDetails,
         headers: {
           "Content-Type": "application/json",
           Authorization : 'Bearer '+ $rootScope.token

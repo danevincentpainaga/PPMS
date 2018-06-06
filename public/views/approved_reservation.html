@@ -1,48 +1,68 @@
- <div class="tab-content">
-  <div class="container tab-pane active"><br> 
-    <div class="row">
-      <div class="col-md-8">
-        <label for="usr">Date:</label>
-        <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
-          <div class="input-group">
-            <input class="form-control" style="border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;" />
-          </div>
-        </datepicker>
+ <div class="tab-content" ng-controller="venueCtrl as vc">
+  <div id="users" class="container tab-pane active padding-0" ng-if="!vc.isLoading">
+    <div id="accordion" style="margin-top: 0.4em;">
+    <div class="card">
+      <div class="card-header">
+        <button class="btn btn-info btn-sm" data-toggle="collapse" data-target="#collapseOne" style="float: right;" ng-click="vc.eMessage()">
+          {{ vc.eventMessage }}
+        </button> 
       </div>
-      <div class="col-md-4">
-        <div class="form-group ">
-          <label for="usr">Venue:</label>
-          <input type="text" class="form-control" >
+      <div id="collapseOne" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+          <div ui-calendar="vc.uiConfig2.calendar2" ng-model="vc.eventSources2" class="calendar"></div>
         </div>
       </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#requestModal">Add Request</button>        
+      </div>
+    </div>
+    <br />
+    <div class="row" style="overflow-x: auto; min-height: 320px;">
+      <div class="col-md-12">
+        <table class="table table-striped" style="min-width: 1440px; ">
+          <thead>
+            <tr>
+              <th>Requester Name</th>
+              <th>Department</th>
+              <th>Venue</th>
+              <th>Start Date and time</th>
+              <th>End Date and time</th>
+              <!-- <th>Purpose</th> -->
+              <!-- <th>Date Requested</th> -->
+              <th>Status</th>
+              <th class="center min-width-155">Details</th>
+              <th class="center min-width-155">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="areserved in vc.approvedReservationsData">
+              <td>{{areserved.client_name}}</td>
+              <td>{{areserved.department_name}}</td>
+              <td>{{areserved.venue_name}}</td>
+              <td><label style="font-style: italic;">{{areserved.start_date}} {{areserved.start_time}}</label></td>
+              <td><label style="font-style: italic;">{{areserved.end_date}} {{areserved.end_time}}</label></td>
+              <!-- <td>{{areserved.purpose}}</td> -->
+              <!-- <td>{{areserved.date_created}}</td> -->
+              <td>
+                <label style="background-color: #17a2b8;color: white;text-align: center;border-radius: 10px;margin-bottom: .0rem;font-family: cooper;width: 77px;height: 18px;padding-top: 0px;font-size: 12px;">
+                  {{areserved.status}}
+                </label>
+              </td>
+              <td class="center min-width-155">
+                <button class="btn btn-basic btn-sm" type="button"  >View Details</button>
+              </td>
+              <td class="center min-width-155">
+                <button class="btn btn-danger btn-sm" type="button" ng-click="vc.deleteApprovedReservation(areserved)">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="row">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>John</td>
-          <td>Doe</td>
-          <td>john@example.com</td>
-        </tr>
-        <tr>
-          <td>Mary</td>
-          <td>Moe</td>
-          <td>mary@example.com</td>
-        </tr>
-        <tr>
-          <td>July</td>
-          <td>Dooley</td>
-          <td>july@example.com</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <br />
+  <strong ng-if="vc.isLoading">Loading...</strong>
 </div>

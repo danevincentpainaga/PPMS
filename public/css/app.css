@@ -10460,6 +10460,10 @@ a.text-dark:focus {
   min-width: 155px !important;
 }
 
+.min-width-240 {
+  min-width: 240px !important;
+}
+
 /*font-family*/
 
 .verdana {

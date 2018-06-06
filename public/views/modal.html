@@ -69,7 +69,7 @@
                       <span ng-show="reservation.start_date.$touched  && reservation.start_date.$error.required" style="color: red; font-size: 14px;">Reservation Date is Required*</span>
                   </datepicker>
                 </div>
-                  <div class="col-md-2">
+                  <div class="col-md-2 col-sm-2">
                     <label for="starthour">Hour:</label>
                       <select class="form-control height-30px" id="starthour" name="starthour" ng-model="vc.starthour" required>
                         <option value="01">01</option>
@@ -87,14 +87,14 @@
                       </select>
                       <span ng-show="reservation.starthour.$touched  && reservation.starthour.$error.required" style="color: red; font-size: 14px;">Hour is required*</span>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-2 col-sm-2">
                     <label for="startminutes">Minutes:</label>
                       <select class="form-control height-30px" id="startminutes" name="startminutes" ng-model="vc.startminutes" required>
                         <option ng-repeat="m in vc.minutes">{{m}}</option>
                       </select>
                       <span ng-show="reservation.startminutes.$touched  && reservation.startminutes.$error.required" style="color: red; font-size: 14px;">Minutes Date is required*</span>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-2 col-sm-2">
                     <label for="starttimezone">AM/PM:</label>
                       <select class="form-control height-30px" id="starttimezone" name="starttimezone" ng-model="vc.starttimezone" required>
                         <option value="AM">AM</option>
@@ -113,7 +113,7 @@
                       <span ng-show="reservation.end_date.$touched  && reservation.end_date.$error.required" style="color: red; font-size: 14px;">Reservation Date is Required*</span>
                   </datepicker>
                 </div>
-                  <div class="col-md-2">
+                  <div class="col-md-2 col-sm-2">
                     <label for="endhour">Hour:</label>
                       <select class="form-control height-30px" id="endhour" name="endhour" ng-model="vc.endhour" required>
                         <option value="01">01</option>
@@ -131,14 +131,14 @@
                       </select>
                       <span ng-show="reservation.endhour.$touched  && reservation.endhour.$error.required" style="color: red; font-size: 14px;">Hour is required*</span>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-2 col-sm-2">
                     <label for="endminutes">Minutes:</label>
                       <select class="form-control height-30px" id="endminutes" name="endminutes" ng-model="vc.endminutes" required>
                         <option ng-repeat="m in vc.minutes">{{m}}</option>
                       </select>
                       <span ng-show="reservation.endminutes.$touched  && reservation.endminutes.$error.required" style="color: red; font-size: 14px;">Minutes Date is required*</span>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-2 col-sm-2">
                     <label for="endtimezone">AM/PM:</label>
                       <select class="form-control height-30px" id="endtimezone" name="endtimezone" ng-model="vc.endtimezone" required>
                         <option value="AM">AM</option>

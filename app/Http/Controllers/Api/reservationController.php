@@ -109,7 +109,8 @@ class reservationController extends Controller
         $reservations = null;
 
         if($reserveDate === '*'){
-        $reservations = DB::table('client_reservations')//->where('id', '=', Auth::id())
+        $reservations = DB::table('client_reservations')->where('statusId', '=', 1)
+            //->where('id', '=', Auth::id())
           ->join('clients', 'client_reservations.clientId', '=', 'clients.client_id')
           ->join('departments', 'client_reservations.departmentId', '=', 'departments.department_id')
           ->join('venues', 'client_reservations.venueId', '=', 'venues.venue_id')
@@ -120,7 +121,7 @@ class reservationController extends Controller
         }
         else
         {
-        $reservations = DB::table('client_reservations')->where('start_date', '=', $reserveDate)
+        $reservations = DB::table('client_reservations')->where('statusId', '=', 1)->where('start_date', '=', $reserveDate)
           ->join('clients', 'client_reservations.clientId', '=', 'clients.client_id')
           ->join('departments', 'client_reservations.departmentId', '=', 'departments.department_id')
           ->join('venues', 'client_reservations.venueId', '=', 'venues.venue_id')
@@ -130,5 +131,68 @@ class reservationController extends Controller
           ->get();   
         }
       return $reservations;  
+    }
+
+    public function approvedReservations($approvedDate)
+    {
+        $apporovedReservations = null;
+
+        if($approvedDate === '*'){
+        $apporovedReservations = DB::table('client_reservations')->where('statusId', '=', 2)
+            //->where('id', '=', Auth::id())
+          ->join('clients', 'client_reservations.clientId', '=', 'clients.client_id')
+          ->join('departments', 'client_reservations.departmentId', '=', 'departments.department_id')
+          ->join('venues', 'client_reservations.venueId', '=', 'venues.venue_id')
+          ->join('statuses', 'client_reservations.statusId', '=', 'statuses.status_id')
+          ->select('client_reservations.*', 'clients.*', 'departments.department_name', 'venues.venue_name', 'statuses.status')
+          ->orderBy('start_date')
+          ->get();
+        }
+        else
+        {
+        $apporovedReservations = DB::table('client_reservations')->where('statusId', '=', 2)->where('start_date', '=', $approvedDate)
+          ->join('clients', 'client_reservations.clientId', '=', 'clients.client_id')
+          ->join('departments', 'client_reservations.departmentId', '=', 'departments.department_id')
+          ->join('venues', 'client_reservations.venueId', '=', 'venues.venue_id')
+          ->join('statuses', 'client_reservations.statusId', '=', 'statuses.status_id')
+          ->select('client_reservations.*', 'clients.*', 'departments.department_name', 'venues.venue_name', 'statuses.status')
+          ->orderBy('start_date')
+          ->get();   
+        }
+      return $apporovedReservations;  
+    }
+
+    public function approvedReservationsDetails(Request $request){
+        $exist = null;
+        $existed = client_reservation::where(['start_date'=> $request->input('start_date'), 'statusId'=> 2 ])->get();
+        foreach ($existed as $key => $value) {
+            $exist = $value->clientId;
+        }
+        if($exist){
+            return response()->json(['message'=>'Reserve date not available'], 401);
+        }else{
+            $newUpdateDates = client_reservation::where('client_reservation_id', $request->input('client_reservation_id') )
+            ->update(['statusId' => 2 ]);
+            return response()->json(['message'=>'Date Reserved'], 200);
+        }
+    }
+
+    public function updateReservation(Request $request){
+        $updated = client::where('client_id', $request->input('client_id') )
+            ->update(['client_name' => $request->input('requester_name') ]);
+        if(!$updated){
+            return response()->json(['message'=>'Failed! try Again'], 401);
+        }else{
+            $newUpdateDates = client_reservation::where('client_reservation_id', $request->input('client_reservation_id') )
+            ->update(['venueId' => $request->input('venueId'), 'start_date' => $request->input('start_date'), 'start_time' => $request->input('start_time'), 'end_date' => $request->input('end_date'), 'end_time' => $request->input('end_time'), 'purpose' => $request->input('purpose'), ]);
+            return response()->json(['message'=>'Data Updated'], 200);
+        }
+    }
+
+
+    public function updateVenue(Request $request){
+        $updated = venue::where('venue_id', $request->input('venue_id') )
+            ->update(['venue_name' => $request->input('venue_name') ]);
+        return response()->json(['message'=>'Data Updated'], 200);
     }
 }

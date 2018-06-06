@@ -13741,7 +13741,7 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
       },
       'new-view@reservation': {
         templateUrl: 'views/request.html',
-        controller: 'mainCtrl'
+        controller: 'venueCtrl'
       }
     }
   }).state('reservation.venues', {

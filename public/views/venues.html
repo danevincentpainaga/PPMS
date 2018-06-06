@@ -1,5 +1,19 @@
  <div class="tab-content" ng-controller="venueCtrl as vc">
   <div id="users" class="container tab-pane active" ng-if="!vc.isLoading">
+    <br /> 
+    <div class="row" ng-if="vc.editing">
+      <div class="col-md-12">
+           <form name="venueData">
+            <div class="form-group">
+              <label for="venue">Venue Name:</label>
+              <input type="text" class="form-control" id="venue" name="venue" ng-model="vc.venue" required>
+              <span ng-show="venueData.venue.$touched  && venueData.venue.$error.required" style="color: red; font-size: 14px;">Venue is Required*</span>
+            </div>
+            <button type="submit" class="btn btn-success" ng-click="vc.updateVenue(vc.venue)">Save</button>
+            <button type="button" class="btn btn-info" ng-click="vc.cancelEdit()">Cancel</button>
+          </form>   
+      </div>
+    </div>
     <br />
     <div class="row" ng-if="false">
         <div class="col-md-6">
@@ -29,7 +43,7 @@
             <td>{{ venue.venue_name }}</td>
             <td>{{ venue.created_at }}</td>
             <td class="center min-width-155">
-              <button class="btn btn-success btn-sm" type="button" class="btn btn-primary" >Edit</button>
+              <button class="btn btn-success btn-sm" type="button" class="btn btn-primary" ng-click="vc.editVenue(venue)" >Edit</button>
               <button class="btn btn-danger btn-sm" type="button" class="btn btn-primary" ng-click="vc.deleteVenue(venue)">Delete</button>
             </td>
           </tr>

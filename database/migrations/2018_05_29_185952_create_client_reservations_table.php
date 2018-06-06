@@ -19,12 +19,14 @@ class CreateClientReservationsTable extends Migration
             $table->string('purpose');
             $table->unsignedInteger('departmentId')->nullable();
             $table->unsignedInteger('venueId')->nullable();
+            $table->unsignedInteger('statusId')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->date('date_created');
             $table->foreign('clientId')->references('client_id')->on('clients');
             $table->foreign('departmentId')->references('department_id')->on('departments');
             $table->foreign('venueId')->references('venue_id')->on('venues');
+            $table->foreign('statusId')->references('status_id')->on('statuses');
         });
     }
 
