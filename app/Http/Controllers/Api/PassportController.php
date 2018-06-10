@@ -23,7 +23,6 @@ class PassportController extends Controller
         if(Auth::attempt(['email' => $request->json('email'), 'password' => $request->json('password')])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->accessToken;
-            // return response()->json(['success' => $success], $this->successStatus);
             return response()->json(['user_id'=>$user->id, 'userType'=>$user->usertypeId, 'name'=>$user->name, 'success' => $success], $this->successStatus);
         }
         else{
@@ -44,6 +43,8 @@ class PassportController extends Controller
             'email' => 'required|email',
             'password' => 'required',
             'c_password' => 'required|same:password',
+            'usertypeId' => 'usertypeId',
+            'departmentId' => 'departmentId',
         ]);
 
         if ($validator->fails()) {

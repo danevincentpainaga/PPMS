@@ -152,6 +152,17 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
         }
       });
     },
+    countUsers: function(){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/countUsers',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
     getUsers: function(){
       return $http({
         method:'GET',
@@ -176,5 +187,27 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
       };
       return $http.delete(baseUrl + 'api/deleteUsers', config); 
     },
-  }
+    getDepartments: function(){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/getDepartments',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    updateDepartment: function(updatedDepartment){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/updateDepartment',
+        data: updatedDepartment,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    }
+  }  
 }]);

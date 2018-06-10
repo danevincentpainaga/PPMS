@@ -15,6 +15,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   var vc = this;
   var dataToEdit = null;
   var OldVenueId = null;
+  // vc.venues = [];
   vc.minLength = 60;
   vc.minutes = [];
   vc.response = false;
@@ -97,7 +98,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
     if(vc.venue){
       var venueDetails =  { venue_name: vc.venue, user_id: $rootScope.userLoginId };
       apiService.addVenue(venueDetails).then(function(response){
-        console.log(response);
+        console.log(response.data[0]);
         vc.response = true;
         vc.message = 'Venue Added Successfully';
       }, function(error){
@@ -139,7 +140,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
         end_date: vc.end_date,
         end_time: convertTime12to24(vc.endhour+':'+vc.endminutes+':'+'00'+' '+vc.endtimezone),
       }
-      update(reservationDetails);
+      reservation(reservationDetails);
     }
   }
   
@@ -331,6 +332,9 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
       console.log(response.data);
       vc.isLoading = false;
       vc.venues = response.data;
+      // angular.forEach(response.data, function(val, i){
+      //   vc.venues.push(val);
+      // });
     }, function(error){
       console.log(error);
     });
@@ -379,6 +383,8 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   function reservation(reservationDetails){
     apiService.addReservation(reservationDetails).then(function(response){
       console.log(response)
+      vc.message = 'Reservation Sent';
+      vc.response = true;
     }, function(error){
       console.log(error);
     });

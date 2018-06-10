@@ -2,6 +2,68 @@
 
 /**
  * @ngdoc function
+ * @name mytodoApp.controller:departmentCtrl
+ * @description
+ * # departmentCtrl
+ * Controller of the myApp
+ */
+var app = angular.module('myApp')
+  app.controller('departmentCtrl',['$scope', '$rootScope', '$cookies',
+  '$window', '$location', '$timeout', 'apiService',
+  function ($scope, $rootScope, $cookies, $window, $location, $timeout, apiService) {
+
+  var dept = this;
+  var departmentId;
+
+  departmentData();
+
+  dept.edit = function(deptObject) {
+    dept.department = deptObject.department_name;
+    departmentId = deptObject.department_id;
+    dept.editing = true;
+  }
+
+  dept.cancelEdit = function(){
+    dept.editing = false;
+    dept.alertMessage = false;
+  }
+
+  dept.update = function(departmentName){
+    var updatedDeptName = {
+      department_id: departmentId,
+      department_name: departmentName,
+    }
+    console.log(updatedDeptName);
+    updateDepartmentData(updatedDeptName);
+  }
+
+  function departmentData() {
+    apiService.getDepartments().then(function(response){
+      console.log(response);
+      dept.departments = response.data;
+    }, function(error){
+      console.log(error);
+    });
+  }
+
+  function updateDepartmentData(updatedDetails) {
+    apiService.updateDepartment(updatedDetails).then(function(response){
+      console.log(response);
+      dept.message = response.data.message;
+      dept.alertMessage = true;
+    }, function(error){
+      console.log(error);
+      dept.message = error.data;
+      dept.alertMessage = true;
+    });    
+  }
+
+}]);
+
+'use strict';
+
+/**
+ * @ngdoc function
  * @name mytodoApp.controller:loginCtrl
  * @description
  * # loginCtrl
@@ -61,33 +123,9 @@ app.controller('mainCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCon
   function ($scope, $rootScope, $location, $http, $ngConfirm, $filter, $timeout, $cookies, apiService) {
   
   $scope.selected = 1;
-  // var events = [];
-        //   title: "Yehey Test",
-        // start: '2018-05-02 08:00:00',// moment().subtract(6, "hours"),
-        // end: '2018-05-02' //moment().subtract(6, "hours").add(30, "minutes")
+
+  userCount();
   
-  // $scope.eventSources = [events];
-
-  //   $scope.uiConfig = {
-  //     calendar:{
-  //       height: 500,
-  //       editable: true,
-  //       header:{
-  //         left: 'month agendaWeek agendaDay ',
-  //         center: 'title',
-  //         right: 'today prev,next'
-  //       },
-  //       dayClick: function( date, allDay, jsEvent, view ) {
-  //           var start=moment(date).format('YYYY-MM-DD hh:mm');
-  //           console.log(start);
-  //       },
-  //       eventClick: function (event) {
-  //           console.log(event);
-  //       }
-  //     }
-  //   };
-
-
   $scope.redirectTo = function(location){
     $location.path(location);
   }
@@ -110,38 +148,18 @@ app.controller('mainCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCon
     $location.path('/');
   }
 
-  // apiService.getReservations().then(function(response){
-  //   angular.forEach(response.data, function(val, i){
-  //     console.log(val);
-  //     events.push({
-  //       title: val.purpose,
-  //       start: val.reservation_date,
-  //       end: val.reservation_date,
-  //       allDay : false
-  //     })
-  //   });
-  // }, function(error){
-  //   console.log(error);
-  // });
+  function userCount(){
+    apiService.countUsers().then(function(response){
+      console.log(response);
+      $scope.userCount = response.data.userCount;
+      $scope.depertmentCount = response.data.userCount;
+      $scope.reservationVenueCount = response.data.userCount;
+    }, function(error){
+      console.log(error);
+    });
+  }
 
 }]);
-
-app.directive('navHeight',['$window', function($window){
-    return {
-      restrict: 'A',
-      scope: true,
-      link: function(scope, elem, attrs) {
-        var wh = angular.element($window);
-        var h = wh.height();
-
-        elem.css({'min-height': h+'px', 'max-height': h+'px'});
-        wh.bind('resize', function(){
-          elem.css({'min-height': h+'px', 'max-height': h+'px'});
-          console.log(" Window resized! " + h);
-        });
-      }
-    };
- }]);
 
 
 'use strict';
@@ -177,7 +195,8 @@ var app = angular.module('myApp')
         usertypeId: au.selectedUserType.usertype_id,
         departmentId: au.selectedDepartment.department_id
       }
-      // addUserDetails(userDetails);
+      addUserDetails(userDetails);
+      console.log(userDetails);
     }
   }
 
@@ -186,8 +205,7 @@ var app = angular.module('myApp')
       failedDialog();
     }
     else{
-      var userId = user.id;
-      confirmDialog(userId);    
+      confirmDialog(user);    
     }
     
   }
@@ -233,15 +251,16 @@ var app = angular.module('myApp')
     });
   }
 
-  function userToBeDeleted(userId){
-    apiService.deleteUsers(userId).then(function(response){
+  function userToBeDeleted(user){
+    apiService.deleteUsers(user.id).then(function(response){
       console.log(response);
+      au.users.splice(au.users.indexOf(user), 1);
     }, function(error){
       console.log(error);
     });
   }
   
-  function confirmDialog(userId){
+  function confirmDialog(user){
     $ngConfirm({
         title: '',
         content: 'Delete this user?',
@@ -252,8 +271,8 @@ var app = angular.module('myApp')
               text: 'Yes',
               btnClass: 'btn-red',
               action: function(){
-                userToBeDeleted(userId);
-                $ngConfirm('Venue deleted');
+                userToBeDeleted(user);
+                $ngConfirm('User deleted');
               }
             },
             Cancel: {
@@ -297,6 +316,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   var vc = this;
   var dataToEdit = null;
   var OldVenueId = null;
+  // vc.venues = [];
   vc.minLength = 60;
   vc.minutes = [];
   vc.response = false;
@@ -379,7 +399,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
     if(vc.venue){
       var venueDetails =  { venue_name: vc.venue, user_id: $rootScope.userLoginId };
       apiService.addVenue(venueDetails).then(function(response){
-        console.log(response);
+        console.log(response.data[0]);
         vc.response = true;
         vc.message = 'Venue Added Successfully';
       }, function(error){
@@ -421,7 +441,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
         end_date: vc.end_date,
         end_time: convertTime12to24(vc.endhour+':'+vc.endminutes+':'+'00'+' '+vc.endtimezone),
       }
-      update(reservationDetails);
+      reservation(reservationDetails);
     }
   }
   
@@ -613,6 +633,9 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
       console.log(response.data);
       vc.isLoading = false;
       vc.venues = response.data;
+      // angular.forEach(response.data, function(val, i){
+      //   vc.venues.push(val);
+      // });
     }, function(error){
       console.log(error);
     });
@@ -661,6 +684,8 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   function reservation(reservationDetails){
     apiService.addReservation(reservationDetails).then(function(response){
       console.log(response)
+      vc.message = 'Reservation Sent';
+      vc.response = true;
     }, function(error){
       console.log(error);
     });

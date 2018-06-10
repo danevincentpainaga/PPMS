@@ -13764,27 +13764,47 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
     url: '/maintenance',
     templateUrl: 'views/maintenance.html',
     controller: 'mainCtrl'
+  }).state('department', {
+    url: '/department',
+    templateUrl: 'views/department.html',
+    controller: 'departmentCtrl'
   });
   $urlRouterProvider.otherwise('/');
 }).run(['$transitions', '$rootScope', 'apiService', '$cookies', function ($transitions, $rootScope, apiService, $cookies) {
   $transitions.onStart({}, function (transitions) {
-    // console.log($cookies.getObject('auth'));
     var auth = $cookies.getObject('auth');
+    console.log(auth);
     var $state = transitions.router.stateService;
-
+    $rootScope.loginPage = true;
     if (!apiService.AuthenticatedUser()) {
       $state.go('/');
     } else {
       if (transitions.to().name === '/') {
         $state.go('dashboard');
       } else {
-        $rootScope.header = true;
-        $rootScope.userLoginId = auth.user_id;
-        $rootScope.token = $cookies.getObject('auth').success.token;
-        $rootScope.userLogName = $cookies.getObject('auth').name;
+        if (auth.userType === 2) {
+          if (transitions.to() === 'manage_users') {
+            $state.go('dashboard');
+          } else {
+            $rootScope.superAdmin = false;
+            $rootScope.loginPage = false;
+            $rootScope.header = true;
+            $rootScope.userLoginId = auth.user_id;
+            $rootScope.token = auth.success.token;
+            $rootScope.userLogName = auth.name;
+          }
+        } else {
+          $rootScope.superAdmin = true;
+          $rootScope.loginPage = false;
+          $rootScope.header = true;
+          $rootScope.userLoginId = auth.user_id;
+          $rootScope.token = auth.success.token;
+          $rootScope.userLogName = auth.name;
+        }
       }
     }
   });
+
   $transitions.onSuccess({}, function (transitions) {
     if (transitions.to().name === '/') {
       $rootScope.header = false;

@@ -78,6 +78,7 @@ class reservationController extends Controller
             $cl->purpose = $purpose;
             $cl->departmentId = $department;
             $cl->venueId = $venue;
+            $cl->statusId = 1;
             $cl->start_date = $startDate;
             $cl->start_time = $startTime;
             $cl->end_date = $endDate;
@@ -94,6 +95,7 @@ class reservationController extends Controller
             $cl->purpose = $purpose;
             $cl->departmentId = $department;
             $cl->venueId = $venue;
+            $cl->statusId = 1;
             $cl->start_date = $startDate;
             $cl->start_time = $startTime;
             $cl->end_date = $endDate;
@@ -191,8 +193,8 @@ class reservationController extends Controller
 
 
     public function updateVenue(Request $request){
-        $updated = venue::where('venue_id', $request->input('venue_id') )
-            ->update(['venue_name' => $request->input('venue_name') ]);
+        venue::where('venue_id', $request->input('venue_id') )
+        ->update(['venue_name' => $request->input('venue_name') ]);
         return response()->json(['message'=>'Data Updated'], 200);
     }
 }

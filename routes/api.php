@@ -27,12 +27,16 @@ Route::group(['middleware'=>'auth:api'], function(){
 	Route::get('getUsers', 'API\userController@getUsers');
 	Route::get('getReservations/{reservedate}', 'API\reservationController@getReservations');
 	Route::get('approvedReservations/{reservedate}', 'API\reservationController@approvedReservations');
+	Route::get('getDepartments', 'API\departmentController@getDepartments');
+	Route::get('countUsers', 'API\userController@countUsers');
 	Route::post('approvedReservationsDetails', 'API\reservationController@approvedReservationsDetails');
 	Route::post('updateReservation', 'API\reservationController@updateReservation');
 	Route::post('addVenue', 'API\reservationController@addVenue');
 	Route::post('updateVenue', 'API\reservationController@updateVenue');
 	Route::post('addUser', 'API\userController@addUser');
 	Route::post('addReservation', 'API\reservationController@addReservation');
+	Route::post('updateDepartment', 'API\departmentController@updateDepartment');
 	Route::delete('deleteVenue', 'API\reservationController@deleteVenue');
 	Route::delete('deleteUsers', 'API\userController@deleteUsers');
 });
+

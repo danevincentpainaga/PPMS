@@ -1,40 +1,44 @@
-<div class="col-md-4" ng-click="redirectTo('/manage_users')">
+<div class="col-md-4" ng-click="redirectTo('/manage_users')" ng-if="superAdmin">
   <div class="col-md-12 info-box" >
    <div class="" style="background-image: linear-gradient(200deg, #9dc7f1, #1effea); width:37%;">
-    <img src="images/user.png" style="height: 4em;position: relative; top: 19px;; left: 34px;"">
+    <img src="images/user.png" style="height: 4em;position: relative; top: 19px;; left: 34px;">
    </div>
    <div class="" style="width:60%; color:#2aabc7;">
-    <h5 style="margin-left: 1.3em; margin-top: 17px; font-family:cooper;">MANAGE USERS </h5>
+    <h5 style="text-align: center; margin-top: 17px; font-family:cooper;">MANAGE USERS</h5>
+    <h1 style="text-align:center; font-family: cooper;">{{ userCount }}</h1>
   </div>
 </div>
 </div>
 <div class="col-md-4" ng-click="redirectTo('/reservation')">
   <div class="col-md-12 info-box" >
    <div class="" style="background-image: linear-gradient(200deg, #9dc7f1, #1effea); width:37%;">
-    <img src="images/responsive.png" style="height: 4em;position: relative; top: 19px;; left: 34px;"">
+    <img src="images/responsive.png" style="height: 4em;position: relative; top: 19px;; left: 34px;">
    </div>
    <div class="" style="width:60%; color:#2aabc7;">
-      <h5 style="margin-left: 1.3em; margin-top: 17px; font-family:cooper;">FACILITIES</h5>
+      <h5 style="text-align: center; margin-top: 17px; font-family:cooper;">FACILITIES</h5>
+      <h1 style="text-align:center; font-family: cooper;">{{ reservationVenueCount }}</h1>
   </div>
 </div>
 </div>
 <div class="col-md-4" ng-click="redirectTo('/maintenance')">
   <div class="col-md-12 info-box" >
    <div class="" style="background-image: linear-gradient(200deg, #9dc7f1, #1effea); width:37%;">
-    <img src="images/maintenance.png" style="height: 4em;position: relative; top: 19px;; left: 34px;"">
+    <img src="images/maintenance.png" style="height: 4em;position: relative; top: 19px;; left: 34px;">
    </div>
    <div class="" style="width:60%; color:#2aabc7;">
-    <h5 style="margin-left: 1.3em; margin-top: 17px; font-family:cooper;">MAINTENANCE</h5>
+    <h5 style="text-align: center; margin-top: 17px; font-family:cooper;">MAINTENANCE</h5>
+    <h1 style="text-align:center; font-family: cooper;">10</h1>
   </div>
 </div>
 </div>
 <div class="col-md-4" ng-click="redirectTo('/department')">
   <div class="col-md-12 info-box" >
    <div class="" style="background-image: linear-gradient(200deg, #9dc7f1, #1effea); width:37%;">
-    <img src="images/maintenance.png" style="height: 4em;position: relative; top: 19px;; left: 34px;"">
+    <img src="images/maintenance.png" style="height: 4em;position: relative; top: 19px;; left: 34px;">
    </div>
    <div class="" style="width:60%; color:#2aabc7;">
-    <h5 style="margin-left: 1.3em; margin-top: 17px; font-family:cooper;">DEPARTMENT</h5>
+    <h5 style="text-align: center; margin-top: 17px; font-family:cooper;">DEPARTMENT</h5>
+    <h1 style="text-align:center; font-family: cooper;">{{ depertmentCount }}</h1>
   </div>
 </div>
 </div>

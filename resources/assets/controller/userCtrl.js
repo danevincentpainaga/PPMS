@@ -31,7 +31,8 @@ var app = angular.module('myApp')
         usertypeId: au.selectedUserType.usertype_id,
         departmentId: au.selectedDepartment.department_id
       }
-      // addUserDetails(userDetails);
+      addUserDetails(userDetails);
+      console.log(userDetails);
     }
   }
 
@@ -40,8 +41,7 @@ var app = angular.module('myApp')
       failedDialog();
     }
     else{
-      var userId = user.id;
-      confirmDialog(userId);    
+      confirmDialog(user);    
     }
     
   }
@@ -87,15 +87,16 @@ var app = angular.module('myApp')
     });
   }
 
-  function userToBeDeleted(userId){
-    apiService.deleteUsers(userId).then(function(response){
+  function userToBeDeleted(user){
+    apiService.deleteUsers(user.id).then(function(response){
       console.log(response);
+      au.users.splice(au.users.indexOf(user), 1);
     }, function(error){
       console.log(error);
     });
   }
   
-  function confirmDialog(userId){
+  function confirmDialog(user){
     $ngConfirm({
         title: '',
         content: 'Delete this user?',
@@ -106,8 +107,8 @@ var app = angular.module('myApp')
               text: 'Yes',
               btnClass: 'btn-red',
               action: function(){
-                userToBeDeleted(userId);
-                $ngConfirm('Venue deleted');
+                userToBeDeleted(user);
+                $ngConfirm('User deleted');
               }
             },
             Cancel: {

@@ -1,0 +1,55 @@
+<div class="container" ng-controller="departmentCtrl as dept">
+<br />
+<div class="row" >
+  <div class="col-md-8">
+    <button class="btn btn-info btn-sm " type="button" data-toggle="modal" data-target="#myModal">Add Department</button>
+  </div>
+  <div class="col-md-4">
+    <input type="text" class="form-control" ng-model="dept.search" placeholder="search">
+  </div>
+</div>
+<div class="row" ng-if="dept.editing" style="margin-bottom: 1em;">
+  <div class="alert alert-success alert-dismissible col-md-12" ng-if="dept.alertMessage">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Success!</strong> {{ dept.message }} 
+  </div>
+  <div class="col-md-12">
+       <form name="departmentForm">
+        <div class="form-group">
+          <label for="department">Department Name:</label>
+          <input type="text" class="form-control" id="department" name="department" ng-model="dept.department" required>
+          <span ng-show="departmentForm.department.$touched  && departmentForm.department.$error.required" style="color: red; font-size: 14px;">Department is Required*</span>
+        </div>
+        <button type="submit" class="btn btn-success" ng-click="dept.update(dept.department)">Save</button>
+        <button type="button" class="btn btn-info" ng-click="dept.cancelEdit()">Close</button>
+      </form>   
+  </div>
+</div>
+<div class="tab-content" >
+  <div id="users" class="container tab-pane active">
+    <br />
+    <div class="row" ng-if="!dept.isLoading" style="overflow-x: auto;">
+      <div class="col-md-12">
+        <table class="table table-striped" style="min-width: 915px;">
+          <thead>
+            <tr>
+              <th>Department Name</th>
+              <th class="center min-width-155">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="department in dept.departments | filter: dept.search">
+              <td>{{ department.department_name }}</td>
+              <td class="center min-width-155">
+                <button class="btn btn-success btn-sm" type="button" ng-click="dept.edit(department)">Edit</button>
+                <button class="btn btn-danger btn-sm" type="button" ng-click="au.deleteDepartment(user)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <strong ng-if="dept.isLoading">Loading...</strong>
+</div>
+</div>

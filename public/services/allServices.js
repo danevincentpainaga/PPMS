@@ -76,8 +76,12 @@ module.exports = __webpack_require__(42);
 /***/ 42:
 /***/ (function(module, exports) {
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $cookies, $rootScope) {
-  return {
+  var _ref;
+
+  return _ref = {
     validateLogin: function validateLogin(credData) {
       return $http({
         method: 'POST',
@@ -230,6 +234,17 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         }
       });
     },
+    countUsers: function countUsers() {
+      return $http({
+        method: 'GET',
+        url: baseUrl + 'api/countUsers',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
     getUsers: function getUsers() {
       return $http({
         method: 'GET',
@@ -254,7 +269,27 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
       };
       return $http.delete(baseUrl + 'api/deleteUsers', config);
     }
-  };
+  }, _defineProperty(_ref, 'getDepartments', function getDepartments() {
+    return $http({
+      method: 'GET',
+      url: baseUrl + 'api/getDepartments',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        Authorization: 'Bearer ' + $rootScope.token
+      }
+    });
+  }), _defineProperty(_ref, 'updateDepartment', function updateDepartment(updatedDepartment) {
+    return $http({
+      method: 'POST',
+      url: baseUrl + 'api/updateDepartment',
+      data: updatedDepartment,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: 'Bearer ' + $rootScope.token
+      }
+    });
+  }), _ref;
 }]);
 
 /***/ })
