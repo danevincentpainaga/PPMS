@@ -299,8 +299,8 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   function getApprovedReservationsDate(aDate){
     vc.isLoading = true;
     apiService.approvedReservations(aDate).then(function(response){
-      vc.isLoading = false;
       vc.approvedReservationsData = response.data;
+      vc.isLoading = false;
       console.log(response);
     }, function(error){
       console.log(error);

@@ -38,8 +38,10 @@ var app = angular.module('myApp')
   }
 
   function departmentData() {
+    dept.isLoading = true;
     apiService.getDepartments().then(function(response){
       console.log(response);
+      dept.isLoading = false;
       dept.departments = response.data;
     }, function(error){
       console.log(error);

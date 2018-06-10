@@ -1,7 +1,7 @@
  <div class="tab-content" ng-controller="venueCtrl as vc">
-  <div id="users" class="container tab-pane active padding-0" ng-if="!vc.isLoading">
+  <div id="users" class="container tab-pane active padding-0" >
     <div id="accordion" style="margin-top: 0.4em;">
-    <div class="card">
+    <div class="card" ng-if="!vc.isLoading">
       <div class="card-header">
         <button class="btn btn-info btn-sm" data-toggle="collapse" data-target="#collapseOne" style="float: right;" ng-click="vc.eMessage()">
           {{ vc.eventMessage }}
@@ -184,10 +184,9 @@
             </tr>
           </tbody>
         </table>
+        <strong ng-if="vc.isLoading">Loading...</strong>
       </div>
     </div>
   </div>
 </div>
-  <br />
-  <strong ng-if="vc.isLoading">Loading...</strong>
 </div>

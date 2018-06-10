@@ -38,8 +38,10 @@ var app = angular.module('myApp')
   }
 
   function departmentData() {
+    dept.isLoading = true;
     apiService.getDepartments().then(function(response){
       console.log(response);
+      dept.isLoading = false;
       dept.departments = response.data;
     }, function(error){
       console.log(error);
@@ -600,8 +602,8 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   function getApprovedReservationsDate(aDate){
     vc.isLoading = true;
     apiService.approvedReservations(aDate).then(function(response){
-      vc.isLoading = false;
       vc.approvedReservationsData = response.data;
+      vc.isLoading = false;
       console.log(response);
     }, function(error){
       console.log(error);

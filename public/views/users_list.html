@@ -1,7 +1,7 @@
 <div class="tab-content" ng-controller="userCtrl as au">
   <div id="users" class="container tab-pane active">
     <br />
-    <div class="row" ng-if="!au.isLoading" style="overflow-x: auto;">
+    <div class="row" style="overflow-x: auto;">
       <table class="table table-striped" style="min-width: 915px;"">
         <thead>
           <tr>
@@ -31,7 +31,7 @@
           </tr>
         </tbody>
       </table>
+      <strong ng-if="au.isLoading">Loading...</strong>
     </div>
   </div>
-  <strong ng-if="au.isLoading">Loading...</strong>
 </div>

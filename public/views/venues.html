@@ -1,5 +1,5 @@
  <div class="tab-content" ng-controller="venueCtrl as vc">
-  <div id="users" class="container tab-pane active" ng-if="!vc.isLoading">
+  <div id="users" class="container tab-pane active">
     <br /> 
     <div class="row" ng-if="vc.editing" style="margin-bottom: 1em;">
       <div class="col-md-12">
@@ -54,8 +54,7 @@
           </tr>
         </tbody>
       </table>
+    <strong ng-if="vc.isLoading">Loading...</strong>
     </div>
   </div>
-  <br />
-  <strong ng-if="vc.isLoading">Loading...</strong>
 </div>

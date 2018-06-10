@@ -28,7 +28,7 @@
 <div class="tab-content" >
   <div id="users" class="container tab-pane active">
     <br />
-    <div class="row" ng-if="!dept.isLoading" style="overflow-x: auto;">
+    <div class="row" style="overflow-x: auto;">
       <div class="col-md-12">
         <table class="table table-striped" style="min-width: 915px;">
           <thead>
@@ -37,8 +37,8 @@
               <th class="center min-width-155">Action</th>
             </tr>
           </thead>
-          <tbody>
-            <tr ng-repeat="department in dept.departments | filter: dept.search">
+          <tbody >
+            <tr ng-repeat="department in dept.departments | filter: dept.search" ng-if="!dept.isLoading">
               <td>{{ department.department_name }}</td>
               <td class="center min-width-155">
                 <button class="btn btn-success btn-sm" type="button" ng-click="dept.edit(department)">Edit</button>
@@ -50,6 +50,6 @@
       </div>
     </div>
   </div>
-  <strong ng-if="dept.isLoading">Loading...</strong>
 </div>
+<strong ng-if="dept.isLoading">Loading...</strong>
 </div>
