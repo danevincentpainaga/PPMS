@@ -11,7 +11,11 @@ use App\department;
 class departmentController extends Controller
 {
    public function getDepartments(){
-   	 return department::all();
+   	return department::all();
+   }
+
+   public function addDepartment(Request $request){
+   	return department::create($request->all());
    }
 
    public function updateDepartment(Request $request){

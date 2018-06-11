@@ -35,6 +35,7 @@ Route::group(['middleware'=>'auth:api'], function(){
 	Route::post('updateVenue', 'API\reservationController@updateVenue');
 	Route::post('addUser', 'API\userController@addUser');
 	Route::post('addReservation', 'API\reservationController@addReservation');
+	Route::post('addDepartment', 'API\departmentController@addDepartment');
 	Route::post('updateDepartment', 'API\departmentController@updateDepartment');
 	Route::delete('deleteVenue', 'API\reservationController@deleteVenue');
 	Route::delete('deleteUsers', 'API\userController@deleteUsers');

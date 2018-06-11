@@ -289,6 +289,16 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         Authorization: 'Bearer ' + $rootScope.token
       }
     });
+  }), _defineProperty(_ref, 'addDepartment', function addDepartment(departmentName) {
+    return $http({
+      method: 'POST',
+      url: baseUrl + 'api/addDepartment',
+      data: departmentName,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: 'Bearer ' + $rootScope.token
+      }
+    });
   }), _ref;
 }]);
 

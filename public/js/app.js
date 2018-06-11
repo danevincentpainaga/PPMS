@@ -13711,13 +13711,13 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
   }).state('dashboard', {
     url: '/dashboard',
     templateUrl: 'views/dashboard.html',
-    controller: 'mainCtrl'
+    controller: 'mainAppCtrl'
   }).state('manage_users', {
     url: '/manage_users',
     views: {
       '': {
         templateUrl: 'views/users.html',
-        controller: 'mainCtrl'
+        controller: 'mainAppCtrl'
       },
       'users-view@manage_users': {
         templateUrl: 'views/add_user.html',
@@ -13737,7 +13737,7 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
     views: {
       '': {
         templateUrl: 'views/reservation.html',
-        controller: 'mainCtrl'
+        controller: 'mainAppCtrl'
       },
       'new-view@reservation': {
         templateUrl: 'views/request.html',
@@ -13757,13 +13757,13 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
     views: {
       'new-view@reservation': {
         templateUrl: 'views/approved_reservation.html',
-        controller: 'mainCtrl'
+        controller: 'mainAppCtrl'
       }
     }
   }).state('maintenance', {
     url: '/maintenance',
     templateUrl: 'views/maintenance.html',
-    controller: 'mainCtrl'
+    controller: 'mainAppCtrl'
   }).state('department', {
     url: '/department',
     templateUrl: 'views/department.html',

@@ -208,6 +208,17 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
           Authorization : 'Bearer '+ $rootScope.token
         }
       });
+    },
+    addDepartment: function(departmentName){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/addDepartment',
+        data: departmentName,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
     }
   }  
 }]);

@@ -1,4 +1,4 @@
-  <!-- The Modal -->
+  <!-- Venue Modal -->
   <div class="modal fade" id="myModal" ng-controller="venueCtrl as vc">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -161,6 +161,75 @@
             <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- department Modal -->
+  <div class="modal fade" id="departmentModal" ng-controller="departmentCtrl as dept">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header whitesmoke " >
+          <h4 class="modal-title">Add Department</h4>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" >
+          <div class="alert alert-success alert-dismissible" ng-if="dept.response">
+            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{ dept.message }}!</strong>
+          </div>
+           <form>
+            <div class="form-group">
+              <label for="department">Department:</label>
+              <input type="text" class="form-control" id="department" ng-model="dept.department">
+            </div>
+          </form>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer padding-7px">
+            <button type="submit" class="btn btn-success" ng-click="dept.addDepartment(dept.department)">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+<!-- Request Venue view details modal -->
+    <!-- department Modal -->
+  <div class="modal fade" id="viewDetailsModal" ng-controller="venueCtrl as vc">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header whitesmoke " >
+          <h4 class="modal-title"></h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" >
+            {{ vc.viewReservation }}
+            <h4>{{ vc.viewReservation.client_name }}</h4>
+            <label>Department</label>&nbsp;{{ vc.viewReservation.department_name }} <br />  
+            <label>Venue:</label>&nbsp;{{ vc.viewReservation.venue_name }} <br />
+            <label>Start Date</label>&nbsp;{{ vc.viewReservation.start_date }}&nbsp;{{ vc.viewReservation.start_time }} <br />  
+            <label>End Date</label>&nbsp;{{ vc.viewReservation.end_date }}&nbsp;{{ vc.viewReservation.end_time }} <br /> <br />
+            <div class="card">
+            <div class="card-body" style="min-height: 150px;">
+              <p class="card-text" style="font-size: 20px;">{{ vc.viewReservation.purpose }}</p>
+            </div>
+          </div>
+
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer padding-7px">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+        </div>
+        
       </div>
     </div>
   </div>

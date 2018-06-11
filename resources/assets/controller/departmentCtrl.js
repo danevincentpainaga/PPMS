@@ -37,6 +37,11 @@ var app = angular.module('myApp')
     updateDepartmentData(updatedDeptName);
   }
 
+  dept.addDepartment = function(deptValue){
+    var deptVal = { department_name: deptValue };
+    addedDepartment(deptVal);
+  }
+
   function departmentData() {
     dept.isLoading = true;
     apiService.getDepartments().then(function(response){
@@ -58,6 +63,17 @@ var app = angular.module('myApp')
       dept.message = error.data;
       dept.alertMessage = true;
     });    
+  }
+
+  function addedDepartment(deptValue){
+    apiService.addDepartment(deptValue).then(function(response){
+      dept.response = true;
+      dept.message = 'Successfully Added';
+      console.log(response);
+    }, function(error){
+      console.log(error);
+      dept.message = error.data;
+    });
   }
 
 }]);

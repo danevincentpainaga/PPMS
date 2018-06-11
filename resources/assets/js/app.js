@@ -35,14 +35,14 @@ angular
     .state('dashboard', {
       url: '/dashboard',
       templateUrl: 'views/dashboard.html',
-      controller: 'mainCtrl',
+      controller: 'mainAppCtrl',
     })
     .state('manage_users', {
       url: '/manage_users',
       views:{
         '':{
           templateUrl: 'views/users.html',
-          controller: 'mainCtrl',
+          controller: 'mainAppCtrl',
         },
         'users-view@manage_users':{
           templateUrl: 'views/add_user.html',
@@ -64,7 +64,7 @@ angular
       views:{
         '':{
           templateUrl: 'views/reservation.html',
-          controller: 'mainCtrl',
+          controller: 'mainAppCtrl',
         },
         'new-view@reservation':{
           templateUrl: 'views/request.html',
@@ -86,14 +86,14 @@ angular
       views:{
         'new-view@reservation':{
           templateUrl: 'views/approved_reservation.html',
-          controller: 'mainCtrl',
+          controller: 'mainAppCtrl',
         }
       }
     })
     .state('maintenance', {
       url: '/maintenance',
       templateUrl: 'views/maintenance.html',
-      controller: 'mainCtrl',
+      controller: 'mainAppCtrl',
     })
     .state('department', {
       url: '/department',

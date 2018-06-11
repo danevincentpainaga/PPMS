@@ -2,7 +2,7 @@
   <div id="users" class="container tab-pane active">
     <br />
     <div class="row" style="overflow-x: auto;">
-      <table class="table table-striped" style="min-width: 915px;"">
+      <table class="table table-striped" style="min-width: 915px;">
         <thead>
           <tr>
             <th>Name</th>
@@ -16,7 +16,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="user in au.users">
-            <td>{{ user.name }}</td>
+            <td><i class="fa fa-user-circle"></i>&nbsp;&nbsp;{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.userType }}</td>
             <td>{{ user.department_name }}</td>

@@ -203,6 +203,11 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
       console.log(reservation);
   }
 
+  vc.viewDetails = function(selectedReservation){
+    console.log(selectedReservation);
+    vc.viewReservation = selectedReservation;
+  }
+
   vc.showInput = function(){
 
   }

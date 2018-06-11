@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Laravel</title>
+        <title>PPMS</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -72,7 +72,7 @@
             }
         </style>
     </head>
-    <body ng-cloak ng-controller="mainCtrl">
+    <body ng-cloak ng-controller="mainAppCtrl">
     <ng-include src="'views/header.html'" ></ng-include> 
     <div class="container ">
         <div class="row" ui-view=""></div>

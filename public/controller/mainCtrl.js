@@ -37,6 +37,11 @@ var app = angular.module('myApp')
     updateDepartmentData(updatedDeptName);
   }
 
+  dept.addDepartment = function(deptValue){
+    var deptVal = { department_name: deptValue };
+    addedDepartment(deptVal);
+  }
+
   function departmentData() {
     dept.isLoading = true;
     apiService.getDepartments().then(function(response){
@@ -58,6 +63,17 @@ var app = angular.module('myApp')
       dept.message = error.data;
       dept.alertMessage = true;
     });    
+  }
+
+  function addedDepartment(deptValue){
+    apiService.addDepartment(deptValue).then(function(response){
+      dept.response = true;
+      dept.message = 'Successfully Added';
+      console.log(response);
+    }, function(error){
+      console.log(error);
+      dept.message = error.data;
+    });
   }
 
 }]);
@@ -121,7 +137,7 @@ var app = angular.module('myApp')
  */
 
 var app = angular.module('myApp')
-app.controller('mainCtrl',['$scope', '$rootScope', '$location', '$http', '$ngConfirm','$filter', '$timeout', '$cookies', 'apiService',
+app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ngConfirm','$filter', '$timeout', '$cookies', 'apiService',
   function ($scope, $rootScope, $location, $http, $ngConfirm, $filter, $timeout, $cookies, apiService) {
   
   $scope.selected = 1;
@@ -504,6 +520,11 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   vc.deleteReservation = function(reservation){
       // confirmDialog(reservation);
       console.log(reservation);
+  }
+
+  vc.viewDetails = function(selectedReservation){
+    console.log(selectedReservation);
+    vc.viewReservation = selectedReservation;
   }
 
   vc.showInput = function(){
