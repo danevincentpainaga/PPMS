@@ -76,12 +76,8 @@ module.exports = __webpack_require__(42);
 /***/ 42:
 /***/ (function(module, exports) {
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $cookies, $rootScope) {
-  var _ref;
-
-  return _ref = {
+  return {
     validateLogin: function validateLogin(credData) {
       return $http({
         method: 'POST',
@@ -126,6 +122,7 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
       return $http({
         method: 'GET',
         url: baseUrl + 'api/getReservations/' + reserveDate,
+        cache: true,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -181,6 +178,7 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
       return $http({
         method: 'GET',
         url: baseUrl + 'api/getVenues',
+        cache: true,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -205,6 +203,7 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
       return $http({
         method: 'GET',
         url: baseUrl + 'api/getDepartments',
+        cache: true,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -268,38 +267,30 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         }
       };
       return $http.delete(baseUrl + 'api/deleteUsers', config);
+    },
+    updateDepartment: function updateDepartment(updatedDepartment) {
+      return $http({
+        method: 'POST',
+        url: baseUrl + 'api/updateDepartment',
+        data: updatedDepartment,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
+    addDepartment: function addDepartment(departmentName) {
+      return $http({
+        method: 'POST',
+        url: baseUrl + 'api/addDepartment',
+        data: departmentName,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
     }
-  }, _defineProperty(_ref, 'getDepartments', function getDepartments() {
-    return $http({
-      method: 'GET',
-      url: baseUrl + 'api/getDepartments',
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        Authorization: 'Bearer ' + $rootScope.token
-      }
-    });
-  }), _defineProperty(_ref, 'updateDepartment', function updateDepartment(updatedDepartment) {
-    return $http({
-      method: 'POST',
-      url: baseUrl + 'api/updateDepartment',
-      data: updatedDepartment,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: 'Bearer ' + $rootScope.token
-      }
-    });
-  }), _defineProperty(_ref, 'addDepartment', function addDepartment(departmentName) {
-    return $http({
-      method: 'POST',
-      url: baseUrl + 'api/addDepartment',
-      data: departmentName,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: 'Bearer ' + $rootScope.token
-      }
-    });
-  }), _ref;
+  };
 }]);
 
 /***/ })

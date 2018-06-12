@@ -44,6 +44,7 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
       return $http({
         method:'GET',
         url: baseUrl+'api/getReservations/'+reserveDate,
+        cache: true,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -99,6 +100,7 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
       return $http({
         method:'GET',
         url: baseUrl+'api/getVenues',
+        cache: true,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -123,6 +125,7 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
       return $http({
         method:'GET',
         url: baseUrl+'api/getDepartments',
+        cache: true,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -186,17 +189,6 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
           }
       };
       return $http.delete(baseUrl + 'api/deleteUsers', config); 
-    },
-    getDepartments: function(){
-      return $http({
-        method:'GET',
-        url: baseUrl+'api/getDepartments',
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          Authorization : 'Bearer '+ $rootScope.token
-        }
-      });
     },
     updateDepartment: function(updatedDepartment){
       return $http({
