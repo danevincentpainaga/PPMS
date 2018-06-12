@@ -58,3 +58,16 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## PPMS Dependencies
+
+Nodejs
+Composer
+bower
+laravel passport
+
+# Database tables
+
+* You can use laravel migration make sure passport is install3e.
+  type passport:install
+* or Sql tables can be found in xPPMS sql database folder
