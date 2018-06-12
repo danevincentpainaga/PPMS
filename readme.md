@@ -61,13 +61,13 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## PPMS Dependencies
 
-Nodejs
-Composer
-bower
-laravel passport
+*Nodejs
+*Composer
+*bower
+*laravel passport
 
 # Database tables
 
-* You can use laravel migration make sure passport is install3e.
+* You can use laravel migration make sure passport is installed.
   type passport:install
 * or Sql tables can be found in xPPMS sql database folder
