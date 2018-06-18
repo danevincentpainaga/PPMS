@@ -20,7 +20,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   vc.minutes = [];
   vc.response = false;
   vc.Hidden = true;
-  vc.eventMessage = 'Show calendar';
+  vc.eventMessage = 'Hide calendar';
   vc.editing = false;
 
   getAllVenues();
@@ -185,6 +185,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   }
 
   vc.approvedReservation = function(approvedReservationDetails){
+    console.log(approvedReservationDetails);
     approvedReservation(approvedReservationDetails);
   }
 
@@ -275,7 +276,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
       $ngConfirm({
           title: error.data.message,
           content: '',
-          type: 'blue',
+          type: 'red',
           animationBounce: 1.5
       });
     });

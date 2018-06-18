@@ -2,12 +2,15 @@
 <br />
 <div class="row" >
   <div class="col-md-8">
-    <button class="btn btn-info btn-sm " type="button" data-toggle="modal" data-target="#departmentModal">Add Department</button>
+    <button class="btn btn-info btn-sm " type="button" data-toggle="modal" data-target="#departmentModal">
+      <i class="fa fa-plus"></i>&nbsp;Add Department
+    </button>
   </div>
   <div class="col-md-4">
     <input type="text" class="form-control" ng-model="dept.search" placeholder="search">
   </div>
 </div>
+<br />
 <div class="row" ng-if="dept.editing" style="margin-bottom: 1em;">
   <div class="alert alert-success alert-dismissible col-md-12" ng-if="dept.alertMessage">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -20,8 +23,13 @@
           <input type="text" class="form-control" id="department" name="department" ng-model="dept.department" required>
           <span ng-show="departmentForm.department.$touched  && departmentForm.department.$error.required" style="color: red; font-size: 14px;">Department is Required*</span>
         </div>
-        <button type="submit" class="btn btn-success" ng-click="dept.update(dept.department)">Save</button>
-        <button type="button" class="btn btn-info" ng-click="dept.cancelEdit()">Close</button>
+        <button type="submit" class="btn btn-outline-success btn-sm" ng-click="dept.update(dept.department)">
+          <i class="fa fa-save"></i>
+            &nbsp;Save
+          </button>
+        <button type="button" class="btn btn-outline-info btn-sm" ng-click="dept.cancelEdit()">
+          <i class="fa fa-times-circle"></i>&nbsp;Close
+        </button>
       </form>   
   </div>
 </div>
@@ -41,8 +49,12 @@
             <tr ng-repeat="department in dept.departments | filter: dept.search" ng-if="!dept.isLoading">
               <td>{{ department.department_name }}</td>
               <td class="center min-width-155">
-                <button class="btn btn-success btn-sm" type="button" ng-click="dept.edit(department)">Edit</button>
-                <button class="btn btn-danger btn-sm" type="button" ng-click="au.deleteDepartment(user)">Delete</button>
+                <button class="btn btn-outline-success btn-sm" type="button" ng-click="dept.edit(department)">
+                  <i class="fa fa-edit"></i>Edit
+                </button>
+                <button class="btn btn-outline-danger btn-sm" type="button" ng-click="au.deleteDepartment(user)">
+                  <i class="fa fa-times-circle"></i>&nbsp;Delete
+                </button>
               </td>
             </tr>
           </tbody>

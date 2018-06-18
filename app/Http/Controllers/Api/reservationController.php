@@ -166,7 +166,7 @@ class reservationController extends Controller
 
     public function approvedReservationsDetails(Request $request){
         $exist = null;
-        $existed = client_reservation::where(['start_date'=> $request->input('start_date'), 'statusId'=> 2 ])->get();
+        $existed = client_reservation::where(['venueId'=> $request->input('venueId'), 'start_date'=> $request->input('start_date'), 'statusId'=> 2 ])->get();
         foreach ($existed as $key => $value) {
             $exist = $value->clientId;
         }

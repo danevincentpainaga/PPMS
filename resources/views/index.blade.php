@@ -12,8 +12,8 @@
         <link href="{{asset('node_modules/angularjs-datepicker/dist/angular-datepicker.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('node_modules/angular-confirm/dist/angular-confirm.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('node_modules/components-font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
-        <!-- <link rel="stylesheet" href="{{asset('bower_components/fullcalendar/dist/fullcalendar.css')}}"/> -->
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+        <link rel="stylesheet" href="{{asset('bower_components/fullcalendar/dist/fullcalendar.min.css')}}"/>
+        <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css"> -->
         <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar-scheduler/1.9.4/scheduler.css"> -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 

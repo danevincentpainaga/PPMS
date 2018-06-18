@@ -135,7 +135,9 @@
     <br />
     <div class="row">
       <div class="col-md-12">
-        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#requestModal">Add Request</button>        
+        <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#requestModal">
+          <i class="fa fa-plus"></i>&nbsp;Add Request
+        </button>        
       </div>
     </div>
     <br />
@@ -158,28 +160,33 @@
           </thead>
           <tbody>
             <tr ng-repeat="reserved in vc.reservations">
-              <td>
+              <td style="min-width: 200px;">
                 {{reserved.client_name}}
               </td>
               <td>{{reserved.department_name}}</td>
               <td>{{reserved.venue_name}}</td>
-              <td><label style="font-style: italic;">{{reserved.start_date}} {{reserved.start_time}}</label></td>
-              <td><label style="font-style: italic;">{{reserved.end_date}} {{reserved.end_time}}</label></td>
-              <td>{{reserved.purpose}}</td>
-              <td>{{reserved.date_created}}</td>
+              <td style="min-width: 250px;"><label style="font-style: italic;">{{reserved.start_date}} {{reserved.start_time}}</label></td>
+              <td style="min-width: 250px;"><label style="font-style: italic;">{{reserved.end_date}} {{reserved.end_time}}</label></td>
+              <td class="min-width-155">{{reserved.purpose}}</td>
+              <td style="min-width: 250px;">{{reserved.date_created}}</td>
               <td>
-                <label style="background-color: #5cb85c;color: white;text-align: center;border-radius: 10px;margin-bottom: .0rem;font-family: cooper;width: 77px;height: 18px;padding-top: 0px;font-size: 12px;">
+                <label style="background-color: #5cb85c;color: white;text-align: center;border-radius: 10px;margin-bottom: .0rem;font-family:cooper;width: 77px;height: 18px;padding-top: 0px;font-size: 12px;">
                   {{reserved.status}}
                 </label>
               </td>
               <td class="center min-width-240">
                 <button class="btn btn-basic btn-sm" type="button"  ng-click="vc.viewDetails(reserved)" data-toggle="modal" data-target="#viewDetailsModal" >View Details</button>
               </td>
-              <td class="center min-width-240">
-                
-                <button class="btn btn-success btn-sm" type="button"  ng-click="vc.approvedReservation(reserved)">Approve</button>
-                <button class="btn btn-info btn-sm" type="button"  ng-click="vc.updateReservationData(reserved)">Update</button>
-                <button class="btn btn-danger btn-sm" type="button" ng-click="vc.deleteReservation(reserved)">Delete</button>
+              <td class="center min-width-270">
+                <button class="btn btn-outline-success btn-sm" type="button"  ng-click="vc.approvedReservation(reserved)">
+                  <i class="fa fa-thumbs-up"></i>&nbsp;Approve
+                </button>
+                <button class="btn btn-outline-info btn-sm" type="button"  ng-click="vc.updateReservationData(reserved)">
+                  <i class="fa fa-upload"></i>&nbsp;Update
+                </button>
+                <button class="btn btn-outline-danger btn-sm" type="button" ng-click="vc.deleteReservation(reserved)">
+                  <i class="fa fa-times-circle"></i>&nbsp;Delete
+                </button>
               </td>
             </tr>
           </tbody>

@@ -2,16 +2,25 @@
   <div id="users" class="container tab-pane active">
     <br /> 
     <div class="row" ng-if="vc.editing" style="margin-bottom: 1em;">
-      <div class="col-md-12">
+      <div class="col-md-8">
            <form name="venueData">
             <div class="form-group">
               <label for="venue">Venue Name:</label>
-              <input type="text" class="form-control" id="venue" name="venue" ng-model="vc.venue" required>
+              <input type="text" class="form-control form-control" id="venue" name="venue" ng-model="vc.venue" required>
               <span ng-show="venueData.venue.$touched  && venueData.venue.$error.required" style="color: red; font-size: 14px;">Venue is Required*</span>
             </div>
-            <button type="submit" class="btn btn-success" ng-click="vc.updateVenue(vc.venue)">Save</button>
-            <button type="button" class="btn btn-info" ng-click="vc.cancelEdit()">Cancel</button>
           </form>   
+      </div>
+      <div class="col-md-4">
+          <div class="row" style="margin-top: 2.4em;">
+            <button type="submit" class="btn btn-outline-success btn-sm" ng-click="vc.updateVenue(vc.venue)">
+              <i class="fa fa-save"></i>&nbsp;Save
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-outline-info btn-sm" ng-click="vc.cancelEdit()">
+              <i class="fa fa-times-circle"></i>&nbsp;Cancel
+            </button>
+          </div>
       </div>
     </div>
     <br />
@@ -48,8 +57,12 @@
             <td>{{ venue.venue_name }}</td>
             <td>{{ venue.created_at }}</td>
             <td class="center min-width-155">
-              <button class="btn btn-success btn-sm" type="button" class="btn btn-primary" ng-click="vc.editVenue(venue)" >Edit</button>
-              <button class="btn btn-danger btn-sm" type="button" class="btn btn-primary" ng-click="vc.deleteVenue(venue)">Delete</button>
+              <button class="btn btn-outline-success btn-sm" type="button" class="btn btn-primary" ng-click="vc.editVenue(venue)" >
+                <i class="fa fa-edit"></i>Edit
+              </button>
+              <button class="btn btn-outline-danger btn-sm" type="button" class="btn btn-primary" ng-click="vc.deleteVenue(venue)">
+                <i class="fa fa-trash"></i>Delete
+              </button>
             </td>
           </tr>
         </tbody>
