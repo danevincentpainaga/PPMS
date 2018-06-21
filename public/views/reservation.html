@@ -3,13 +3,14 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/reservation')}" href="#!/reservation">Request</a>
+      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/reservation')}" href="#!/reservation">
+        <i class="fa fa-envelope"></i>&nbsp;Request</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/reservation/approved')}" href="#!/reservation/approved">Reserved Venues</a>
+      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/reservation/approved')}" href="#!/reservation/approved"><i class="fa fa-folder-open"></i>&nbsp;Reserved Venues</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/reservation/venues')}" data-target="#" href="#!/reservation/venues" ng->Venue</a>
+      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/reservation/venues')}" data-target="#" href="#!/reservation/venues" ng-><i class="fa fa-building"></i>&nbsp;Venue</a>
     </li>
   </ul>
   <div ui-view="new-view"></div>

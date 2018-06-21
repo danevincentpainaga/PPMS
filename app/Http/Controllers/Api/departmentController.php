@@ -23,5 +23,10 @@ class departmentController extends Controller
    	->update(['department_name'=> $request->input('department_name')]);
    	return response()->json(['message'=>'Data Updated'], 200);
    }
+
+   public function removeDepartment(Request $request){
+      $deletedDepartment = department::destroy($request->input('department_id'));
+      return response()->json(['message'=>'Data Updated'], 200);
+   }
 }
 

@@ -36,7 +36,9 @@
     </div>
     <div class="row" >
       <div class="col-md-9">
-        <button class="btn btn-info btn-sm " type="button" data-toggle="modal" data-target="#myModal">Add Venue</button>
+        <button class="btn btn-outline-info btn-sm " type="button" data-toggle="modal" data-target="#myModal">
+          <i class="fa fa-plus"></i>&nbsp;Add Venue
+        </button>
       </div>
       <div class="col-md-3">
         <input type="text" class="form-control" ng-model="vc.search" placeholder="search">
@@ -58,10 +60,10 @@
             <td>{{ venue.created_at }}</td>
             <td class="center min-width-155">
               <button class="btn btn-outline-success btn-sm" type="button" class="btn btn-primary" ng-click="vc.editVenue(venue)" >
-                <i class="fa fa-edit"></i>Edit
+                <i class="fa fa-edit"></i>&nbsp;Edit
               </button>
-              <button class="btn btn-outline-danger btn-sm" type="button" class="btn btn-primary" ng-click="vc.deleteVenue(venue)">
-                <i class="fa fa-trash"></i>Delete
+              <button class="btn btn-outline-danger btn-sm" type="button" class="btn btn-primary" ng-click="vc.deleteVenue(venue)" >
+                <i class="fa fa-times-circle"></i>&nbsp;Delete
               </button>
             </td>
           </tr>

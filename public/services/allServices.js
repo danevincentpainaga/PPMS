@@ -122,7 +122,7 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
       return $http({
         method: 'GET',
         url: baseUrl + 'api/getReservations/' + reserveDate,
-        cache: true,
+        cache: false,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -174,11 +174,22 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         }
       });
     },
+    removeReservation: function removeReservation(reservationObj) {
+      return $http({
+        method: 'POST',
+        url: baseUrl + 'api/removeReservation',
+        data: reservationObj,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
     getVenues: function getVenues() {
       return $http({
         method: 'GET',
         url: baseUrl + 'api/getVenues',
-        cache: true,
+        cache: false,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -203,7 +214,7 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
       return $http({
         method: 'GET',
         url: baseUrl + 'api/getDepartments',
-        cache: true,
+        cache: false,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -284,6 +295,17 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         method: 'POST',
         url: baseUrl + 'api/addDepartment',
         data: departmentName,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + $rootScope.token
+        }
+      });
+    },
+    removeDepartment: function removeDepartment(departmentObj) {
+      return $http({
+        method: 'POST',
+        url: baseUrl + 'api/removeDepartment',
+        data: departmentObj,
         headers: {
           "Content-Type": "application/json",
           Authorization: 'Bearer ' + $rootScope.token

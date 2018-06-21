@@ -191,6 +191,11 @@ class reservationController extends Controller
         }
     }
 
+    public function removeReservation(Request $request){
+        client_reservation::destroy($request->input('client_reservation_id'));
+        client::destroy($request->input('client_id'));
+        return response()->json(['message'=>'Reservation request successfully Delete!'], 200);
+    }
 
     public function updateVenue(Request $request){
         venue::where('venue_id', $request->input('venue_id') )

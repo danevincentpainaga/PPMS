@@ -2,7 +2,7 @@
   <div id="users" class="container tab-pane active padding-0" >
     <div id="accordion" style="margin-top: 0.4em;">
     <div class="card" ng-if="!vc.isLoading">
-      <div class="card-header">
+      <div class="card-header"  ng-if="!vc.editing">
         <button class="btn btn-info btn-sm" data-toggle="collapse" data-target="#collapseOne" style="float: right;" ng-click="vc.eMessage()">
           {{ vc.eventMessage }}
         </button> 
@@ -18,7 +18,7 @@
       <div class="col-md-12">
            <form name="reservation">
             <div class="form-group">
-              <label for="requester">Select New Venue:</label>
+              <label for="requester">Requester Name:</label>
               <input type="text" class="form-control" id="requester" name="requester" ng-model="vc.requester" required>
               <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" style="color: red; font-size: 14px;">Password is Required*</span>
             </div>
@@ -127,13 +127,17 @@
               <textarea type="text" class="form-control" id="purpose" name="purpose" ng-model="vc.purpose" required></textarea>
               <span ng-show="reservation.purpose.$touched  && reservation.purpose.$error.required" style="color: red; font-size: 14px;">Purpose is Required*</span>
             </div>
-            <button type="submit" class="btn btn-success" ng-click="vc.updateReservation()">Submit</button>
-            <button type="button" class="btn btn-info" ng-click="vc.cancelEdit()">Cancel</button>
+            <button type="submit" class="btn btn-success" ng-click="vc.updateReservation()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+            	<i class="fa fa-save"></i>&nbsp;Update
+            </button>
+            <button type="button" class="btn btn-info" ng-click="vc.cancelEdit()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+            	<i class="fa fa-times-circle"></i>&nbsp;Cancel
+            </button>
           </form>   
       </div>
     </div>
     <br />
-    <div class="row">
+    <div class="row" ng-if="!vc.editing">
       <div class="col-md-12">
         <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#requestModal">
           <i class="fa fa-plus"></i>&nbsp;Add Request
@@ -141,7 +145,7 @@
       </div>
     </div>
     <br />
-    <div class="row" style="overflow-x: auto; min-height: 320px;">
+    <div class="row" ng-if="!vc.editing" style="overflow-x: auto; min-height: 320px;">
       <div class="col-md-12">
         <table class="table table-striped" style="min-width: 1440px; ">
           <thead>
@@ -158,7 +162,7 @@
               <th class="center min-width-155">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody ng-if="!vc.isLoading">
             <tr ng-repeat="reserved in vc.reservations">
               <td style="min-width: 200px;">
                 {{reserved.client_name}}

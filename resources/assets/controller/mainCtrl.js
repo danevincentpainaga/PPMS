@@ -42,8 +42,8 @@ app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ng
     apiService.countUsers().then(function(response){
       console.log(response);
       $scope.userCount = response.data.userCount;
-      $scope.depertmentCount = response.data.userCount;
-      $scope.reservationVenueCount = response.data.userCount;
+      $scope.depertmentCount = response.data.departmentCount;
+      $scope.reservationVenueCount = response.data.client_reservation;
     }, function(error){
       console.log(error);
     });

@@ -4,8 +4,8 @@
       <div class="modal-content">
       
         <!-- Modal Header -->
-        <div class="modal-header whitesmoke " >
-          <h4 class="modal-title">Add Venue</h4>
+        <div class="modal-header whitesmoke" >
+          <label class="modal-title">Add Venue</label>
         </div>
         
         <!-- Modal body -->
@@ -17,14 +17,14 @@
            <form>
             <div class="form-group">
               <label for="venue">Venue:</label>
-              <input type="text" class="form-control" id="venue" ng-model="vc.venue">
+              <input type="text" class="form-control" id="venue" ng-model="vc.venue" placeholder="enter venue name">
             </div>
           </form>
         </div>
         <!-- Modal footer -->
         <div class="modal-footer padding-7px">
-            <button type="submit" class="btn btn-success" ng-click="vc.addVenue()">Submit</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="vc.close()">Close</button>
+            <button type="submit" class="btn btn-outline-success btn-sm" ng-click="vc.addVenue()">Save</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal" ng-click="vc.close()">Close</button>
         </div>
         
       </div>
@@ -190,8 +190,8 @@
         </div>
         <!-- Modal footer -->
         <div class="modal-footer padding-7px">
-            <button type="submit" class="btn btn-success" ng-click="dept.addDepartment(dept.department)">Submit</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+            <button type="submit" class="btn btn-outline-success" ng-click="dept.addDepartment(dept.department)">Save</button>
+            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" >Close</button>
         </div>
         
       </div>
@@ -227,7 +227,7 @@
         </div>
         <!-- Modal footer -->
         <div class="modal-footer padding-7px">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
         </div>
         
       </div>

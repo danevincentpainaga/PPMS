@@ -33,10 +33,12 @@ Route::group(['middleware'=>'auth:api'], function(){
 	Route::post('updateReservation', 'API\reservationController@updateReservation');
 	Route::post('addVenue', 'API\reservationController@addVenue');
 	Route::post('updateVenue', 'API\reservationController@updateVenue');
+	Route::post('removeReservation', 'API\reservationController@removeReservation');
 	Route::post('addUser', 'API\userController@addUser');
 	Route::post('addReservation', 'API\reservationController@addReservation');
 	Route::post('addDepartment', 'API\departmentController@addDepartment');
 	Route::post('updateDepartment', 'API\departmentController@updateDepartment');
+	Route::post('removeDepartment', 'API\departmentController@removeDepartment');
 	Route::delete('deleteVenue', 'API\reservationController@deleteVenue');
 	Route::delete('deleteUsers', 'API\userController@deleteUsers');
 });

@@ -9,8 +9,8 @@
  */
 var app = angular.module('myApp')
   app.controller('departmentCtrl',['$scope', '$rootScope', '$cookies',
-  '$window', '$location', '$timeout', 'apiService',
-  function ($scope, $rootScope, $cookies, $window, $location, $timeout, apiService) {
+  '$window', '$location', '$timeout', '$ngConfirm', 'apiService',
+  function ($scope, $rootScope, $cookies, $window, $location, $timeout, $ngConfirm, apiService) {
 
   var dept = this;
   var departmentId;
@@ -40,6 +40,11 @@ var app = angular.module('myApp')
   dept.addDepartment = function(deptValue){
     var deptVal = { department_name: deptValue };
     addedDepartment(deptVal);
+  }
+
+  dept.deleteDepartment = function(delDepartment){
+    console.log(delDepartment);
+    confirmDialog(delDepartment);
   }
 
   function departmentData() {
@@ -74,6 +79,53 @@ var app = angular.module('myApp')
       console.log(error);
       dept.message = error.data;
     });
+  }
+
+  function removeDepartmentData(departmentObj){
+    apiService.removeDepartment(departmentObj).then(function(response){
+      console.log(response);
+      dept.departments.splice(dept.departments.indexOf(departmentObj), 1);
+      $ngConfirm('Department deleted');
+    }, function(error){
+      console.log(error);
+      checkIntegrityError(error.status);
+    });
+  }
+
+  function confirmDialog(deptObj){
+    $ngConfirm({
+      title: '',
+      content: 'Delete this Department?',
+      type: 'blue',
+      typeAnimated: true,
+        buttons: {
+          Yes: {
+            text: 'Yes',
+            btnClass: 'btn-red',
+            action: function(){
+              removeDepartmentData(deptObj);
+            }
+          },
+          Cancel: {
+            text: 'No',
+            btnClass: 'btn-blue',
+          }
+        }
+    });
+  }
+
+  function failedDialog(errorMessage){
+    $ngConfirm({
+      title: '',
+      content: errorMessage,
+      type: 'red',
+      typeAnimated: true,
+    });
+  }  
+
+  function checkIntegrityError(constraints){
+    constraints == 500 ? 
+    failedDialog('Cannot delete or update parent row. This department name is being use.') : 'Failed! retry again.';
   }
 
 }]);
@@ -170,8 +222,8 @@ app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ng
     apiService.countUsers().then(function(response){
       console.log(response);
       $scope.userCount = response.data.userCount;
-      $scope.depertmentCount = response.data.userCount;
-      $scope.reservationVenueCount = response.data.userCount;
+      $scope.depertmentCount = response.data.departmentCount;
+      $scope.reservationVenueCount = response.data.client_reservation;
     }, function(error){
       console.log(error);
     });
@@ -339,7 +391,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   vc.minutes = [];
   vc.response = false;
   vc.Hidden = true;
-  vc.eventMessage = 'Hide calendar';
+  vc.eventMessage = 'Show calendar';
   vc.editing = false;
 
   getAllVenues();
@@ -514,12 +566,12 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   }
 
   vc.deleteVenue = function(venue){
-      confirmDialog(venue);
+      confirmDialog(venue, deleteVenue);
       console.log(venue);
   }
   
   vc.deleteReservation = function(reservation){
-      // confirmDialog(reservation);
+      confirmDialog(reservation, removeReservationData);
       console.log(reservation);
   }
 
@@ -601,6 +653,16 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
     });
   }
 
+  function removeReservationData(reservationObj){
+    apiService.removeReservation(reservationObj).then(function(response){
+      console.log(response);
+      vc.reservations.splice(vc.reservations.indexOf(reservationObj), 1);
+      $ngConfirm(response.data.message);
+    }, function(error){
+      console.log(error);
+    });
+  }
+
   function updateDetails(updatedData){
     apiService.updateReservation(updatedData).then(function(response){
       console.log(response);
@@ -665,10 +727,10 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
     });
   }
 
-  function confirmDialog(venue){
+  function confirmDialog(obj, method){
     $ngConfirm({
         title: '',
-        content: 'Delete this venue?',
+        content: 'Delete this Data?',
         type: 'blue',
         typeAnimated: true,
           buttons: {
@@ -676,8 +738,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
               text: 'Yes',
               btnClass: 'btn-red',
               action: function(){
-                deleteVenue(venue);
-                $ngConfirm('Venue deleted');
+                method(obj);
               }
             },
             Cancel: {
@@ -691,8 +752,10 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   function deleteVenue(venue){
     apiService.deleteVenue(venue.venue_id).then(function(response){
       vc.venues.splice(vc.venues.indexOf(venue), 1);
+      $ngConfirm('Venue deleted');
     }, function(error){
       console.log(error);
+      checkIntegrityError(error.status);
     })
   }
 
@@ -725,6 +788,20 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
       hours = parseInt(hours, 10) + 12;
     }
     return hours + ':' + minutes+':'+'00';
+  }
+
+  function failedDialog(errorMessage){
+    $ngConfirm({
+      title: '',
+      content: errorMessage,
+      type: 'red',
+      typeAnimated: true,
+    });
+  }  
+
+  function checkIntegrityError(constraints){
+    constraints == 500 ? 
+    failedDialog('Cannot delete or update parent row. This Venue name is being use.') : 'Failed! retry again.';
   }
 
 }]);

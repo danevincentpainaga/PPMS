@@ -44,7 +44,7 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
       return $http({
         method:'GET',
         url: baseUrl+'api/getReservations/'+reserveDate,
-        cache: true,
+        cache: false,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -96,11 +96,22 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
         }
       });
     },
+    removeReservation: function(reservationObj){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/removeReservation',
+        data: reservationObj,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
     getVenues: function(){
       return $http({
         method:'GET',
         url: baseUrl+'api/getVenues',
-        cache: true,
+        cache: false,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -125,7 +136,7 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
       return $http({
         method:'GET',
         url: baseUrl+'api/getDepartments',
-        cache: true,
+        cache: false,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -206,6 +217,17 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
         method:'POST',
         url: baseUrl+'api/addDepartment',
         data: departmentName,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    removeDepartment: function(departmentObj){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/removeDepartment',
+        data: departmentObj,
         headers: {
           "Content-Type": "application/json",
           Authorization : 'Bearer '+ $rootScope.token

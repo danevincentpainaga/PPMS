@@ -9,8 +9,8 @@
  */
 var app = angular.module('myApp')
   app.controller('departmentCtrl',['$scope', '$rootScope', '$cookies',
-  '$window', '$location', '$timeout', 'apiService',
-  function ($scope, $rootScope, $cookies, $window, $location, $timeout, apiService) {
+  '$window', '$location', '$timeout', '$ngConfirm', 'apiService',
+  function ($scope, $rootScope, $cookies, $window, $location, $timeout, $ngConfirm, apiService) {
 
   var dept = this;
   var departmentId;
@@ -40,6 +40,11 @@ var app = angular.module('myApp')
   dept.addDepartment = function(deptValue){
     var deptVal = { department_name: deptValue };
     addedDepartment(deptVal);
+  }
+
+  dept.deleteDepartment = function(delDepartment){
+    console.log(delDepartment);
+    confirmDialog(delDepartment);
   }
 
   function departmentData() {
@@ -74,6 +79,53 @@ var app = angular.module('myApp')
       console.log(error);
       dept.message = error.data;
     });
+  }
+
+  function removeDepartmentData(departmentObj){
+    apiService.removeDepartment(departmentObj).then(function(response){
+      console.log(response);
+      dept.departments.splice(dept.departments.indexOf(departmentObj), 1);
+      $ngConfirm('Department deleted');
+    }, function(error){
+      console.log(error);
+      checkIntegrityError(error.status);
+    });
+  }
+
+  function confirmDialog(deptObj){
+    $ngConfirm({
+      title: '',
+      content: 'Delete this Department?',
+      type: 'blue',
+      typeAnimated: true,
+        buttons: {
+          Yes: {
+            text: 'Yes',
+            btnClass: 'btn-red',
+            action: function(){
+              removeDepartmentData(deptObj);
+            }
+          },
+          Cancel: {
+            text: 'No',
+            btnClass: 'btn-blue',
+          }
+        }
+    });
+  }
+
+  function failedDialog(errorMessage){
+    $ngConfirm({
+      title: '',
+      content: errorMessage,
+      type: 'red',
+      typeAnimated: true,
+    });
+  }  
+
+  function checkIntegrityError(constraints){
+    constraints == 500 ? 
+    failedDialog('Cannot delete or update parent row. This department name is being use.') : 'Failed! retry again.';
   }
 
 }]);
