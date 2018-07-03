@@ -62,7 +62,7 @@
               <button class="btn btn-outline-success btn-sm" type="button" class="btn btn-primary" ng-click="vc.editVenue(venue)" >
                 <i class="fa fa-edit"></i>&nbsp;Edit
               </button>
-              <button class="btn btn-outline-danger btn-sm" type="button" class="btn btn-primary" ng-click="vc.deleteVenue(venue)" >
+              <button class="btn btn-outline-danger btn-sm" type="button" class="btn btn-primary" ng-click="vc.deleteVenue(venue)" ng-disabled="vc.disableDeleteBtn" >
                 <i class="fa fa-times-circle"></i>&nbsp;Delete
               </button>
             </td>

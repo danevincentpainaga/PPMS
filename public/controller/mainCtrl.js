@@ -21,11 +21,13 @@ var app = angular.module('myApp')
     dept.department = deptObject.department_name;
     departmentId = deptObject.department_id;
     dept.editing = true;
+    dept.disableDelete = true;
   }
 
   dept.cancelEdit = function(){
     dept.editing = false;
     dept.alertMessage = false;
+    dept.disableDelete = false;
   }
 
   dept.update = function(departmentName){
@@ -125,7 +127,7 @@ var app = angular.module('myApp')
 
   function checkIntegrityError(constraints){
     constraints == 500 ? 
-    failedDialog('Cannot delete or update parent row. This department name is being use.') : 'Failed! retry again.';
+    failedDialog('Cannot delete or update parent row. This department name is being used.') : failedDialog('Failed! retry again.');
   }
 
 }]);
@@ -146,7 +148,7 @@ var app = angular.module('myApp')
 
   var lg = this;
   lg.valid= true;
-  lg.buttonMessage = 'Submit';
+  lg.buttonMessage = 'Sign In';
 
   lg.login =function(){
     if(!lg.email || !lg.password){
@@ -166,7 +168,7 @@ var app = angular.module('myApp')
           $location.path('/dashboard');
       }, function(error){
         lg.valid = false;
-        lg.buttonMessage = 'Submit'; 
+        lg.buttonMessage = 'Sign In'; 
           $timeout(function(){
             lg.valid = true;
           },3000);
@@ -217,6 +219,11 @@ app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ng
     $rootScope.header = false;
     $location.path('/');
   }
+  
+  //Recieved Selected View Details from Request
+  $scope.$on('selected_reservation', function(val, obj){
+    $scope.$broadcast('get_selected_reservation', obj );
+  });
 
   function userCount(){
     apiService.countUsers().then(function(response){
@@ -356,7 +363,7 @@ var app = angular.module('myApp')
   function failedDialog(){
     $ngConfirm({
         title: 'Error!',
-        content: 'Superadmin not Deletable!',
+        content: 'Cannot Delete Superadmin!',
         type: 'red',
         typeAnimated: true,
           buttons: {
@@ -482,6 +489,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
 
   vc.editVenue = function(venueData){
     vc.editing = true;
+    vc.disableDeleteBtn = true;
     vc.venue = venueData.venue_name;
     OldVenueId = venueData.venue_id;
     console.log(venueData);
@@ -495,6 +503,11 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
     updateVenueDetails(updatedVenue);
   }
 
+  vc.deleteVenue = function(venue){
+      confirmDialog(venue, deleteVenue);
+      console.log(venue);
+  }
+  
   vc.addReservation = function(){
     if(!vc.requester || !vc.selectedDepartment || !vc.selectedVenue || !vc.purpose 
         || !vc.starthour || !vc.startminutes || !vc.starttimezone || !vc.endhour || !vc.endminutes || !vc.endtimezone  
@@ -553,6 +566,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   vc.cancelEdit = function(){
     dataToEdit = null;
     vc.editing = false;
+    vc.disableDeleteBtn = false;
   }
 
   vc.approvedReservation = function(approvedReservationDetails){
@@ -564,11 +578,6 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
       vc.venue = "";
       vc.response = false;
   }
-
-  vc.deleteVenue = function(venue){
-      confirmDialog(venue, deleteVenue);
-      console.log(venue);
-  }
   
   vc.deleteReservation = function(reservation){
       confirmDialog(reservation, removeReservationData);
@@ -577,8 +586,14 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
 
   vc.viewDetails = function(selectedReservation){
     console.log(selectedReservation);
-    vc.viewReservation = selectedReservation;
+    var viewReservation = selectedReservation;
+    $scope.$emit('selected_reservation', viewReservation );
   }
+
+  // Display View Details from Request
+  $scope.$on('get_selected_reservation', function(v, obj){
+    vc.viewReservation = obj;
+  });
 
   vc.showInput = function(){
 

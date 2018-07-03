@@ -17,14 +17,18 @@
            <form>
             <div class="form-group">
               <label for="venue">Venue:</label>
-              <input type="text" class="form-control" id="venue" ng-model="vc.venue" placeholder="enter venue name">
+              <input type="text" class="form-control" id="venue" ng-model="vc.venue" placeholder="Enter venue name">
             </div>
           </form>
         </div>
         <!-- Modal footer -->
         <div class="modal-footer padding-7px">
-            <button type="submit" class="btn btn-outline-success btn-sm" ng-click="vc.addVenue()">Save</button>
-            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal" ng-click="vc.close()">Close</button>
+            <button type="submit" class="btn btn-outline-success btn-sm" ng-click="vc.addVenue()">
+              <i class="fa fa-save"></i>&nbsp;Save
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal" ng-click="vc.close()">
+              <i class="fa fa-times-circle"></i>&nbsp;Close
+            </button>
         </div>
         
       </div>
@@ -37,7 +41,7 @@
       
         <!-- Modal Header -->
         <div class="modal-header" style="background-color: whitesmoke;">
-          <h4 class="modal-title">Request</h4>
+          <h4 class="modal-title">Request Form</h4>
         </div>
         
         <!-- Modal body -->
@@ -157,8 +161,12 @@
               <textarea type="text" class="form-control" id="purpose" name="purpose" ng-model="vc.purpose" required></textarea>
               <span ng-show="reservation.purpose.$touched  && reservation.purpose.$error.required" style="color: red; font-size: 14px;">Purpose is Required*</span>
             </div>
-            <button type="submit" class="btn btn-success" ng-click="vc.addReservation()">Submit</button>
-            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" ng-click="vc.addReservation()">
+              <i class="fa fa-paper-plane"></i>&nbsp;Submit
+            </button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">
+              <i class="fa fa-times-circle"></i>&nbsp;Close
+            </button>
           </form>
         </div>
       </div>
@@ -172,7 +180,9 @@
       
         <!-- Modal Header -->
         <div class="modal-header whitesmoke " >
-          <h4 class="modal-title">Add Department</h4>
+          <h4 class="modal-title">
+            <i class="fa fa-building"></i>&nbsp;Add Department
+          </h4>
         </div>
         
         <!-- Modal body -->
@@ -183,15 +193,18 @@
           </div>
            <form>
             <div class="form-group">
-              <label for="department">Department:</label>
-              <input type="text" class="form-control" id="department" ng-model="dept.department">
+              <input type="text" class="form-control" id="department" ng-model="dept.department" placeholder="Enter department name">
             </div>
           </form>
         </div>
         <!-- Modal footer -->
         <div class="modal-footer padding-7px">
-            <button type="submit" class="btn btn-outline-success" ng-click="dept.addDepartment(dept.department)">Save</button>
-            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" >Close</button>
+            <button type="submit" class="btn btn-outline-success btn-sm" ng-click="dept.addDepartment(dept.department)">
+              <i class="fa fa-save"></i>&nbsp;Save
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal" >
+              <i class="fa fa-times-circle"></i>&nbsp;Close
+            </button>
         </div>
         
       </div>
@@ -206,30 +219,29 @@
       
         <!-- Modal Header -->
         <div class="modal-header whitesmoke " >
-          <h4 class="modal-title"></h4>
-          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <!-- <h4 class="modal-title"></h4> -->
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body" >
-            {{ vc.viewReservation }}
-            <h4>Name:&nbsp;{{ vc.viewReservation.client_name }}</h4>
-            <label>Department</label>&nbsp;{{ vc.viewReservation.department_name }} <br />  
-            <label>Venue:</label>&nbsp;{{ vc.viewReservation.venue_name }} <br />
-            <label>Start Date</label>&nbsp;{{ vc.viewReservation.start_date }}&nbsp;{{ vc.viewReservation.start_time }} <br />  
-            <label>End Date</label>&nbsp;{{ vc.viewReservation.end_date }}&nbsp;{{ vc.viewReservation.end_time }} <br /> <br />
-            <div class="card">
-            <div class="card-body" style="min-height: 150px;">
-              <p class="card-text" style="font-size: 20px;">{{ vc.viewReservation.purpose }}</p>
-            </div>
-          </div>
-
+            <label class="bold font-17px">Requester Name:</label>
+              &nbsp;<label class="font-17px">{{ vc.viewReservation.client_name }}</label>
+            <hr>
+            <label class="bold">Department:</label>&nbsp;{{ vc.viewReservation.department_name }} <br />  
+            <label class="bold">Requested Venue:</label>
+              &nbsp;{{ vc.viewReservation.venue_name }} <br />
+            <label class="bold">Start Date and Time:</label>
+              &nbsp;{{ vc.viewReservation.start_date }}&nbsp;{{ vc.viewReservation.start_time }} <br />  
+            <label class="bold">End Date and Time</label>
+              &nbsp;{{ vc.viewReservation.end_date }}&nbsp;{{ vc.viewReservation.end_time }} <br /> <br />
+            <label class="bold">Purpose:</label>
+           <textarea style="font-size: 20px;" class="form-control" disabled>{{ vc.viewReservation.purpose }}</textarea> 
         </div>
         <!-- Modal footer -->
         <div class="modal-footer padding-7px">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+          <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal" >Close</button>
         </div>
-        
       </div>
     </div>
   </div>

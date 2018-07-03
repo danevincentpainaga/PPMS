@@ -37,6 +37,11 @@ app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ng
     $rootScope.header = false;
     $location.path('/');
   }
+  
+  //Recieved Selected View Details from Request
+  $scope.$on('selected_reservation', function(val, obj){
+    $scope.$broadcast('get_selected_reservation', obj );
+  });
 
   function userCount(){
     apiService.countUsers().then(function(response){

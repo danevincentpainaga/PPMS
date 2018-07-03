@@ -21,11 +21,13 @@ var app = angular.module('myApp')
     dept.department = deptObject.department_name;
     departmentId = deptObject.department_id;
     dept.editing = true;
+    dept.disableDelete = true;
   }
 
   dept.cancelEdit = function(){
     dept.editing = false;
     dept.alertMessage = false;
+    dept.disableDelete = false;
   }
 
   dept.update = function(departmentName){
@@ -125,7 +127,7 @@ var app = angular.module('myApp')
 
   function checkIntegrityError(constraints){
     constraints == 500 ? 
-    failedDialog('Cannot delete or update parent row. This department name is being use.') : 'Failed! retry again.';
+    failedDialog('Cannot delete or update parent row. This department name is being used.') : failedDialog('Failed! retry again.');
   }
 
 }]);

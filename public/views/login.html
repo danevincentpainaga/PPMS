@@ -14,12 +14,14 @@
         <div class="col-md-12">
        <form>
         <div class="form-group">
-          <label for="usr">Email:</label>
+          <label for="emailType" style="color: #17a2b8;"><i class="fa fa-envelope" ></i>&nbsp;Email:</label>
           <input type="text" class="form-control" ng-model="lg.email" required>
-          <label for="usr" style="margin-top: 5px;">Password:</label>
+          <label for="passwordType" style="margin-top: 5px; color: #17a2b8;">
+            <i class="fa fa-lock font-21px"></i>&nbsp;Password:
+          </label>
           <input type="password" class="form-control" ng-model="lg.password" required>
         </div>
-        <button type="submit" class="btn btn-info col-md-12 verdana" ng-click="lg.login()" >
+        <button class="btn btn-info col-md-12 verdana" ng-click="lg.login()" >
           {{ lg.buttonMessage }}
         </button> 
       </form>

@@ -36,18 +36,20 @@
           <i class="fa fa-book"></i>&nbsp;Reports
         </a>
       </li>
-      <li class="nav-item">
-          <a class="nav-link" ng-click="logout()">Sign Out</a>
+      <li class="nav-item" id="signOut">
+          <a class="nav-link" ng-click="logout()">
+            <i class="fa fa-sign-out"></i>&nbsp;Sign Out
+          </a>
       </li>
     </ul>
   </div>
-  <div class="collapse navbar-collapse col-md-3" id="collapsibleNavbar">
+  <div class="collapse navbar-collapse col-md-3 arrow" id="collapsibleNavbar">
     <div class="dropdown" ng-if="header">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">
         <i class="fa fa-user-circle"></i>&nbsp;{{ userLogName }}
       </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" ng-click="logout()" style="color:#2aabc7; cursor: pointer;">
+      <div class="dropdown-menu" >
+        <a class="dropdown-item arrow" ng-click="logout()" style="color:#2aabc7;">
           <i class="fa fa-sign-out"></i>&nbsp;Sign Out
         </a>
       </div>

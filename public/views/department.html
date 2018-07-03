@@ -52,7 +52,7 @@
                 <button class="btn btn-outline-success btn-sm" type="button" ng-click="dept.edit(department)">
                   <i class="fa fa-edit"></i>Edit
                 </button>
-                <button class="btn btn-outline-danger btn-sm" type="button" ng-click="dept.deleteDepartment(department)">
+                <button class="btn btn-outline-danger btn-sm" type="button" ng-click="dept.deleteDepartment(department)" ng-disabled="dept.disableDelete">
                   <i class="fa fa-times-circle"></i>&nbsp;Delete
                 </button>
               </td>

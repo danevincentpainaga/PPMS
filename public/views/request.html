@@ -169,8 +169,12 @@
               </td>
               <td>{{reserved.department_name}}</td>
               <td>{{reserved.venue_name}}</td>
-              <td style="min-width: 250px;"><label style="font-style: italic;">{{reserved.start_date}} {{reserved.start_time}}</label></td>
-              <td style="min-width: 250px;"><label style="font-style: italic;">{{reserved.end_date}} {{reserved.end_time}}</label></td>
+              <td style="min-width: 250px;">
+                <label style="font-style: italic;">{{reserved.start_date}} {{reserved.start_time}}</label>
+              </td>
+              <td style="min-width: 250px;">
+                <label style="font-style: italic;">{{reserved.end_date}} {{reserved.end_time}}</label>
+              </td>
               <td class="min-width-155">{{reserved.purpose}}</td>
               <td style="min-width: 250px;">{{reserved.date_created}}</td>
               <td>
@@ -179,7 +183,7 @@
                 </label>
               </td>
               <td class="center min-width-240">
-                <button class="btn btn-basic btn-sm" type="button"  ng-click="vc.viewDetails(reserved)" data-toggle="modal" data-target="#viewDetailsModal" >View Details</button>
+                <button class="btn btn-basic btn-sm" type="button" data-toggle="modal" data-target="#viewDetailsModal"  ng-click="vc.viewDetails(reserved)">View Details</button>
               </td>
               <td class="center min-width-270">
                 <button class="btn btn-outline-success btn-sm" type="button"  ng-click="vc.approvedReservation(reserved)">

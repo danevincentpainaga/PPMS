@@ -111,6 +111,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
 
   vc.editVenue = function(venueData){
     vc.editing = true;
+    vc.disableDeleteBtn = true;
     vc.venue = venueData.venue_name;
     OldVenueId = venueData.venue_id;
     console.log(venueData);
@@ -124,6 +125,11 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
     updateVenueDetails(updatedVenue);
   }
 
+  vc.deleteVenue = function(venue){
+      confirmDialog(venue, deleteVenue);
+      console.log(venue);
+  }
+  
   vc.addReservation = function(){
     if(!vc.requester || !vc.selectedDepartment || !vc.selectedVenue || !vc.purpose 
         || !vc.starthour || !vc.startminutes || !vc.starttimezone || !vc.endhour || !vc.endminutes || !vc.endtimezone  
@@ -182,6 +188,7 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
   vc.cancelEdit = function(){
     dataToEdit = null;
     vc.editing = false;
+    vc.disableDeleteBtn = false;
   }
 
   vc.approvedReservation = function(approvedReservationDetails){
@@ -193,11 +200,6 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
       vc.venue = "";
       vc.response = false;
   }
-
-  vc.deleteVenue = function(venue){
-      confirmDialog(venue, deleteVenue);
-      console.log(venue);
-  }
   
   vc.deleteReservation = function(reservation){
       confirmDialog(reservation, removeReservationData);
@@ -206,8 +208,14 @@ app.controller('venueCtrl',['$scope', '$rootScope', '$location', '$http', '$ngCo
 
   vc.viewDetails = function(selectedReservation){
     console.log(selectedReservation);
-    vc.viewReservation = selectedReservation;
+    var viewReservation = selectedReservation;
+    $scope.$emit('selected_reservation', viewReservation );
   }
+
+  // Display View Details from Request
+  $scope.$on('get_selected_reservation', function(v, obj){
+    vc.viewReservation = obj;
+  });
 
   vc.showInput = function(){
 

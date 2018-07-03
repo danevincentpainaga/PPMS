@@ -14,7 +14,7 @@ var app = angular.module('myApp')
 
   var lg = this;
   lg.valid= true;
-  lg.buttonMessage = 'Submit';
+  lg.buttonMessage = 'Sign In';
 
   lg.login =function(){
     if(!lg.email || !lg.password){
@@ -34,7 +34,7 @@ var app = angular.module('myApp')
           $location.path('/dashboard');
       }, function(error){
         lg.valid = false;
-        lg.buttonMessage = 'Submit'; 
+        lg.buttonMessage = 'Sign In'; 
           $timeout(function(){
             lg.valid = true;
           },3000);

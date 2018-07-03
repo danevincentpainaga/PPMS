@@ -122,7 +122,7 @@ var app = angular.module('myApp')
   function failedDialog(){
     $ngConfirm({
         title: 'Error!',
-        content: 'Superadmin not Deletable!',
+        content: 'Cannot Delete Superadmin!',
         type: 'red',
         typeAnimated: true,
           buttons: {
