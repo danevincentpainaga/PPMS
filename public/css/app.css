@@ -10518,6 +10518,10 @@ a.text-dark:focus {
   font-weight: bold !important;
 }
 
+.italic {
+  font-weight: italic;
+}
+
 @media only screen and (max-width: 767px) {
   #signOut {
     display: inline-block !important;
