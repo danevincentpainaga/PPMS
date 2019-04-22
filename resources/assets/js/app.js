@@ -30,23 +30,19 @@ angular
     $stateProvider.state('/', {
       url: '/',
       templateUrl: 'views/login.html',
-      // controller: 'loginCtrl',
     })
     .state('dashboard', {
       url: '/dashboard',
       templateUrl: 'views/dashboard.html',
-      // controller: 'mainAppCtrl',
     })
     .state('manage_users', {
       url: '/manage_users',
       views:{
         '':{
           templateUrl: 'views/users.html',
-          // controller: 'mainAppCtrl',
         },
         'users-view@manage_users':{
           templateUrl: 'views/add_user.html',
-          // controller: 'userCtrl',
         }
       }
     })
@@ -55,7 +51,6 @@ angular
       views:{
         'users-view@manage_users':{
          templateUrl: 'views/users_list.html',
-          // controller: 'userCtrl',
         }
       }
     })
@@ -64,11 +59,9 @@ angular
       views:{
         '':{
           templateUrl: 'views/reservation.html',
-          // controller: 'mainAppCtrl',
         },
         'new-view@reservation':{
           templateUrl: 'views/request.html',
-          // controller: 'venueCtrl',
         }
       }
     })
@@ -77,7 +70,6 @@ angular
       views:{
         'new-view@reservation':{
          templateUrl: 'views/venues.html',
-          // controller: 'venueCtrl',
         }
       }
     })
@@ -86,33 +78,27 @@ angular
       views:{
         'new-view@reservation':{
           templateUrl: 'views/approved_reservation.html',
-          // controller: 'mainAppCtrl',
         }
       }
     })
     .state('department', {
       url: '/department',
       templateUrl: 'views/department.html',
-      // controller: 'departmentCtrl',
     })
     .state('inventory', {
       url: '/inventory',
       templateUrl: 'views/inventory.html',
-      // controller: 'departmentCtrl',
     })
     .state('maintenance', {
       url: '/maintenance',
       views:{
         '':{
           templateUrl: 'views/maintenance.html',
-          // controller: 'mainAppCtrl',
         },
         'maintenance-view@maintenance':{
           templateUrl: 'views/request_items.html',
-          // controller: 'userCtrl',
         }
       }
-      // controller: 'departmentCtrl',
     })
     .state('maintenance.work', {
       url: '/work',

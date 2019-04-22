@@ -165,14 +165,6 @@ app.controller('venueCtrl', ['$scope', '$rootScope', '$location', '$http', '$ngC
             vc.venue.venue_name = vc.selected_venue.venue_name; 
   }
 
-  // vc.removeApprovedReservationDetails = function(areserved){
-  //   confirmDialog(areserved, removeApprovedReservationData);
-  // }
-
-  // vc.deleteReservation = function(reservation){
-  //     confirmDialog(reservation, removeReservationData);
-  // }
-
   vc.viewDetails = function(selectedReservation){
     var viewReservation = selectedReservation;
     $scope.$emit('selected_reservation', viewReservation );
@@ -272,32 +264,10 @@ app.controller('venueCtrl', ['$scope', '$rootScope', '$location', '$http', '$ngC
     });
   }
 
-  // function confirmDialog(obj, method){
-  //   $ngConfirm({
-  //       title: '',
-  //       content: 'Delete this Data?',
-  //       type: 'blue',
-  //       typeAnimated: true,
-  //         buttons: {
-  //           Yes: {
-  //             text: 'Yes',
-  //             btnClass: 'btn-red',
-  //             action: function(){
-  //               method(obj);
-  //             }
-  //           },
-  //           Cancel: {
-  //             text: 'No',
-  //             btnClass: 'btn-blue',
-  //           }
-  //         }
-  //   });
-  // }
-
   function deleteVenue(venue){
     apiService.deleteVenue(venue.venue_id).then(function(response){
       vc.venues.splice(vc.venues.indexOf(venue), 1);
-      swalert.successAlert('Venue deleted');
+      swalert.successAlert('Venue deleted');$ngC
     }, function(error){
       console.log(error);
       checkIntegrityError(error.status);
@@ -370,7 +340,7 @@ app.filter('timeFormat', function(){
             var ts = time24;
             var H = +ts.substr(0, 2);
             var h = (H % 12) || 12;
-            h = (h < 10)?("0"+h):h;  // leading 0 at the left for 1 digit hours
+            h = (h < 10)?("0"+h):h;
             var ampm = H < 12 ? " AM" : " PM";
             ts = h + ts.substr(2, 3) + ampm;
             return ts;
