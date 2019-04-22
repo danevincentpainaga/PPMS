@@ -5,20 +5,25 @@
  * @name mytodoApp.controller:departmentCtrl
  * @description
  * # departmentCtrl
- * Controller of the myApp
+ * Controller of the PPMS
  */
 var app = angular.module('myApp')
-  app.controller('departmentCtrl',['$scope', '$rootScope', '$cookies',
-  '$window', '$location', '$timeout', '$ngConfirm', 'apiService',
-  function ($scope, $rootScope, $cookies, $window, $location, $timeout, $ngConfirm, apiService) {
+  app.controller('departmentCtrl',['$scope', '$rootScope', '$cookies', '$window',
+                                   '$location', '$timeout', 'apiService', 'swalert',
+  function ($scope, $rootScope, $cookies, $window, $location, $timeout, apiService, swalert) {
 
   var dept = this;
   var departmentId;
-
+  dept.updating = false;
   departmentData();
 
+  $scope.$on('reloading_department_list', function(){
+    departmentData();
+  });
+
   dept.edit = function(deptObject) {
-    dept.department = deptObject.department_name;
+    dept.selectedDept = angular.copy(deptObject);
+    dept.department = deptObject;
     departmentId = deptObject.department_id;
     dept.editing = true;
     dept.disableDelete = true;
@@ -26,35 +31,32 @@ var app = angular.module('myApp')
 
   dept.cancelEdit = function(){
     dept.editing = false;
-    dept.alertMessage = false;
     dept.disableDelete = false;
+    if (dept.selectedDept.department_name != dept.department.department_name)
+            dept.department.department_name = dept.selectedDept.department_name 
   }
 
   dept.update = function(departmentName){
     var updatedDeptName = {
       department_id: departmentId,
-      department_name: departmentName,
-    }
-    console.log(updatedDeptName);
+      department_name: departmentName.toUpperCase()
+    };
+    dept.updating = true;
+    dept.disableDelete = false;
     updateDepartmentData(updatedDeptName);
   }
 
-  dept.addDepartment = function(deptValue){
-    var deptVal = { department_name: deptValue };
-    addedDepartment(deptVal);
-  }
-
   dept.deleteDepartment = function(delDepartment){
-    console.log(delDepartment);
-    confirmDialog(delDepartment);
+    swalert.showAlert(delDepartment, removeDepartmentData);
   }
 
   function departmentData() {
     dept.isLoading = true;
     apiService.getDepartments().then(function(response){
-      console.log(response);
-      dept.isLoading = false;
       dept.departments = response.data;
+      $timeout(function() {
+        dept.isLoading = false;
+      }, 1000);
     }, function(error){
       console.log(error);
     });
@@ -62,72 +64,29 @@ var app = angular.module('myApp')
 
   function updateDepartmentData(updatedDetails) {
     apiService.updateDepartment(updatedDetails).then(function(response){
-      console.log(response);
-      dept.message = response.data.message;
-      dept.alertMessage = true;
+      dept.editing = false;
+      dept.updating = false;
+      swalert.successInfo('Department Updated!', 'success', 3000);
     }, function(error){
       console.log(error);
       dept.message = error.data;
-      dept.alertMessage = true;
     });    
-  }
-
-  function addedDepartment(deptValue){
-    apiService.addDepartment(deptValue).then(function(response){
-      dept.response = true;
-      dept.message = 'Successfully Added';
-      console.log(response);
-    }, function(error){
-      console.log(error);
-      dept.message = error.data;
-    });
   }
 
   function removeDepartmentData(departmentObj){
     apiService.removeDepartment(departmentObj).then(function(response){
-      console.log(response);
       dept.departments.splice(dept.departments.indexOf(departmentObj), 1);
-      $ngConfirm('Department deleted');
+      swalert.successInfo('Department has been deleted', 3000);
     }, function(error){
       console.log(error);
       checkIntegrityError(error.status);
     });
-  }
-
-  function confirmDialog(deptObj){
-    $ngConfirm({
-      title: '',
-      content: 'Delete this Department?',
-      type: 'blue',
-      typeAnimated: true,
-        buttons: {
-          Yes: {
-            text: 'Yes',
-            btnClass: 'btn-red',
-            action: function(){
-              removeDepartmentData(deptObj);
-            }
-          },
-          Cancel: {
-            text: 'No',
-            btnClass: 'btn-blue',
-          }
-        }
-    });
-  }
-
-  function failedDialog(errorMessage){
-    $ngConfirm({
-      title: '',
-      content: errorMessage,
-      type: 'red',
-      typeAnimated: true,
-    });
-  }  
+  } 
 
   function checkIntegrityError(constraints){
     constraints == 500 ? 
-    failedDialog('Cannot delete or update parent row. This department name is being used.') : failedDialog('Failed! retry again.');
+    swalert.errorAlert('Cannot delete or update parent row. This department name is being use.') : swalert.errorAlert('Failed! retry again.');
   }
 
 }]);
+

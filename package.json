@@ -19,7 +19,7 @@
         "popper.js": "^1.12"
     },
     "dependencies": {
-        "@uirouter/angularjs": "^1.0.18",
+        "@uirouter/angularjs": "^1.0.20",
         "angular": "^1.7.0",
         "angular-animate": "^1.4.0",
         "angular-cookies": "^1.4.0",

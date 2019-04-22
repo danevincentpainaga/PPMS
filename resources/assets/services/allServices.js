@@ -40,36 +40,14 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
         }
       });
     },
-    getReservations: function(reserveDate){
+    getReservations: function(reserveDate, departmentId, venueId){
       return $http({
         method:'GET',
-        url: baseUrl+'api/getReservations/'+reserveDate,
+        url: baseUrl+'api/getReservations/'+reserveDate+'/'+departmentId+'/'+venueId,
         cache: false,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          Authorization : 'Bearer '+ $rootScope.token
-        }
-      });
-    },
-    approvedReservations: function(approvedDate){
-      return $http({
-        method:'GET',
-        url: baseUrl+'api/approvedReservations/'+approvedDate,
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          Authorization : 'Bearer '+ $rootScope.token
-        }
-      });
-    },
-    approvedReservationsDetails: function(approvedDetails){
-      return $http({
-        method:'POST',
-        url: baseUrl+'api/approvedReservationsDetails',
-        data: approvedDetails,
-        headers: {
-          "Content-Type": "application/json",
           Authorization : 'Bearer '+ $rootScope.token
         }
       });
@@ -132,6 +110,42 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
       };
       return $http.delete(baseUrl + 'api/deleteVenue', config); 
     },
+    validateEmail: function(email){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/validateEmail/'+email,
+        cache: false,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    validateVenue: function(venueName){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/validateVenue/'+venueName,
+        cache: false,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    validateDepartment: function(deptname){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/validateDepartment/'+deptname,
+        cache: false,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
     getDepartments: function(){
       return $http({
         method:'GET',
@@ -144,10 +158,10 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
         }
       });
     },
-    getUserTypes: function(){
+    getUserTypes: function(id){
       return $http({
         method:'GET',
-        url: baseUrl+'api/getUserTypes',
+        url: baseUrl+'api/getUserTypes/'+id,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -160,6 +174,39 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
         method:'POST',
         url: baseUrl+'api/addUser',
         data: userDetails,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    updateUser: function(userDetails){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/updateUser',
+        data: userDetails,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    updatedPassword: function(credentials){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/updateUserPassword',
+        data: credentials,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    resetPassword: function(credentials){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/resetUserPassword',
+        data: credentials,
         headers: {
           "Content-Type": "application/json",
           Authorization : 'Bearer '+ $rootScope.token
@@ -181,6 +228,17 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
       return $http({
         method:'GET',
         url: baseUrl+'api/getUsers',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    getProfile: function(){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/getProfile',
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -233,6 +291,215 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function($http, $c
           Authorization : 'Bearer '+ $rootScope.token
         }
       });
-    }
+    },
+    addStock: function(stock){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/addStock',
+        data: stock,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    addStockQty: function(itemDetails){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/addStockQty',
+        data: itemDetails,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    deductStockQty: function(itemDetails){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/deductStockQty',
+        data: itemDetails,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    getItems: function(id){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/getItems/'+id,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    getAllStocks: function(){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/getAllStocks',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    countItems: function(){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/countItems',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    saveRequestedItems: function(requestDetails){
+      return $http({
+        method:'POST',
+        url:baseUrl+'api/saveRequestedItems',
+        data: requestDetails,
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    updateRequestedItems: function(requestDetails){
+      return $http({
+        method:'POST',
+        url:baseUrl+'api/updateRequestedItems',
+        data: requestDetails,
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    addItemsToWork: function(addedItems){
+      return $http({
+        method:'POST',
+        url:baseUrl+'api/addItemsToWork',
+        data: addedItems,
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    removeItemsFromWork: function(itemDetails){
+      return $http({
+        method:'POST',
+        url:baseUrl+'api/removeItemsFromWork',
+        data: itemDetails,
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    getRequestedItems: function(rid){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/getRequestedItems/'+rid,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    saveRequestedWork: function(requestDetails){
+      return $http({
+        method:'POST',
+        url:baseUrl+'api/saveRequestedWork',
+        data: requestDetails,
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    updateRequestedWork: function(requestDetails){
+      return $http({
+        method:'POST',
+        url:baseUrl+'api/updateRequestedWork',
+        data: requestDetails,
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    getStocksPerDate: function(date){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/getStocksPerDate/'+date,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    getRequestedItemsPerDate: function(date){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/getRequestedItemsPerDate/'+date,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    getRequestedWorksPerDate: function(date){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/getRequestedWorksPerDate/'+date,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    getAllWorkRequest: function(wid){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/getAllWorkRequest/'+wid,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    updateStocks: function(stock){
+      return $http({
+        method:'POST',
+        url:baseUrl+'api/updateStocks',
+        data: stock,
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    currentRequestNumber: function(){
+      return $http({
+        method:'GET',
+        url: baseUrl+'api/currentRequestNumber',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
   }  
 }]);

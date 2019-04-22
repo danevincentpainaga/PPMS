@@ -2,19 +2,18 @@
 
 /**
  * @ngdoc function
- * @name mytodoApp.controller:myCtrl
+ * @name mytodoApp.controller:mainAppCtrl
  * @description
- * # myCtrl
- * Controller of the mytodoApp
+ * # mainAppCtrl
+ * Controller of the PPMS
  */
 
 var app = angular.module('myApp')
-app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ngConfirm','$filter', '$timeout', '$cookies', 'apiService',
-  function ($scope, $rootScope, $location, $http, $ngConfirm, $filter, $timeout, $cookies, apiService) {
+app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ngConfirm',
+                              '$filter', '$timeout', '$cookies', '$window', 'apiService', 'swalert',
+  function ($scope, $rootScope, $location, $http, $ngConfirm, $filter, $timeout, $cookies, $window, apiService, swalert) {
   
   $scope.selected = 1;
-
-  userCount();
   
   $scope.redirectTo = function(location){
     $location.path(location);
@@ -35,24 +34,79 @@ app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ng
   $scope.logout= function(){
     $cookies.remove('auth');
     $rootScope.header = false;
-    $location.path('/');
+    $window.location.reload();   
   }
   
-  //Recieved Selected View Details from Request
+  //Recieved Emitted Data from Controllers
+
+  $scope.$on('Authenticated', function(){
+    swalert.successInfo("<label class='green'>Welcome Back "+$cookies.getObject('auth').name+"!</label>", 'success', 3000);
+  });
+
   $scope.$on('selected_reservation', function(val, obj){
     $scope.$broadcast('get_selected_reservation', obj );
   });
 
-  function userCount(){
-    apiService.countUsers().then(function(response){
-      console.log(response);
-      $scope.userCount = response.data.userCount;
-      $scope.depertmentCount = response.data.departmentCount;
-      $scope.reservationVenueCount = response.data.client_reservation;
-    }, function(error){
-      console.log(error);
+  $scope.$on('viewAddedReservation', function(val, obj){
+    $scope.$broadcast('updateAddedReservation');
+  });
+
+  $scope.$on('reload_venue_list', function(){
+    $scope.$broadcast('reloading_venue_list');
+  });
+
+  $scope.$on('reload_department_list', function(){
+    $scope.$broadcast('reloading_department_list');
+  });
+
+  $scope.$on('userToUpdate', function(val, obj){
+    $scope.$broadcast('user', obj);
+  });
+
+  $scope.$on('reload_userlist', function(){
+    $scope.$broadcast('reloading_userlist');
+  });
+
+  $scope.$on('usertypesData', function(val, obj){
+    $scope.$broadcast('usertypesDetails', obj);
+  });
+
+  $scope.$on('departmentsData', function(val, obj){
+    $scope.$broadcast('departmentDetails', obj);
+  });
+
+  $scope.$on('venueData', function(val, obj){
+    $scope.$broadcast('venueDetails', obj);
+  });
+
+  $scope.$on('emittedItem', function(val, obj){
+    $scope.$broadcast('broadcastedItem', obj);
+  });
+
+  $scope.$on('emittedRefreshStockTable', function(){
+    $scope.$broadcast('refreshStockTable');
+  });
+
+  $scope.$on('itemToBeUpdated', function(val, obj){
+    $timeout(function(){
+       $scope.$broadcast('emittedItem', obj);
     });
-  }
+  });
+  $scope.$on('newItemDetails', function(val, obj){
+    $timeout(function(){
+       $scope.$broadcast('emittedNewItem', obj);
+    });
+  });
+  $scope.$on('work_id', function(val, obj){
+    $timeout(function(){
+       $scope.$broadcast('emittedWorkId', obj);
+    });
+  });
+  $scope.$on('EmitRefreshItems', function(){
+    $timeout(function(){
+       $scope.$broadcast('broadcastedRefreshItems');
+    });
+  });
 
 }]);
 

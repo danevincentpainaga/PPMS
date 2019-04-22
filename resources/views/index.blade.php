@@ -8,13 +8,15 @@
         <title>PPMS</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css"> -->
         <link href="{{asset('node_modules/angularjs-datepicker/dist/angular-datepicker.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('node_modules/angular-confirm/dist/angular-confirm.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('node_modules/components-font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="{{asset('bower_components/fullcalendar/dist/fullcalendar.min.css')}}"/>
         <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css"> -->
         <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar-scheduler/1.9.4/scheduler.css"> -->
+        <!-- <link rel="stylesheet" href="{{asset('node_modules/placeholder-loading/dist/css/placeholder-loading.min.css')}}"/> -->
+        <!-- <link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css"> -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
@@ -74,7 +76,7 @@
     </head>
     <body ng-cloak ng-controller="mainAppCtrl">
     <ng-include src="'views/header.html'" ></ng-include> 
-    <div class="container ">
+    <div class="container-fluid ">
         <div class="row" ui-view=""></div>
 
 
@@ -87,7 +89,6 @@
         <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
         <script type="text/javascript" src="{{asset('bower_components/angular-ui-calendar/src/calendar.js')}}"></script>
 
-
         <script src="{{asset('node_modules/@uirouter/angularjs/release/angular-ui-router.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('node_modules/angular-animate/angular-animate.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('node_modules/angular-cookies/angular-cookies.min.js')}}" type="text/javascript"></script>
@@ -96,21 +97,15 @@
         <script src="{{asset('node_modules/angular-resource/angular-resource.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('node_modules/angular-confirm/dist/angular-confirm.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('node_modules/angularjs-datepicker/dist/angular-datepicker.min.js')}}" type="text/javascript"></script>
-
-<!-- 
-        <script type="text/javascript" src="{{asset('bower_components/angular/angular.min.js')}}"></script> -->
-
-
-
+        <script src="{{asset('node_modules/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
 
         <script>var baseUrl = "{{url('/')}}/";</script>
 
     </div>
-
-        <ng-include src="'views/modal.html'"></ng-include> 
-
+        <ng-include src="'views/modal.html'" ng-if="header"></ng-include> 
         <script type="text/javascript" src="{{asset('controller/mainCtrl.js')}}"></script>
         <script type="text/javascript" src="{{asset('services/allServices.js')}}"></script>
+        <script type="text/javascript" src="{{asset('alertServices/alertServices.js')}}"></script>
 
     </body>
       

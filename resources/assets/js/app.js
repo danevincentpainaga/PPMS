@@ -30,23 +30,23 @@ angular
     $stateProvider.state('/', {
       url: '/',
       templateUrl: 'views/login.html',
-      controller: 'loginCtrl',
+      // controller: 'loginCtrl',
     })
     .state('dashboard', {
       url: '/dashboard',
       templateUrl: 'views/dashboard.html',
-      controller: 'mainAppCtrl',
+      // controller: 'mainAppCtrl',
     })
     .state('manage_users', {
       url: '/manage_users',
       views:{
         '':{
           templateUrl: 'views/users.html',
-          controller: 'mainAppCtrl',
+          // controller: 'mainAppCtrl',
         },
         'users-view@manage_users':{
           templateUrl: 'views/add_user.html',
-          controller: 'userCtrl',
+          // controller: 'userCtrl',
         }
       }
     })
@@ -55,7 +55,7 @@ angular
       views:{
         'users-view@manage_users':{
          templateUrl: 'views/users_list.html',
-          controller: 'userCtrl',
+          // controller: 'userCtrl',
         }
       }
     })
@@ -64,11 +64,11 @@ angular
       views:{
         '':{
           templateUrl: 'views/reservation.html',
-          controller: 'mainAppCtrl',
+          // controller: 'mainAppCtrl',
         },
         'new-view@reservation':{
           templateUrl: 'views/request.html',
-          controller: 'venueCtrl',
+          // controller: 'venueCtrl',
         }
       }
     })
@@ -77,7 +77,7 @@ angular
       views:{
         'new-view@reservation':{
          templateUrl: 'views/venues.html',
-          controller: 'venueCtrl',
+          // controller: 'venueCtrl',
         }
       }
     })
@@ -86,19 +86,52 @@ angular
       views:{
         'new-view@reservation':{
           templateUrl: 'views/approved_reservation.html',
-          controller: 'mainAppCtrl',
+          // controller: 'mainAppCtrl',
         }
       }
-    })
-    .state('maintenance', {
-      url: '/maintenance',
-      templateUrl: 'views/maintenance.html',
-      controller: 'mainAppCtrl',
     })
     .state('department', {
       url: '/department',
       templateUrl: 'views/department.html',
-      controller: 'departmentCtrl',
+      // controller: 'departmentCtrl',
+    })
+    .state('inventory', {
+      url: '/inventory',
+      templateUrl: 'views/inventory.html',
+      // controller: 'departmentCtrl',
+    })
+    .state('maintenance', {
+      url: '/maintenance',
+      views:{
+        '':{
+          templateUrl: 'views/maintenance.html',
+          // controller: 'mainAppCtrl',
+        },
+        'maintenance-view@maintenance':{
+          templateUrl: 'views/request_items.html',
+          // controller: 'userCtrl',
+        }
+      }
+      // controller: 'departmentCtrl',
+    })
+    .state('maintenance.work', {
+      url: '/work',
+      views:{
+        'maintenance-view@maintenance':{
+          templateUrl: 'views/request_work.html',
+          // controller: 'mainAppCtrl',
+        }
+      }
+    })
+    .state('report', {
+      url: '/report',
+      templateUrl: 'views/report.html',
+      // controller: 'departmentCtrl',
+    })
+    .state('profile', {
+      url: '/profile',
+      templateUrl: 'views/editProfile.html',
+      // controller: 'departmentCtrl',
     })
     $urlRouterProvider.otherwise('/');
 })
@@ -113,27 +146,74 @@ angular
     }else{
       if(transitions.to().name === '/'){
           $state.go('dashboard');
-      }else{
-        if (auth.userType === 2) {
-          if(transitions.to() === 'manage_users'){
+      }
+      else{
+        if (auth.userType === 3) {
+          if(
+              transitions.to().name === 'manage_users' || 
+              transitions.to().name === 'manage_users.users_list' ||
+              transitions.to().name === 'reservation.venues' ||
+              transitions.to().name === 'department' ||
+              transitions.to().name === 'inventory' ||
+              transitions.to().name === 'report'
+            ){
+
             $state.go('dashboard');
-          }else{
+          }
+          else{
             $rootScope.superAdmin = false;
+            $rootScope.enableVenueAdding = false;
+            $rootScope.enableApproveVenue = false;
+            $rootScope.admin = false;
+            $rootScope.user = true;
             $rootScope.loginPage = false;
             $rootScope.header = true;
+            $rootScope.disableDepartment = true;
+            $rootScope.disableRemarks = true;
             $rootScope.userLoginId = auth.user_id;
             $rootScope.token = auth.success.token;
             $rootScope.userLogName = auth.name;
           }
         }
-        else
-        {
-          $rootScope.superAdmin = true;
-          $rootScope.loginPage = false;
-          $rootScope.header = true;
-          $rootScope.userLoginId = auth.user_id;
-          $rootScope.token = auth.success.token;
-          $rootScope.userLogName = auth.name;
+        if (auth.userType === 2) {
+          if(transitions.to().name === 'manage_users'){
+            $state.go('dashboard');
+          }
+          else if(transitions.to().name === 'manage_users.users_list'){
+            $state.go('dashboard');
+          }
+          else{
+            $rootScope.superAdmin = false;
+            $rootScope.enableVenueAdding = true;
+            $rootScope.enableApproveVenue = true;
+            $rootScope.admin = true;
+            $rootScope.user = true;
+            $rootScope.loginPage = false;
+            $rootScope.header = true;
+            $rootScope.disableDepartment = false;
+            $rootScope.disableRemarks = false;
+            $rootScope.userLoginId = auth.user_id;
+            $rootScope.token = auth.success.token;
+            $rootScope.userLogName = auth.name;
+          }
+        }
+        if (auth.userType === 1) {
+          if(transitions.to() === 'manage_users'){
+            $state.go('dashboard');
+          }else{
+            $rootScope.superAdmin = true;
+            $rootScope.enableVenueAdding = true;
+            $rootScope.enableApproveVenue = true;
+            $rootScope.admin = true;
+            $rootScope.user = true;
+            $rootScope.loginPage = false;
+            $rootScope.header = true;
+            $rootScope.disableRemarks = false;
+            $rootScope.disableDepartment = false;
+            $rootScope.userLoginId = auth.user_id;
+            $rootScope.token = auth.success.token;
+            $rootScope.userLogName = auth.name;
+          }
         }
       }
     }
