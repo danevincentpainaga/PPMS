@@ -1,0 +1,160 @@
+<div class="tab-content" ng-controller="workCtrl as wc" >
+<div class="ph-item" ng-if="!wc.loaded">
+    <div class="ph-col-12 padding-0">
+        <div class="ph-row">
+          <div class="ph-col-6 big"></div>
+          <div class="ph-col-6 empty big"></div>
+          <div class="ph-col-12 "></div>
+          <div class="ph-col-12 table-holder"></div>
+          <div class="ph-col-12 table-holder"></div>
+        </div>
+    </div>
+</div>
+  <div id="users" class="container-fluid tab-pane active padding-0" ng-if="wc.loaded">
+    <div class="row">
+      <div class="col-md-12">
+        <br />
+        <div class="row border-bottom-bluesmoke" style="padding-bottom: 3px; box-shadow: 0px 2px 3px #e4d9d9;">
+          <div class="col-md-5">
+            <input type="text" ng-model="wc.search" placeholder="search" class="form-control">
+          </div>
+        </div>
+        <div class="row" style="overflow-x: auto; min-height: 190px; max-height: 190px;">
+          <div class="col-md-12">
+            <table class="table table-sm table-striped table-bordered" style="margin-top:7px; min-width: 1100px;" >
+              <thead>
+                  <th style="width: 20px"></th>
+                  <th>Request No.</th>
+                  <th>Requestee</th>
+                  <th>Work to be Done</th>
+                  <th>Department</th>
+                  <th>Remarks</th>
+                  <th class="center">Status</th>
+                  <th class="center">Date</th>
+              </thead>
+              <tbody ng-if="!wc.isLoading">
+                <tr ng-repeat="work in wc.list_of_work | filter:wc.search" >
+                  <td style="width: 20px">
+                    <button class="btn btn-success btn-sm" type="button" ng-click="wc.editWork(work)">
+                      <i class="fa fa-pencil"></i>
+                    </button>
+                  </td>
+                  <td>{{ work.request_number }}</td>
+                  <td>{{ work.requestee }}</td>
+                  <td>{{ work.purpose }}</td>
+                  <td>{{ work.department_name }}</td>
+                  <td>{{ work.post_remarks }}</td>
+                  <td class="center">
+                    <label id="status" scholar-status status="{{ work.work_status }}"></label>
+                  </td>
+                  <td class="center">{{ work.date_requested | fullDate }}</td>
+                </tr>
+              </tbody>
+            </table>
+          <strong ng-if="wc.isLoading">Loading...</strong>
+          </div>
+        </div>
+        <div class="row row border2-top-bluesmoke">
+          <div class="col-md-12">
+            <div id="users" class="container-fluid tab-pane active padding-0" >
+              <div class="row">
+               <div class="col-md-6" style="border-right: 2px solid teal;">
+                  <br />
+                  <div class="row" ng-if="!wc.editing">
+                    <div class="col-md-12" style="min-height: 280px; max-height: 280px; overflow: auto;">
+                         <!-- <h4>Date:</h4> -->
+                         <form name="reservation">
+                         <div class="form-group">
+                            <label for="requester">Request No.</label>
+                            <input type="text" class="form-control" ng-model="wc.request_num" disabled>
+                          </div>
+                          <div class="form-group">
+                            <label for="requester">Requestee:</label>
+                            <input type="text" class="form-control" id="requestee" name="requestee" ng-model="wc.requestee" ng-disabled="admin" required>
+                            <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" style="color: red; font-size: 14px;">Name is Required*</span>
+                          </div>
+                          <div class="form-group">
+                            <label for="modalDepartment">Department:</label>
+                            <input type="text" class="form-control" ng-model="wc.selectedDepartment" disabled>
+                          </div>
+                          <div class="form-group">
+                            <label for="purpose">Work to be Done:</label>
+                            <textarea type="text" class="form-control" id="purpose" name="purpose" ng-model="wc.purpose" ng-disabled="admin" required>
+                            </textarea>
+                          </div>
+                          <br />
+                          <div class="form-group">
+                            <div class="row font-17px">
+                              <div class="col-md-3" ng-if="wc.stats">
+                                <label for="status">Status:</label>
+                                <select class="form-control" ng-model="wc.selectedStatus" ng-options="c for c in wc.statuses" ng-disabled="!wc.updatingWork" >
+                                </select>
+                              </div>
+                            </div>
+                            <br />
+                          </div>
+                          <div class="form-group" ng-if="admin">
+                            <label for="remarks">Remarks:</label>
+                            <textarea type="text" class="form-control" id="remarks" name="remarks" ng-model="wc.remarks" required>
+                            </textarea>
+                          </div>
+                          <br />
+                          <button type="submit" class="btn btn-success" ng-click="wc.updateRequestedItem()" ng-if="wc.showUpdate" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                            <i class="fa fa-save"></i>&nbsp;Update
+                          </button>
+                          <button type="submit" class="btn btn-success" ng-click="wc.updateWorkDetails()" ng-if="!wc.showUpdate" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);" ng-disabled="!wc.updatingWork">
+                            <i class="fa fa-save"></i>&nbsp;Save
+                          </button>
+                          <button type="button" class="btn btn-info" ng-click="wc.cancelUpdate()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);" ng-disabled="!wc.updatingWork">
+                            <i class="fa fa-times-circle"></i>&nbsp;Cancel
+                          </button>
+                        </form>   
+                    </div>
+                  </div>
+                  <br />
+                <!-- </div>        -->
+               </div>
+               <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-10 border-bottom-bluesmoke" style="padding-left: 3px !important;">
+                      <input type="text" class="col-md-5 form-control" name="" style="margin-top:5px; margin-bottom: 5px;" placeholder="Search" ng-model="wc.filterItem">
+                    </div>
+                    <div class="col-md-2 center margin-top-10 border-bottom-bluesmoke" ng-if="admin">
+                      <input type="button" class="btn btn-success btn-sm" value="Add Item" data-toggle="modal" data-target="#addWorkItemModal" data-backdrop="static" ng-if="wc.updatingWork" ng-click="wc.addItem()">
+                    </div>
+                    <div class="col-md-12 padding-0" style="overflow: auto; min-height: 255px; max-height: 255px;">
+                        <table style="margin-top:3px; min-width: 500px; " class="table table-sm table-striped table-bordered" >
+                          <thead>
+                              <th ng-if="admin">*</th>
+                              <th>Item Name.</th>
+                              <th>Description.</th>
+                              <th>Requested qty.</th>
+                          </thead>
+                          <tbody ng-if="!wc.isLoading">
+                            <tr ng-repeat="item in wc.workItems | filter: wc.filterItem ">
+                              <td style="width: 73px;" ng-if="admin">
+                                <button class="btn btn-danger btn-sm" ng-click="wc.removeItem(item)">
+                                  <i class="fa fa-times-circle"></i>
+                                </button>
+                                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#updateWorkItemModal" data-backdrop="static" ng-click="wc.updateItem(item)" >
+                                  <i class="fa fa-pencil"></i>
+                                </button>
+                              </td>
+                              <td>{{ item.item_name }}</td>
+                              <td>{{ item.description }}</td>
+                              <td>{{ item.requested_quantity }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+               </div>   
+              </div>
+
+          </div>
+          </div>
+        </div>       
+      </div>
+    </div>
+  </div>
+</div>

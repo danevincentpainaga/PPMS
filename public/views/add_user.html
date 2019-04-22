@@ -1,39 +1,39 @@
 <div class="container" ng-controller="userCtrl as au">
   <br />
-  <div class="alert alert-info" ng-if="au.response">
+<!--   <div class="alert alert-info" ng-if="au.response">
     <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong class="center">{{ au.message }}</strong>
-  </div>
+  </div> -->
   <form name="adduser">
     <div class="form-group">
       <label for="name">Name:</label>
       <input type="text" class="form-control" id="name" name="name" ng-model="au.name" required>
-      <span ng-show="adduser.name.$touched  && adduser.name.$error.required" style="color: red; font-size: 14px;">Name is Required*</span>
+     <!--  <span ng-show="adduser.name.$touched  && adduser.name.$error.required" style="color: red; font-size: 14px;">Name is Required*</span> -->
     </div>
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" name="email" ng-model="au.email" required>
-      <span ng-show="adduser.email.$touched  && adduser.email.$error.required" style="color: red; font-size: 14px;">Email is Required*</span>
-      <span ng-show="adduser.email.$dirty  && adduser.email.$error.email" style="color: red; font-size: 14px;">Must be Email Format*</span>
+      <input type="text" class="form-control" id="email" name="email" ng-model="au.email" ng-class="au.passedOrFail == null? 'default' : (au.passedOrFail)? 'passed' : 'failed'" required>
+      <!-- <span ng-show="adduser.email.$touched  && adduser.email.$error.required" style="color: red; font-size: 14px;">Email is Required*</span> -->
+      <!-- <span ng-show="adduser.email.$dirty  && adduser.email.$error.email" style="color: red; font-size: 14px;">Must be Email Format*</span> -->
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
       <input type="password" class="form-control" id="password" name="password" ng-model="au.password" required>
-      <span ng-show="adduser.password.$touched  && adduser.password.$error.required" style="color: red; font-size: 14px;">Password is Required*</span>
+      <!-- <span ng-show="adduser.password.$touched  && adduser.password.$error.required" style="color: red; font-size: 14px;">Password is Required*</span> -->
     </div>
     <div class="form-group">
       <label for="usertype">UserType:</label>
       <select  class="form-control" id="usertype" name="usertype" ng-model="au.selectedUserType" ng-options="usertype as usertype.userType for usertype in au.userTypes track by usertype.userType" required>
       </select>
-      <span ng-show="adduser.usertype.$touched  && adduser.usertype.$error.required" style="color: red; font-size: 14px;">UserType is Required*</span>
+<!--       <span ng-show="adduser.usertype.$touched  && adduser.usertype.$error.required" style="color: red; font-size: 14px;">UserType is Required*</span> -->
     </div>
     <div class="form-group">
       <label for="department">Department:</label>
       <select  class="form-control" id="department" name="department" ng-model="au.selectedDepartment" ng-options="department as department.department_name for department in au.departments track by department.department_name " required>
       </select>
-      <span ng-show="adduser.department.$touched  && adduser.department.$error.required" style="color: red; font-size: 14px;">Department is Required*</span>
+<!--       <span ng-show="adduser.department.$touched  && adduser.department.$error.required" style="color: red; font-size: 14px;">Department is Required*</span> -->
     </div>
-    <button type="submit" class="btn btn-info btn-sm" ng-click="au.addUser()" style="width: 115px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12)">
+    <button type="submit" class="btn btn-info btn-sm" ng-click="au.addUser()" style="width: 115px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12)" ng-disabled="au.disableSave">
       <i class="fa fa-plus"></i>&nbsp;ADD
     </button>
   </form>

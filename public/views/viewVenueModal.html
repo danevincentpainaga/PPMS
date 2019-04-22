@@ -1,0 +1,54 @@
+<!-- Request Venue view details modal -->
+<div class="modal fade" id="viewDetailsModal" ng-controller="viewVenueCtrl as v">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header whitesmoke " >
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body" >
+        <div class="container mt-3">
+          <h5><i class="fa fa-book"></i>&nbsp;Request Details</h5>
+          <ul class="list-group margin-top-15">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Requestee:
+              <span class="bold">{{ v.viewReservation.client_name }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Department:
+              <span class="bold">{{ v.viewReservation.department_name }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Requested Venue:
+              <span class="bold">{{ v.viewReservation.venue_name }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              From:
+              <span class="badge badge-info badge-pill font-13px">
+                {{ v.viewReservation.start_date | fullDate }}&nbsp;
+                {{ v.viewReservation.start_time | timeFormat }}
+              </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Until:
+              <span class="badge badge-success badge-pill font-13px">
+                {{ v.viewReservation.end_date | fullDate }}&nbsp;
+                {{ v.viewReservation.end_time | timeFormat }}
+              </span>
+            </li>
+          </ul>
+          <br />
+          <label>Purpose:</label>
+          <textarea style="font-size: 20px;" class="form-control" disabled>{{ v.viewReservation.purpose }}</textarea>
+        </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer padding-7px">
+        <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>

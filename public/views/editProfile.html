@@ -1,0 +1,105 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+	<br />
+    <div class="container" ng-controller="profileCtrl as pc">
+        <h1 class="center" style="font-size:90px;" ng-if="!pc.isLoading">
+        	<i class="fa fa-user-circle"></i>
+        </h1>
+	    <div class="ph-item margin-bottom-0 padding-0 custom-placeholder" ng-if="pc.isLoading">
+	      <div class="ph-col-12">
+	          <div class="ph-row">
+	          	<div class="ph-col-4 icon-left-flex empty"></div>
+	          	<div class="ph-col-4 profile-icon"></div>
+	          	<div class="ph-col-4 empty"></div>
+	          	<div class="ph-col-4 empty margin-top-7"></div>
+	          	<div class="ph-col-4 small"></div>
+	          	<div class="ph-col-4 empty"></div>
+	            <div class="ph-col-4 margin-top-15"></div>
+	            <div class="ph-col-12 big"></div>
+	            <div class="ph-col-4 "></div>
+	            <div class="ph-col-12 big"></div>
+	            <div class="ph-col-4 "></div>
+	            <div class="ph-col-12 big"></div>
+	            <div class="ph-col-4 "></div>
+	            <div class="ph-col-12 big"></div>
+	            <div class="ph-col-4 big"></div>
+	            <div class="ph-col-8 big empty"></div>
+	          	<div class="ph-col-8 empty"></div>
+	          	<div class="ph-col-4 margin-top-30"></div>
+	            <div class="ph-col-12 "></div>
+	            <div class="ph-col-12 xl margin-top-7"></div>
+	          </div>
+	      </div>
+	    </div>
+      <div class="row center login-text-header" ng-if="!pc.isLoading">
+        <div class="col-md-12">{{pc._name}}</div>
+      </div>
+      <div class="row margin-top-10" ng-if="!pc.isLoading">
+        <div class="col-md-12">
+			<form name="updateuser">
+			  <div class="form-group">
+			    <label for="uname">Name:</label>
+			    <input type="text" class="form-control" id="uname" name="uname" ng-model="pc._name" required>
+			    <span ng-show="updateuser.uname.$touched  && updateuser.uname.$error.required" style="color: red; font-size: 14px;">Name is Required*</span>
+			  </div>
+			  <div class="form-group">
+			    <label for="uemail">Email:</label>
+			    <input type="email" class="form-control" id="uemail" name="uemail" ng-model="pc.email" required>
+			    <span ng-show="updateuser.uemail.$touched  && updateuser.uemail.$error.required" style="color: red; font-size: 14px;">Email is Required*</span>
+			    <span ng-show="updateuser.uemail.$dirty  && updateuser.uemail.$error.email" style="color: red; font-size: 14px;">Must be Email Format*</span>
+			  </div>
+			  <div class="form-group" ng-if="pc.hideDepartment">
+			    <label for="udepartment">Select Department:</label>
+			    <select  class="form-control" id="udepartment" name="udepartment" ng-model="pc.selectedDepartment" ng-options="department as department.department_name for department in pc.departments track by department.department_name " required>
+			    </select>
+			    <span ng-show="updateuser.udepartment.$touched  && updateuser.udepartment.$error.required" style="color: red; font-size: 14px;">Department is Required*</span>
+			  </div>
+			  <button type="submit" class="btn btn-info btn-sm" ng-click="pc.updateuser()" style="width: 115px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12)">
+			    <i class="fa fa-pencil"></i>&nbsp;UPDATE
+			  </button>
+			</form>
+        </div>
+      </div>
+      <br />
+      <h6 class="float-right" ng-if="!pc.isLoading">Password Section</h6>
+      <br>
+      <hr ng-if="!pc.isLoading">
+	   <div id="accordion" ng-if="!pc.isLoading">
+		    <div class="card">
+		      <div class="card-header">
+		        <a class="collapsed card-link pointer" data-toggle="collapse" data-target="#collapseTwo">
+		         	<i class="fa fa-lock"></i>&nbsp;Change password
+		      	</a>
+		      </div>
+		      <div id="collapseTwo" class="collapse" data-parent="#accordion">
+		        <div class="card-body">
+			      <div class="row margin-top-10">
+			      	<div class="col-md-12">
+			      		<form name="updatepassword">
+						  <div class="form-group">
+						    <label for="upassword">Current Password:</label>
+						    <input type="password" class="form-control" id="upassword" name="upassword" ng-model="pc.password" required>
+						    <span ng-show="updatepassword.upassword.$touched  && updatepassword.upassword.$error.required" style="color: red; font-size: 14px;">Password is Required*</span>
+						  </div>
+						  <div class="form-group">
+						    <label for="newpassword">New Password:</label>
+						    <input type="password" class="form-control" id="newpassword" name="newpassword" ng-model="pc.newpassword" required>
+						    <span ng-show="updatepassword.newpassword.$touched  && updatepassword.newpassword.$error.required" style="color: red; font-size: 14px;">Password is Required*</span>
+						  </div>
+						  <br />
+						  <button type="submit" class="btn btn-info btn-sm" ng-click="pc.updatePassword()" style="width: 115px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12)">
+						    <i class="fa fa-save"></i>&nbsp;CHANGE
+						  </button>
+						</form>
+			      	</div>
+			      </div>
+		        </div>
+		      </div>
+		    </div>
+	  	</div>
+      <br />
+      <br />
+      <br />
+    </div>
+</div>
+<div class="col-md-6"></div>

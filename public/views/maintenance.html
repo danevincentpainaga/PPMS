@@ -1,17 +1,14 @@
-<div class="container" >
-  <br>
+<div class="container-fluid" >
   <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-tabs" role="tablist" style="margin-top: 5px;">
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/reservation')}" href="#!/reservation">Request</a>
+      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/maintenance')}" href="#!/maintenance">
+        <i class="fa fa-envelope"></i>&nbsp;Add Work Request</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/reservation/approved')}" href="#!/reservation/approved">Reserved Venues</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/reservation/venues')}" data-target="#" href="#!/reservation/venues" ng->Venue</a>
+      <a class="nav-link" data-toggle="tab" ng-class="{activated:isActivated('/maintenance/work')}" href="#!/maintenance/work"><i class="fa fa-folder-open"></i>&nbsp;List of Request</a>
     </li>
   </ul>
-  <div ui-view="new-view"></div>
+  <div ui-view="maintenance-view"></div>
   <br />
 </div>

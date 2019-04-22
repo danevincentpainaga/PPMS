@@ -1,7 +1,7 @@
 /**
  * State-based routing for AngularJS 1.x
  * This bundle requires the ui-router-core.js bundle from the @uirouter/core package.
- * @version v1.0.18
+ * @version v1.0.20
  * @link https://ui-router.github.io
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -11,9 +11,11 @@
     (factory((global['@uirouter/angularjs'] = {}),global.angular,global['@uirouter/core']));
 }(this, (function (exports,ng_from_import,core) { 'use strict';
 
-    var ng_from_global = angular;
-    var ng = ng_from_import && ng_from_import.module ? ng_from_import : ng_from_global;
+    /** @publicapi @module ng1 */ /** */
+    /** @hidden */ var ng_from_global = angular;
+    /** @hidden */ var ng = ng_from_import && ng_from_import.module ? ng_from_import : ng_from_global;
 
+    /** @internalapi */
     function getNg1ViewConfigFactory() {
         var templateFactory = null;
         return function (path, view) {
@@ -21,6 +23,7 @@
             return [new Ng1ViewConfig(path, view, templateFactory)];
         };
     }
+    /** @internalapi */
     var hasAnyKey = function (keys, obj) { return keys.reduce(function (acc, key) { return acc || core.isDefined(obj[key]); }, false); };
     /**
      * This is a [[StateBuilder.builder]] function for angular1 `views`.
@@ -30,6 +33,8 @@
      *
      * If no `views: {}` property exists on the [[StateDeclaration]], then it creates the `views` object
      * and applies the state-level configuration to a view named `$default`.
+     *
+     * @internalapi
      */
     function ng1ViewsBuilder(state) {
         // Do not process root state
@@ -69,7 +74,9 @@
         });
         return views;
     }
+    /** @hidden */
     var id = 0;
+    /** @internalapi */
     var Ng1ViewConfig = /** @class */ (function () {
         function Ng1ViewConfig(path, viewDecl, factory) {
             var _this = this;
@@ -117,7 +124,7 @@
         return Ng1ViewConfig;
     }());
 
-    /** @module view */
+    /** @publicapi @module view */ /** */
     /**
      * Service which manages loading of templates from a ViewConfig.
      */
@@ -316,7 +323,7 @@
             .map(function (tuple) { return ({ name: tuple[1][2] || tuple[0], type: tuple[1][1] }); });
     };
 
-    /** @module ng1 */ /** for typedoc */
+    /** @publicapi @module ng1 */ /** */
     /**
      * The Angular 1 `StateProvider`
      *
@@ -452,13 +459,15 @@
         return StateProvider;
     }());
 
-    /** @module ng1 */ /** */
+    /** @publicapi @module ng1 */ /** */
     /**
      * This is a [[StateBuilder.builder]] function for angular1 `onEnter`, `onExit`,
      * `onRetain` callback hooks on a [[Ng1StateDeclaration]].
      *
      * When the [[StateBuilder]] builds a [[StateObject]] object from a raw [[StateDeclaration]], this builder
      * ensures that those hooks are injectable for @uirouter/angularjs (ng1).
+     *
+     * @internalapi
      */
     var getStateHookBuilder = function (hookName) {
         return function stateHookBuilder(stateObject, parentFn) {
@@ -474,12 +483,10 @@
         };
     };
 
-    /**
-     * @internalapi
-     * @module ng1
-     */ /** */
+    /** @publicapi @module ng1 */ /** */
     /**
      * Implements UI-Router LocationServices and LocationConfig using Angular 1's $location service
+     * @internalapi
      */
     var Ng1LocationServices = /** @class */ (function () {
         function Ng1LocationServices($locationProvider) {
@@ -521,6 +528,9 @@
             html5Mode = core.isObject(html5Mode) ? html5Mode.enabled : html5Mode;
             return html5Mode && this.$sniffer.history;
         };
+        Ng1LocationServices.prototype.baseHref = function () {
+            return this._baseHref || (this._baseHref = this.$browser.baseHref() || this.$window.location.pathname);
+        };
         Ng1LocationServices.prototype.url = function (newUrl, replace, state) {
             if (replace === void 0) { replace = false; }
             if (core.isDefined(newUrl))
@@ -531,25 +541,24 @@
                 this.$location.state(state);
             return this.$location.url();
         };
-        Ng1LocationServices.prototype._runtimeServices = function ($rootScope, $location, $sniffer, $browser) {
+        Ng1LocationServices.prototype._runtimeServices = function ($rootScope, $location, $sniffer, $browser, $window) {
             var _this = this;
             this.$location = $location;
             this.$sniffer = $sniffer;
+            this.$browser = $browser;
+            this.$window = $window;
             // Bind $locationChangeSuccess to the listeners registered in LocationService.onChange
             $rootScope.$on('$locationChangeSuccess', function (evt) { return _this._urlListeners.forEach(function (fn) { return fn(evt); }); });
             var _loc = core.val($location);
-            var _browser = core.val($browser);
             // Bind these LocationService functions to $location
             core.createProxyFunctions(_loc, this, _loc, ['replace', 'path', 'search', 'hash']);
             // Bind these LocationConfig functions to $location
             core.createProxyFunctions(_loc, this, _loc, ['port', 'protocol', 'host']);
-            // Bind these LocationConfig functions to $browser
-            core.createProxyFunctions(_browser, this, _browser, ['baseHref']);
         };
         return Ng1LocationServices;
     }());
 
-    /** @module url */ /** */
+    /** @publicapi @module url */ /** */
     /**
      * Manages rules for client-side URL
      *
@@ -562,24 +571,24 @@
      *
      * This provider remains for backwards compatibility.
      *
+     * @internalapi
      * @deprecated
      */
     var UrlRouterProvider = /** @class */ (function () {
         /** @hidden */
-        function UrlRouterProvider(router) {
-            this._router = router;
-            this._urlRouter = router.urlRouter;
+        function UrlRouterProvider(/** @hidden */ router) {
+            this.router = router;
         }
         UrlRouterProvider.injectableHandler = function (router, handler) {
             return function (match) { return core.services.$injector.invoke(handler, null, { $match: match, $stateParams: router.globals.params }); };
         };
         /** @hidden */
         UrlRouterProvider.prototype.$get = function () {
-            var urlRouter = this._urlRouter;
-            urlRouter.update(true);
-            if (!urlRouter.interceptDeferred)
-                urlRouter.listen();
-            return urlRouter;
+            var urlService = this.router.urlService;
+            this.router.urlRouter.update(true);
+            if (!urlService.interceptDeferred)
+                urlService.listen();
+            return this.router.urlRouter;
         };
         /**
          * Registers a url handler function.
@@ -616,9 +625,9 @@
             var _this = this;
             if (!core.isFunction(ruleFn))
                 throw new Error("'rule' must be a function");
-            var match = function () { return ruleFn(core.services.$injector, _this._router.locationService); };
+            var match = function () { return ruleFn(core.services.$injector, _this.router.locationService); };
             var rule = new core.BaseUrlRule(match, core.identity);
-            this._urlRouter.rule(rule);
+            this.router.urlService.rules.rule(rule);
             return this;
         };
         /**
@@ -649,12 +658,12 @@
          */
         UrlRouterProvider.prototype.otherwise = function (rule) {
             var _this = this;
-            var urlRouter = this._urlRouter;
+            var urlRules = this.router.urlService.rules;
             if (core.isString(rule)) {
-                urlRouter.otherwise(rule);
+                urlRules.otherwise(rule);
             }
             else if (core.isFunction(rule)) {
-                urlRouter.otherwise(function () { return rule(core.services.$injector, _this._router.locationService); });
+                urlRules.otherwise(function () { return rule(core.services.$injector, _this.router.locationService); });
             }
             else {
                 throw new Error("'rule' must be a string or function");
@@ -701,9 +710,9 @@
          */
         UrlRouterProvider.prototype.when = function (what, handler) {
             if (core.isArray(handler) || core.isFunction(handler)) {
-                handler = UrlRouterProvider.injectableHandler(this._router, handler);
+                handler = UrlRouterProvider.injectableHandler(this.router, handler);
             }
-            this._urlRouter.when(what, handler);
+            this.router.urlService.rules.when(what, handler);
             return this;
         };
         /**
@@ -737,7 +746,7 @@
          *        Passing no parameter is equivalent to `true`.
          */
         UrlRouterProvider.prototype.deferIntercept = function (defer) {
-            this._urlRouter.deferIntercept(defer);
+            this.router.urlService.deferIntercept(defer);
         };
         return UrlRouterProvider;
     }());
@@ -750,10 +759,9 @@
      *
      * The optional [[$resolve]] service is also documented here.
      *
-     * @module ng1
-     * @preferred
-     */
-    ng.module("ui.router.angular1", []);
+     * @preferred @publicapi @module ng1
+     */ /** */
+    ng.module('ui.router.angular1', []);
     var mod_init = ng.module('ui.router.init', ['ng']);
     var mod_util = ng.module('ui.router.util', ['ui.router.init']);
     var mod_rtr = ng.module('ui.router.router', ['ui.router.util']);
@@ -778,9 +786,9 @@
         // backwards compat: also expose router instance as $uiRouterProvider.router
         router['router'] = router;
         router['$get'] = $get;
-        $get.$inject = ['$location', '$browser', '$sniffer', '$rootScope', '$http', '$templateCache'];
-        function $get($location, $browser, $sniffer, $rootScope, $http, $templateCache) {
-            ng1LocationService._runtimeServices($rootScope, $location, $sniffer, $browser);
+        $get.$inject = ['$location', '$browser', '$window', '$sniffer', '$rootScope', '$http', '$templateCache'];
+        function $get($location, $browser, $window, $sniffer, $rootScope, $http, $templateCache) {
+            ng1LocationService._runtimeServices($rootScope, $location, $sniffer, $browser, $window);
             delete router['router'];
             delete router['$get'];
             return router;
@@ -800,6 +808,15 @@
     function runBlock($injector, $q, $uiRouter) {
         core.services.$injector = $injector;
         core.services.$q = $q;
+        // https://github.com/angular-ui/ui-router/issues/3678
+        if (!$injector.hasOwnProperty('strictDi')) {
+            try {
+                $injector.invoke(function (checkStrictDi) { });
+            }
+            catch (error) {
+                $injector.strictDi = !!/strict mode/.exec(error && error.toString());
+            }
+        }
         // The $injector is now available.
         // Find any resolvables that had dependency annotation deferred
         $uiRouter.stateRegistry
@@ -916,10 +933,8 @@
      * These are the directives included in UI-Router for Angular 1.
      * These directives are used in templates to create viewports and link/navigate to states.
      *
-     * @ng1api
-     * @preferred
-     * @module directives
-     */ /** for typedoc */
+     * @preferred @publicapi @module directives
+     */ /** */
     /** @hidden */
     function parseStateRef(ref) {
         var parsed;
@@ -1539,7 +1554,7 @@
         .directive('uiSrefActiveEq', uiSrefActiveDirective)
         .directive('uiState', uiStateDirective);
 
-    /** @module ng1 */ /** for typedoc */
+    /** @publicapi @module ng1 */ /** */
     /**
      * `isState` Filter: truthy if the current state is the parameter
      *
@@ -1581,10 +1596,7 @@
         .filter('isState', $IsStateFilter)
         .filter('includedByState', $IncludedByStateFilter);
 
-    /**
-     * @ng1api
-     * @module directives
-     */
+    /** @publicapi @module directives */ /** */
     /**
      * `ui-view`: A viewport directive which is filled in by a view from the active state.
      *
@@ -1898,7 +1910,7 @@
                     var locals = resolveCtx && getLocals(resolveCtx);
                     scope[resolveAs] = locals;
                     if (controller) {
-                        var controllerInstance = $controller(controller, core.extend({}, locals, { $scope: scope, $element: $element }));
+                        var controllerInstance = ($controller(controller, core.extend({}, locals, { $scope: scope, $element: $element })));
                         if (controllerAs) {
                             scope[controllerAs] = controllerInstance;
                             scope[controllerAs][resolveAs] = locals;
@@ -1912,15 +1924,14 @@
                         registerControllerCallbacks($q, $transitions, controllerInstance, scope, cfg);
                     }
                     // Wait for the component to appear in the DOM
-                    if (core.isString(cfg.viewDecl.component)) {
-                        var cmp_1 = cfg.viewDecl.component;
-                        var kebobName = core.kebobString(cmp_1);
+                    if (core.isString(cfg.component)) {
+                        var kebobName = core.kebobString(cfg.component);
                         var tagRegexp_1 = new RegExp("^(x-|data-)?" + kebobName + "$", 'i');
                         var getComponentController = function () {
                             var directiveEl = [].slice
                                 .call($element[0].children)
                                 .filter(function (el) { return el && el.tagName && tagRegexp_1.exec(el.tagName); });
-                            return directiveEl && ng.element(directiveEl).data("$" + cmp_1 + "Controller");
+                            return directiveEl && ng.element(directiveEl).data("$" + cfg.component + "Controller");
                         };
                         var deregisterWatch_1 = scope.$watch(getComponentController, function (ctrlInstance) {
                             if (!ctrlInstance)
@@ -2007,7 +2018,7 @@
     ng.module('ui.router.state').directive('uiView', uiView);
     ng.module('ui.router.state').directive('uiView', $ViewDirectiveFill);
 
-    /** @module ng1 */ /** */
+    /** @publicapi @module ng1 */ /** */
     /** @hidden */
     function $ViewScrollProvider() {
         var useAnchorScroll = false;
@@ -2031,10 +2042,6 @@
     }
     ng.module('ui.router.state').provider('$uiViewScroll', $ViewScrollProvider);
 
-    /**
-     * Main entry point for angular 1.x build
-     * @module ng1
-     */ /** */
     var index = 'ui.router';
 
     Object.keys(core).forEach(function (key) { exports[key] = core[key]; });

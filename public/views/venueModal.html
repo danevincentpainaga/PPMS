@@ -1,0 +1,43 @@
+  <!-- Venue Modal -->
+  <div class="modal fade" id="myModal" ng-controller="addVenueCtrl as ad">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header whitesmoke" >
+          <label class="modal-title">Add Venue</label>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" >
+          <div class="alert alert-success alert-dismissible" ng-if="ad.response">
+            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{ ad.message }}!</strong>
+          </div>
+           <form>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-11 padding-right-0">
+                  <input type="text" class="form-control" id="venue" ng-model="ad.venue" placeholder="Enter venue name" ng-class="ad.passedOrFail == null? 'default' : (ad.passedOrFail)? 'passed' : 'failed'">
+                </div>
+                <div class="col-md-1 padding-right-0 padding-left-0">
+                  <i class="fa fa-check-circle" ng-show="ad.success" style="font-size:32px;margin-top: 2px;margin-left: 5px;color:#28a745;"></i>
+                  <i class="fa fa-times-circle" ng-show="ad.fail" style="font-size:32px;margin-top: 2px;margin-left: 5px;color:red;"></i>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer padding-7px">
+            <button type="submit" class="btn btn-outline-success btn-sm" ng-click="ad.addVenueDetails()" ng-disabled="ad.disableSave">
+              <i class="fa fa-save"></i>&nbsp;Save
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal" ng-click="ad.close()">
+              <i class="fa fa-times-circle"></i>&nbsp;Close
+            </button>
+        </div>
+        
+      </div>
+    </div>
+  </div>

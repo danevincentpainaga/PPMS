@@ -1,207 +1,191 @@
  <div class="tab-content" ng-controller="venueCtrl as vc">
-  <div id="users" class="container tab-pane active padding-0" >
-    <div id="accordion" style="margin-top: 0.4em;">
-    <div class="card" ng-if="!vc.isLoading">
-      <div class="card-header"  ng-if="!vc.editing">
-        <button class="btn btn-info btn-sm" data-toggle="collapse" data-target="#collapseOne" style="float: right;" ng-click="vc.eMessage()">
-          {{ vc.eventMessage }}
-        </button> 
-      </div>
-      <div id="collapseOne" class="collapse" data-parent="#accordion">
-        <div class="card-body">
-          <div ui-calendar="vc.uiConfig.calendar" ng-model="vc.eventSources" class="calendar"></div>
+  <div id="users" class="container-fluid tab-pane active padding-0" >
+    <div class="row">
+     <div class="col-md-6" style="border-right: 2px solid teal;">
+      <br />
+      <div ui-calendar="vc.uiConfig.calendar" ng-model="vc.eventSources" class="calendar" ng-if="!vc.editing" ng-if="!vc.isLoading"></div>
+        <br />
+        <div class="row" ng-if="vc.editing">
+          <div class="col-md-12" style="min-height: 450px; max-height: 450px; overflow: auto;">
+               <form name="reservation">
+                <div class="form-group">
+                  <label for="requester">Requester Name:</label>
+                  <input type="text" class="form-control" id="requester" name="requester" ng-model="vc.requester" required>
+                  <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" style="color: red; font-size: 14px;">Name is Required*</span>
+                </div>
+                <div class="form-group">
+                  <label for="modalDepartment">Select Department:</label>
+                  <select  class="form-control" id="modalDepartment" name="modalDepartment" ng-model="vc.selectedDepartment" ng-options="department as department.department_name for department in vc.departments track by department.department_name " required>
+                  </select>
+                  <span ng-show="reservation.modalDepartment.$touched  && reservation.modalDepartment.$error.required" style="color: red; font-size: 14px;">Department is Required*</span>
+                </div>
+                <div class="form-group">
+                  <label for="venues">Select Venue:</label>
+                  <select  class="form-control" id="venues" name="venues" ng-model="vc.selectedVenue" ng-options="venue as venue.venue_name for venue in vc.venues track by venue.venue_name " required>
+                  </select>
+                  <span ng-show="reservation.venues.$touched  && reservation.venues.$error.required" style="color: red; font-size: 14px;">Venue is Required*</span>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                    <div class="col-md-6">
+                      <label for="start_date">Start Date:</label>
+                      <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+                          <input type="text" class="form-control" id="start_date" name="start_date" ng-model="vc.start_date" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" required>
+                          <span ng-show="reservation.start_date.$touched  && reservation.start_date.$error.required" style="color: red; font-size: 14px;">Reservation Date is Required*</span>
+                      </datepicker>
+                    </div>
+                      <div class="col-md-2 col-sm-2">
+                        <label for="starthour">Hour:</label>
+                          <select class="form-control height-30px" id="starthour" name="starthour" ng-model="vc.starthour" required>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                          </select>
+                          <span ng-show="reservation.starthour.$touched  && reservation.starthour.$error.required" style="color: red; font-size: 14px;">Hour is required*</span>
+                      </div>
+                      <div class="col-md-2 col-sm-2">
+                        <label for="startminutes">Minutes:</label>
+                          <select class="form-control height-30px" id="startminutes" name="startminutes" ng-model="vc.startminutes" required>
+                            <option ng-repeat="m in vc.minutes">{{m}}</option>
+                          </select>
+                          <span ng-show="reservation.startminutes.$touched  && reservation.startminutes.$error.required" style="color: red; font-size: 14px;">Minutes Date is required*</span>
+                      </div>
+                      <div class="col-md-2 col-sm-2">
+                        <label for="starttimezone">AM/PM:</label>
+                          <select class="form-control height-30px" id="starttimezone" name="starttimezone" ng-model="vc.starttimezone" required>
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                          </select>
+                          <span ng-show="reservation.starttimezone.$touched  && reservation.starttimezone.$error.required" style="color: red; font-size: 14px;">required*</span>
+                      </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                    <div class="col-md-6">
+                      <label for="end_date">End Date:</label>
+                      <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+                          <input type="text" class="form-control" id="end_date" name="end_date" ng-model="vc.end_date" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" required>
+                          <span ng-show="reservation.end_date.$touched  && reservation.end_date.$error.required" style="color: red; font-size: 14px;">Reservation Date is Required*</span>
+                      </datepicker>
+                    </div>
+                      <div class="col-md-2 col-sm-2">
+                        <label for="endhour">Hour:</label>
+                          <select class="form-control height-30px" id="endhour" name="endhour" ng-model="vc.endhour" required>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                          </select>
+                          <span ng-show="reservation.endhour.$touched  && reservation.endhour.$error.required" style="color: red; font-size: 14px;">Hour is required*</span>
+                      </div>
+                      <div class="col-md-2 col-sm-2">
+                        <label for="endminutes">Minutes:</label>
+                          <select class="form-control height-30px" id="endminutes" name="endminutes" ng-model="vc.endminutes" required>
+                            <option ng-repeat="m in vc.minutes">{{m}}</option>
+                          </select>
+                          <span ng-show="reservation.endminutes.$touched  && reservation.endminutes.$error.required" style="color: red; font-size: 14px;">Minutes Date is required*</span>
+                      </div>
+                      <div class="col-md-2 col-sm-2">
+                        <label for="endtimezone">AM/PM:</label>
+                          <select class="form-control height-30px" id="endtimezone" name="endtimezone" ng-model="vc.endtimezone" required>
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                          </select>
+                          <span ng-show="reservation.endtimezone.$touched  && reservation.endtimezone.$error.required" style="color: red; font-size: 14px;">required*</span>
+                      </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="purpose">Purpose:</label>
+                  <textarea type="text" class="form-control" id="purpose" name="purpose" ng-model="vc.purpose" required></textarea>
+                  <span ng-show="reservation.purpose.$touched  && reservation.purpose.$error.required" style="color: red; font-size: 14px;">Purpose is Required*</span>
+                </div>
+                <button type="submit" class="btn btn-success" ng-click="vc.updateReservation()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                  <i class="fa fa-save"></i>&nbsp;Update
+                </button>
+                <button type="button" class="btn btn-info" ng-click="vc.cancelEdit()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                  <i class="fa fa-times-circle"></i>&nbsp;Cancel
+                </button>
+              </form>   
+          </div>
         </div>
-      </div>
-    </div>
-    <br />
-    <div class="row" ng-if="vc.editing">
-      <div class="col-md-12">
-           <form name="reservation">
-            <div class="form-group">
-              <label for="requester">Requester Name:</label>
-              <input type="text" class="form-control" id="requester" name="requester" ng-model="vc.requester" required>
-              <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" style="color: red; font-size: 14px;">Password is Required*</span>
-            </div>
-            <div class="form-group">
-              <label for="modalDepartment">Select Department:</label>
-              <select  class="form-control" id="modalDepartment" name="modalDepartment" ng-model="vc.selectedDepartment" ng-options="department as department.department_name for department in vc.departments track by department.department_name " required>
+        <br />
+      <!-- </div>        -->
+     </div>
+     <div class="col-md-6 testing">
+      <br />
+        <div class="row" >
+          <div class="col-md-7">
+            <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#requestModal" data-backdrop="static" ng-disabled="vc.editing">
+              <i class="fa fa-plus"></i>&nbsp;Add Request
+            </button>        
+          </div>
+          <div class="col-md-5">
+              <select class="form-control" id="venuelist" name="venuelist" ng-model="vc.selectedvenueList" ng-options="venuelist as venuelist.venue_name for venuelist in vc.venueList track by venuelist.venue_id " ng-change="vc.selectedVenueId()" required>
+                <option value="">All</option>
               </select>
-              <span ng-show="reservation.modalDepartment.$touched  && reservation.modalDepartment.$error.required" style="color: red; font-size: 14px;">Department is Required*</span>
-            </div>
-            <div class="form-group">
-              <label for="venues">Select Venue:</label>
-              <select  class="form-control" id="venues" name="venues" ng-model="vc.selectedVenue" ng-options="venue as venue.venue_name for venue in vc.venues track by venue.venue_name " required>
-              </select>
-              <span ng-show="reservation.venues.$touched  && reservation.venues.$error.required" style="color: red; font-size: 14px;">Venue is Required*</span>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                <div class="col-md-6">
-                  <label for="start_date">Start Date:</label>
-                  <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
-                      <input type="text" class="form-control" id="start_date" name="start_date" ng-model="vc.start_date" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" required>
-                      <span ng-show="reservation.start_date.$touched  && reservation.start_date.$error.required" style="color: red; font-size: 14px;">Reservation Date is Required*</span>
-                  </datepicker>
-                </div>
-                  <div class="col-md-2 col-sm-2">
-                    <label for="starthour">Hour:</label>
-                      <select class="form-control height-30px" id="starthour" name="starthour" ng-model="vc.starthour" required>
-                        <option value="01">01</option>
-                        <option value="02">02</option>
-                        <option value="03">03</option>
-                        <option value="04">04</option>
-                        <option value="05">05</option>
-                        <option value="06">06</option>
-                        <option value="07">07</option>
-                        <option value="08">08</option>
-                        <option value="09">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                      </select>
-                      <span ng-show="reservation.starthour.$touched  && reservation.starthour.$error.required" style="color: red; font-size: 14px;">Hour is required*</span>
-                  </div>
-                  <div class="col-md-2 col-sm-2">
-                    <label for="startminutes">Minutes:</label>
-                      <select class="form-control height-30px" id="startminutes" name="startminutes" ng-model="vc.startminutes" required>
-                        <option ng-repeat="m in vc.minutes">{{m}}</option>
-                      </select>
-                      <span ng-show="reservation.startminutes.$touched  && reservation.startminutes.$error.required" style="color: red; font-size: 14px;">Minutes Date is required*</span>
-                  </div>
-                  <div class="col-md-2 col-sm-2">
-                    <label for="starttimezone">AM/PM:</label>
-                      <select class="form-control height-30px" id="starttimezone" name="starttimezone" ng-model="vc.starttimezone" required>
-                        <option value="AM">AM</option>
-                        <option value="PM">PM</option>
-                      </select>
-                      <span ng-show="reservation.starttimezone.$touched  && reservation.starttimezone.$error.required" style="color: red; font-size: 14px;">required*</span>
-                  </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                <div class="col-md-6">
-                  <label for="end_date">End Date:</label>
-                  <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
-                      <input type="text" class="form-control" id="end_date" name="end_date" ng-model="vc.end_date" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" required>
-                      <span ng-show="reservation.end_date.$touched  && reservation.end_date.$error.required" style="color: red; font-size: 14px;">Reservation Date is Required*</span>
-                  </datepicker>
-                </div>
-                  <div class="col-md-2 col-sm-2">
-                    <label for="endhour">Hour:</label>
-                      <select class="form-control height-30px" id="endhour" name="endhour" ng-model="vc.endhour" required>
-                        <option value="01">01</option>
-                        <option value="02">02</option>
-                        <option value="03">03</option>
-                        <option value="04">04</option>
-                        <option value="05">05</option>
-                        <option value="06">06</option>
-                        <option value="07">07</option>
-                        <option value="08">08</option>
-                        <option value="09">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                      </select>
-                      <span ng-show="reservation.endhour.$touched  && reservation.endhour.$error.required" style="color: red; font-size: 14px;">Hour is required*</span>
-                  </div>
-                  <div class="col-md-2 col-sm-2">
-                    <label for="endminutes">Minutes:</label>
-                      <select class="form-control height-30px" id="endminutes" name="endminutes" ng-model="vc.endminutes" required>
-                        <option ng-repeat="m in vc.minutes">{{m}}</option>
-                      </select>
-                      <span ng-show="reservation.endminutes.$touched  && reservation.endminutes.$error.required" style="color: red; font-size: 14px;">Minutes Date is required*</span>
-                  </div>
-                  <div class="col-md-2 col-sm-2">
-                    <label for="endtimezone">AM/PM:</label>
-                      <select class="form-control height-30px" id="endtimezone" name="endtimezone" ng-model="vc.endtimezone" required>
-                        <option value="AM">AM</option>
-                        <option value="PM">PM</option>
-                      </select>
-                      <span ng-show="reservation.endtimezone.$touched  && reservation.endtimezone.$error.required" style="color: red; font-size: 14px;">required*</span>
-                  </div>
-                </div>
-            </div>
-            <div class="form-group">
-              <label for="purpose">Purpose:</label>
-              <textarea type="text" class="form-control" id="purpose" name="purpose" ng-model="vc.purpose" required></textarea>
-              <span ng-show="reservation.purpose.$touched  && reservation.purpose.$error.required" style="color: red; font-size: 14px;">Purpose is Required*</span>
-            </div>
-            <button type="submit" class="btn btn-success" ng-click="vc.updateReservation()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
-            	<i class="fa fa-save"></i>&nbsp;Update
-            </button>
-            <button type="button" class="btn btn-info" ng-click="vc.cancelEdit()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
-            	<i class="fa fa-times-circle"></i>&nbsp;Cancel
-            </button>
-          </form>   
-      </div>
+          </div>
+        </div>
+        <br />
+        <div class="row" style="overflow-x: auto; min-height: 440px;">
+          <div class="col-md-12">
+            <table class="table table-sm table-striped table-bordered" style="min-width: 1440px; ">
+              <thead>
+                  <th>Requestee</th>
+                  <th>Department</th>
+                  <th>Requested Venue</th>
+                  <th>Date Requested</th>
+                  <th class="center">Status</th>
+                  <th class="center" style="width: 130px;">Details</th>
+                  <th class="center" style="width: 50px;">Action</th>
+              </thead>
+              <tbody ng-if="!vc.isLoading">
+                <tr ng-repeat="reserved in vc.reservations">
+                  <td style="min-width: 200px;">
+                    {{reserved.client_name}}
+                  </td>
+                  <td>{{reserved.department_name}}</td>
+                  <td style="min-width: 200px;">{{reserved.venue_name}}</td>
+                  <td style="min-width: 150px;">{{reserved.date_created | fullDate }}</td>
+                  <td class="center">
+                    <label style="background-color: #5cb85c;color: white;text-align: center;border-radius: 10px;margin-bottom: .0rem;font-family:cooper;width: 77px;height: 18px;padding-top: 0px;font-size: 12px;">
+                      {{reserved.status}}
+                    </label>
+                  </td>
+                  <td class="center" style="width: 130px;">
+                    <button class="btn btn-basic btn-sm" type="button" data-toggle="modal" data-target="#viewDetailsModal" data-backdrop="static" ng-click="vc.viewDetails(reserved)">View Details</button>
+                  </td>
+                  <td class="center" style="width: 50px;">
+                    <button class="btn btn-outline-info btn-sm" type="button"  ng-click="vc.updateReservationData(reserved)">
+                      <i class="fa fa-pencil"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <strong ng-if="vc.isLoading">Loading...</strong>
+          </div>
+        </div>
+     </div>   
     </div>
-    <br />
-    <div class="row" ng-if="!vc.editing">
-      <div class="col-md-12">
-        <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#requestModal">
-          <i class="fa fa-plus"></i>&nbsp;Add Request
-        </button>        
-      </div>
-    </div>
-    <br />
-    <div class="row" ng-if="!vc.editing" style="overflow-x: auto; min-height: 320px;">
-      <div class="col-md-12">
-        <table class="table table-striped" style="min-width: 1440px; ">
-          <thead>
-            <tr>
-              <th>Requester Name</th>
-              <th>Department</th>
-              <th>Venue</th>
-              <th>Start Date and time</th>
-              <th>End Date and time</th>
-              <th>Purpose</th>
-              <th>Date Requested</th>
-              <th>Status</th>
-              <th class="center min-width-155">Details</th>
-              <th class="center min-width-155">Action</th>
-            </tr>
-          </thead>
-          <tbody ng-if="!vc.isLoading">
-            <tr ng-repeat="reserved in vc.reservations">
-              <td style="min-width: 200px;">
-                {{reserved.client_name}}
-              </td>
-              <td>{{reserved.department_name}}</td>
-              <td>{{reserved.venue_name}}</td>
-              <td style="min-width: 250px;">
-                <label style="font-style: italic;">{{reserved.start_date}} {{reserved.start_time}}</label>
-              </td>
-              <td style="min-width: 250px;">
-                <label style="font-style: italic;">{{reserved.end_date}} {{reserved.end_time}}</label>
-              </td>
-              <td class="min-width-155">{{reserved.purpose}}</td>
-              <td style="min-width: 250px;">{{reserved.date_created}}</td>
-              <td>
-                <label style="background-color: #5cb85c;color: white;text-align: center;border-radius: 10px;margin-bottom: .0rem;font-family:cooper;width: 77px;height: 18px;padding-top: 0px;font-size: 12px;">
-                  {{reserved.status}}
-                </label>
-              </td>
-              <td class="center min-width-240">
-                <button class="btn btn-basic btn-sm" type="button" data-toggle="modal" data-target="#viewDetailsModal"  ng-click="vc.viewDetails(reserved)">View Details</button>
-              </td>
-              <td class="center min-width-270">
-                <button class="btn btn-outline-success btn-sm" type="button"  ng-click="vc.approvedReservation(reserved)">
-                  <i class="fa fa-thumbs-up"></i>&nbsp;Approve
-                </button>
-                <button class="btn btn-outline-info btn-sm" type="button"  ng-click="vc.updateReservationData(reserved)">
-                  <i class="fa fa-upload"></i>&nbsp;Update
-                </button>
-                <button class="btn btn-outline-danger btn-sm" type="button" ng-click="vc.deleteReservation(reserved)">
-                  <i class="fa fa-times-circle"></i>&nbsp;Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <strong ng-if="vc.isLoading">Loading...</strong>
-      </div>
-    </div>
-  </div>
+
 </div>
 </div>

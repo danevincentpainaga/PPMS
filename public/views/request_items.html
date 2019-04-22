@@ -1,0 +1,294 @@
+<div class="tab-content" ng-controller="itemsCtrl as ic">
+<div class="ph-item" ng-if="ic.loading">
+    <div class="ph-col-6" ng-if="admin">
+        <div class="ph-row">
+          <div class="ph-col-4 "></div>
+          <div class="ph-col-12 big"></div>
+          <div class="ph-col-4 "></div>
+          <div class="ph-col-12 big"></div>
+          <div class="ph-col-4 "></div>
+          <div class="ph-col-12 big"></div>
+          <div class="ph-col-4 "></div>
+          <div class="ph-col-12 xl"></div>
+          <div class="ph-col-4 "></div>
+          <div class="ph-col-12 xl"></div>
+          <div class="ph-col-6 big"></div>
+        </div>
+    </div>
+    <div class="ph-col-6" ng-if="admin">
+        <div class="ph-row">
+            <div class="ph-col-12"></div>
+            <div class="ph-col-6 big"></div>
+            <div class="ph-col-6 empty big"></div>
+            <div class="ph-col-12 sxl"></div>
+            <div class="ph-col-12"></div>
+            <div class="ph-col-6 big"></div>
+            <div class="ph-col-6 empty big"></div>
+            <div class="ph-col-12 sxl"></div>
+        </div>
+    </div>
+    <div class="col-md-3" ng-if="!admin"></div>
+    <div class="ph-col-6" ng-if="!admin">
+        <div class="ph-row">
+          <div class="ph-col-4 "></div>
+          <div class="ph-col-12 big"></div>
+          <div class="ph-col-4 "></div>
+          <div class="ph-col-12 big"></div>
+          <div class="ph-col-4 "></div>
+          <div class="ph-col-12 big"></div>
+          <div class="ph-col-4 "></div>
+          <div class="ph-col-12 xl"></div>
+          <div class="ph-col-4 "></div>
+          <div class="ph-col-12 xl"></div>
+          <div class="ph-col-6 big"></div>
+        </div>
+    </div>
+    <div class="col-md-3" ng-if="!admin"></div>
+</div>
+<div id="users" class="container-fluid tab-pane active padding-0" ng-if="!ic.loading && !admin" >
+  <div class="row">
+    <div class="col-md-3"></div>   
+     <div class="col-md-6">
+        <br />
+        <div class="row" ng-if="!ic.editing">
+          <div class="col-md-12">
+               <form name="reservation">
+               <div class="form-group">
+                  <label for="requester">Request No.</label>
+                  <select  class="form-control" id="selectedRequestNum" name="selectedRequestNum" ng-model="ic.selectedRequestNum" ng-options="request as request.request_num for request in ic.request_nums track by request.request_id " required disabled>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="requester">Requestee:</label>
+                  <input type="text" class="form-control" id="requestee" name="requestee" ng-model="ic.requestee" required>
+                  <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" style="color: red; font-size: 14px;">Name is Required*</span>
+                </div>
+                <div class="form-group">
+                  <label for="modalDepartment">Department:</label>
+                  <select  class="form-control" id="modalDepartment" name="modalDepartment" ng-model="ic.selectedDepartment" ng-options="department as department.department_name for department in ic.departments track by department.department_name " disabled required >
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="purpose">Work to be Done:</label>
+                  <textarea type="text" class="form-control" id="purpose" name="purpose" ng-model="ic.purpose" ng-disabled="ic.disableRemarks" required>
+                  </textarea>
+                </div>
+                <div class="form-group" ng-if="admin">
+                  <label for="remarks">Remarks:</label>
+                  <textarea type="text" class="form-control" id="remarks" name="remarks" ng-model="ic.remarks" ng-disabled="ic.disableRemarks" required>
+                  </textarea>
+                </div>
+                <br />
+                <div class="form-group" >
+                  <div class="form-group">
+                    <div class="row font-17px">
+                      <div class="col-md-3">
+                        <label for="status">Status:</label>
+                        <select class="form-control" ng-model="ic.selectedStatus" ng-options="c for c in ic.statuses" disabled>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-success" ng-click="ic.addWorkRequest()" ng-if="!ic.showUpdate" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                  <i class="fa fa-save"></i>&nbsp;Save
+                </button>
+                <button type="button" class="btn btn-info" ng-click="ic.cancelItemRequest()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                  <i class="fa fa-times-circle"></i>&nbsp;Cancel
+                </button>
+              </form>   
+          </div>
+        </div>
+        <br />
+      <!-- </div>        -->
+     </div>
+     <div class="col-md-3"></div>   
+  </div>
+</div>
+<div id="users" class="container-fluid tab-pane active padding-0" ng-if="!ic.loading && admin">
+    <div class="row">
+     <div class="col-md-6" style="border-right: 2px solid teal;">
+        <br />
+        <div class="row" ng-if="!ic.editing">
+          <div class="col-md-12" style="min-height: 480px; max-height: 480px; overflow: auto;">
+               <form name="reservation">
+               <div class="form-group">
+                  <label for="requester">Request No.</label>
+                  <select  class="form-control" id="selectedRequestNum" name="selectedRequestNum" ng-model="ic.selectedRequestNum" ng-options="request as request.request_num for request in ic.request_nums track by request.request_id " required disabled>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="requester">Requestee:</label>
+                  <input type="text" class="form-control" id="requestee" name="requestee" ng-model="ic.requestee" required>
+                  <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" style="color: red; font-size: 14px;">Name is Required*</span>
+                </div>
+                <div class="form-group">
+                  <label for="modalDepartment">Department:</label>
+                  <select  class="form-control" id="modalDepartment" name="modalDepartment" ng-model="ic.selectedDepartment" ng-options="department as department.department_name for department in ic.departments track by department.department_name " disabled required >
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="purpose">Work to be Done:</label>
+                  <textarea type="text" class="form-control" id="purpose" name="purpose" ng-model="ic.purpose" ng-disabled="ic.disableRemarks" required>
+                  </textarea>
+                </div>
+                <div class="form-group">
+                  <label for="remarks">Remarks:</label>
+                  <textarea type="text" class="form-control" id="remarks" name="remarks" ng-model="ic.remarks" ng-disabled="ic.disableRemarks" required>
+                  </textarea>
+                </div>
+                <br />
+                <div class="form-group">
+                  <div class="form-group" ng-if="admin">
+                    <div class="row font-17px">
+                      <div class="col-md-3">
+                        <label for="status">Status:</label>
+                        <select class="form-control" ng-model="ic.selectedStatus" ng-options="c for c in ic.statuses" disabled>
+                        </select>
+                      </div>
+                    </div>
+                    <br />
+                  </div>
+                </div>
+                <br />
+                <br />
+                <button type="submit" class="btn btn-success" ng-click="ic.updateRequestedItem()" ng-if="ic.showUpdate" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                  <i class="fa fa-save"></i>&nbsp;Update
+                </button>
+                <button type="submit" class="btn btn-success" ng-click="ic.addWorkRequest()" ng-if="!ic.showUpdate" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                  <i class="fa fa-save"></i>&nbsp;Save
+                </button>
+                <button type="button" class="btn btn-info" ng-click="ic.cancelItemRequest()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                  <i class="fa fa-times-circle"></i>&nbsp;Cancel
+                </button>
+              </form>   
+          </div>
+        </div>
+        <br />
+      <!-- </div>        -->
+     </div>
+     <div class="col-md-6">
+        <div class="row" >
+          <div class="col-md-12 padding-0">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+              <li class="nav-item" style="border-top: 1px solid #298eba;">
+                <a class="nav-link active" data-toggle="tab" data-target="#items">
+                  List of Items
+                </a>
+              </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane container active " id="items">
+                <div class="row" style="border-bottom: 2px solid #1f73aa;">
+                  <div class="col-md-12 padding-0 border-bottom-bluesmoke">
+                    <input type="text" class="col-md-5 form-control" name="" style="margin-top:5px; margin-bottom: 5px; margin-left: 3px;" placeholder="Search Item" ng-model="ic.filterItem">
+                  </div>
+                  <div class="col-md-12 padding-0 itemTable" ng-if="!ic.hasSelected"  when-scrolled="ic.loadImages()">
+                    <div class="ph-item margin-bottom-0 padding-0" ng-if="ic.isLoading">
+                        <div class="ph-col-12" ng-if="admin">
+                            <div class="ph-row">
+                              <div class="ph-col-4"></div>
+                              <div class="ph-col-12 big"></div>
+                              <div class="ph-col-4 "></div>
+                              <div class="ph-col-12 big"></div>
+                              <div class="ph-col-4 "></div>
+                              <div class="ph-col-12 big"></div>
+                              <div class="ph-col-4 "></div>
+                              <div class="ph-col-12 big"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ng-style="style()" resize> -->
+                      <table class="table table-sm table-striped table-bordered" style="margin-top:1px; min-width: 500px;" ng-if="!ic.isLoading">
+                        <thead>
+                            <th>*</th>
+                            <th>Item Name.</th>
+                            <th>Description.</th>
+                            <th>Remaining Qty.</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="item in ic.list_of_stocks | filter: ic.filterItem">
+                            <td style="width: 20px;">
+                              <button class="btn btn-success btn-sm" type="button" ng-click="ic.selectedItem(item)">
+                                {{item.item_selected}}
+                              </button>
+                            </td>
+                            <td>{{ item.item_name }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.qty }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                  <div class="col-md-12" style="overflow: auto; min-height: 200px; max-height: 200px;" ng-if="ic.hasSelected" >
+                    <div class="row" ng-repeat="selected in ic.selectedItems">
+                      <div class="col-md-6">
+                        <h4 class="margin-top-7">Item</h4>
+                        <span style="font-size: 17px;">
+                          {{ selected.item_name }}
+                        </span>
+                        <h4>description</h4>
+                        <span style="font-size: 17px;">
+                          {{ selected.description }}
+                        </span>
+                        <br />
+                        <br />
+                        <span ng-show="!ic.invalid">
+                          <label style="font-size: 20px;">Remaining Qty:</label>
+                          <label style="font-size: 22px;" class="red">{{ic.remainingQty}}</label>
+                        </span>
+                        <span ng-show="ic.invalid" class="blink red" style="font-size: 20px;">Not Enough Stocks</span>
+                      </div>
+                      <div class="col-md-6">
+                        <label style="font-size: 17px;">Qty:</label>&nbsp;&nbsp;
+                          <span style="font-size: 21px; color:red;">
+                            {{ selected.qty }}
+                          </span>
+                        <br />
+                        <br />
+                        <h4>Deduct Quantity</h4>
+                        <input type="text" class="form-control " ng-change="ic.deducted(selected)" ng-model="ic.enteredQty" number style="margin-bottom: 10px;">
+                        <button type="button" class="btn btn-success col-md-5" ng-click="ic.addItem(selected)" ng-disabled="ic.add">Add</button>
+                        <button type="button" class="btn btn-danger col-md-5" ng-click="ic.cancel()" >Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 border-bottom-bluesmoke" style="padding-left: 3px !important;">
+            <input type="text" class="col-md-4 form-control" name="" style="margin-top:5px; margin-bottom: 5px;" placeholder="OR no." ng-model="ic.filterOr">
+          </div>
+          <div class="col-md-12 padding-0" style="overflow: scroll; min-height: 255px; max-height: 255px;">
+              <table style="margin-top:3px; min-width: 500px; " class="table table-sm table-striped table-bordered" >
+                <thead>
+                    <th>*</th>
+                    <th>Item Name.</th>
+                    <th>Description.</th>
+                    <th>Requested qty.</th>
+                </thead>
+                <tbody ng-if="!ic.isLoading">
+                  <tr ng-repeat="item in ic.addedItems | filter: { request_number:ic.filterOr } ">
+                    <td style="width: 20px;">
+                      <button class="btn btn-danger btn-sm" ng-click="ic.removeItem(item)">
+                        <i class="fa fa-times-circle"></i>
+                      </button>
+                    </td>
+                    <td>{{ item.item_name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.qty }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+     </div>   
+    </div>
+  </div>
+</div>

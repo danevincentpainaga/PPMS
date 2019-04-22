@@ -13706,68 +13706,96 @@ __webpack_require__(16);
 angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'ui.router.state.events', 'ngSanitize', 'ngTouch', 'cp.ngConfirm', '720kb.datepicker', 'ui.calendar']).config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('/', {
     url: '/',
-    templateUrl: 'views/login.html',
-    controller: 'loginCtrl'
+    templateUrl: 'views/login.html'
+    // controller: 'loginCtrl',
   }).state('dashboard', {
     url: '/dashboard',
-    templateUrl: 'views/dashboard.html',
-    controller: 'mainAppCtrl'
+    templateUrl: 'views/dashboard.html'
+    // controller: 'mainAppCtrl',
   }).state('manage_users', {
     url: '/manage_users',
     views: {
       '': {
-        templateUrl: 'views/users.html',
-        controller: 'mainAppCtrl'
+        templateUrl: 'views/users.html'
+        // controller: 'mainAppCtrl',
       },
       'users-view@manage_users': {
-        templateUrl: 'views/add_user.html',
-        controller: 'userCtrl'
+        templateUrl: 'views/add_user.html'
+        // controller: 'userCtrl',
       }
     }
   }).state('manage_users.users_list', {
     url: '/users_list',
     views: {
       'users-view@manage_users': {
-        templateUrl: 'views/users_list.html',
-        controller: 'userCtrl'
+        templateUrl: 'views/users_list.html'
+        // controller: 'userCtrl',
       }
     }
   }).state('reservation', {
     url: '/reservation',
     views: {
       '': {
-        templateUrl: 'views/reservation.html',
-        controller: 'mainAppCtrl'
+        templateUrl: 'views/reservation.html'
+        // controller: 'mainAppCtrl',
       },
       'new-view@reservation': {
-        templateUrl: 'views/request.html',
-        controller: 'venueCtrl'
+        templateUrl: 'views/request.html'
+        // controller: 'venueCtrl',
       }
     }
   }).state('reservation.venues', {
     url: '/venues',
     views: {
       'new-view@reservation': {
-        templateUrl: 'views/venues.html',
-        controller: 'venueCtrl'
+        templateUrl: 'views/venues.html'
+        // controller: 'venueCtrl',
       }
     }
   }).state('reservation.approved', {
     url: '/approved',
     views: {
       'new-view@reservation': {
-        templateUrl: 'views/approved_reservation.html',
-        controller: 'mainAppCtrl'
+        templateUrl: 'views/approved_reservation.html'
+        // controller: 'mainAppCtrl',
       }
     }
-  }).state('maintenance', {
-    url: '/maintenance',
-    templateUrl: 'views/maintenance.html',
-    controller: 'mainAppCtrl'
   }).state('department', {
     url: '/department',
-    templateUrl: 'views/department.html',
-    controller: 'departmentCtrl'
+    templateUrl: 'views/department.html'
+    // controller: 'departmentCtrl',
+  }).state('inventory', {
+    url: '/inventory',
+    templateUrl: 'views/inventory.html'
+    // controller: 'departmentCtrl',
+  }).state('maintenance', {
+    url: '/maintenance',
+    views: {
+      '': {
+        templateUrl: 'views/maintenance.html'
+        // controller: 'mainAppCtrl',
+      },
+      'maintenance-view@maintenance': {
+        templateUrl: 'views/request_items.html'
+        // controller: 'userCtrl',
+      }
+      // controller: 'departmentCtrl',
+    } }).state('maintenance.work', {
+    url: '/work',
+    views: {
+      'maintenance-view@maintenance': {
+        templateUrl: 'views/request_work.html'
+        // controller: 'mainAppCtrl',
+      }
+    }
+  }).state('report', {
+    url: '/report',
+    templateUrl: 'views/report.html'
+    // controller: 'departmentCtrl',
+  }).state('profile', {
+    url: '/profile',
+    templateUrl: 'views/editProfile.html'
+    // controller: 'departmentCtrl',
   });
   $urlRouterProvider.otherwise('/');
 }).run(['$transitions', '$rootScope', 'apiService', '$cookies', function ($transitions, $rootScope, apiService, $cookies) {
@@ -13782,24 +13810,62 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
       if (transitions.to().name === '/') {
         $state.go('dashboard');
       } else {
-        if (auth.userType === 2) {
-          if (transitions.to() === 'manage_users') {
+        if (auth.userType === 3) {
+          if (transitions.to().name === 'manage_users' || transitions.to().name === 'manage_users.users_list' || transitions.to().name === 'reservation.venues' || transitions.to().name === 'department' || transitions.to().name === 'inventory' || transitions.to().name === 'report') {
+
             $state.go('dashboard');
           } else {
             $rootScope.superAdmin = false;
+            $rootScope.enableVenueAdding = false;
+            $rootScope.enableApproveVenue = false;
+            $rootScope.admin = false;
+            $rootScope.user = true;
             $rootScope.loginPage = false;
             $rootScope.header = true;
+            $rootScope.disableDepartment = true;
+            $rootScope.disableRemarks = true;
             $rootScope.userLoginId = auth.user_id;
             $rootScope.token = auth.success.token;
             $rootScope.userLogName = auth.name;
           }
-        } else {
-          $rootScope.superAdmin = true;
-          $rootScope.loginPage = false;
-          $rootScope.header = true;
-          $rootScope.userLoginId = auth.user_id;
-          $rootScope.token = auth.success.token;
-          $rootScope.userLogName = auth.name;
+        }
+        if (auth.userType === 2) {
+          if (transitions.to().name === 'manage_users') {
+            $state.go('dashboard');
+          } else if (transitions.to().name === 'manage_users.users_list') {
+            $state.go('dashboard');
+          } else {
+            $rootScope.superAdmin = false;
+            $rootScope.enableVenueAdding = true;
+            $rootScope.enableApproveVenue = true;
+            $rootScope.admin = true;
+            $rootScope.user = true;
+            $rootScope.loginPage = false;
+            $rootScope.header = true;
+            $rootScope.disableDepartment = false;
+            $rootScope.disableRemarks = false;
+            $rootScope.userLoginId = auth.user_id;
+            $rootScope.token = auth.success.token;
+            $rootScope.userLogName = auth.name;
+          }
+        }
+        if (auth.userType === 1) {
+          if (transitions.to() === 'manage_users') {
+            $state.go('dashboard');
+          } else {
+            $rootScope.superAdmin = true;
+            $rootScope.enableVenueAdding = true;
+            $rootScope.enableApproveVenue = true;
+            $rootScope.admin = true;
+            $rootScope.user = true;
+            $rootScope.loginPage = false;
+            $rootScope.header = true;
+            $rootScope.disableRemarks = false;
+            $rootScope.disableDepartment = false;
+            $rootScope.userLoginId = auth.user_id;
+            $rootScope.token = auth.success.token;
+            $rootScope.userLogName = auth.name;
+          }
         }
       }
     }
@@ -13837,7 +13903,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * angular.module("myApplication", ['ui.router', 'ui.router.state.events']
  * ```
  *
- * @module ng1_state_events
+ * @publicapi @module ng1_state_events
  */ /** */
 var angular_1 = __webpack_require__(13);
 (function () {
@@ -13980,9 +14046,10 @@ var angular_1 = __webpack_require__(13);
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+/** @publicapi @module ng1 */ /** */
 var ng_from_import = __webpack_require__(14);
-var ng_from_global = angular;
-exports.ng = ng_from_import && ng_from_import.module ? ng_from_import : ng_from_global;
+/** @hidden */ var ng_from_global = angular;
+/** @hidden */ exports.ng = ng_from_import && ng_from_import.module ? ng_from_import : ng_from_global;
 //# sourceMappingURL=angular.js.map
 
 /***/ }),

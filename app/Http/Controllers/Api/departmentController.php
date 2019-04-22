@@ -10,8 +10,18 @@ use App\department;
 
 class departmentController extends Controller
 {
+   public function validateDepartment($departmentName){
+      $exist = department::where('department_name', $departmentName)->count(); 
+      if($exist > 0){
+         return response()->json(['message'=>'Department Name Already Exist!'], 403);
+      }
+      else{
+         return response()->json(['message'=>'passed'], 200);
+      }
+   }
+
    public function getDepartments(){
-   	return department::all();
+      return department::all();
    }
 
    public function addDepartment(Request $request){
@@ -29,4 +39,5 @@ class departmentController extends Controller
       return response()->json(['message'=>'Data Updated'], 200);
    }
 }
+
 

@@ -1,0 +1,123 @@
+      <!-- Add Work Items Modal -->
+  <div class="modal fade" id="addWorkItemModal" ng-controller="addItemsToWorkCtrl as ai">
+    <div class="modal-dialog" style="max-width: 1155px;">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #17a2b8 !important;">
+        </div>
+        
+        <div class="modal-body padding-top-5">
+          <div class="row border-bottom-bluesmoke">
+              <div class="col-md-8 padding-left-3">
+              <ul class="nav nav-tabs">
+                <li class="nav-item pointer" style="border-top: 1px solid #298eba;">
+                  <a class="nav-link active" data-toggle="tab" data-target="#items">
+                    List of Items
+                  </a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane container active " id="items">
+                  <div class="row" >
+                    <div class="col-md-12 padding-0 border-bottom-bluesmoke" style="box-shadow: 0px 3px 3px #e4d9d9;">
+                      <input type="text" class="col-md-5 form-control" name="" style="margin-top:5px; margin-bottom: 5px; margin-left: 3px;" placeholder="Search Item" ng-model="ai.filterItem">
+                    </div>
+                    <div class="col-md-12 padding-0" style="overflow: scroll; min-height: 215px; max-height: 215px;" ng-if="!ic.hasSelected">
+                        <table class="table table-sm table-striped table-bordered" style="margin-top:3px; min-width: 500px; ">
+                          <thead>
+                              <th>*</th>
+                              <th>Item Name.</th>
+                              <th>Description.</th>
+                              <th>Qty.</th>
+                          </thead>
+                          <tbody ng-if="!ai.isLoading">
+                            <tr ng-repeat="item in ai.list_of_items | filter: ai.filterItem">
+                              <td style="width: 20px;">
+                                <button class="btn btn-success btn-sm" type="button" ng-click="ai.selectedItem(item)">
+                                  {{ item.item_selected }}
+                                </button>
+                              </td>
+                              <td>{{ item.item_name }}</td>
+                              <td>{{ item.description }}</td>
+                              <td>{{ item.qty }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <strong ng-if="ai.isLoading">Loading...</strong>
+            </div>
+            <div class="col-md-4">
+              <form name="addItem" >
+                <div class="form-group">
+                  <label for="item_name">Item Name.</label>
+                  <input type="text" class="form-control form-control" id="item_name" name="item_name" ng-model="ai.item_name" ng-class="{failed:addItem.item_name.$dirty && addItem.item_name.$invalid}" disabled required >
+                </div>
+                <div class="form-group">
+                  <label for="description">Description.</label>
+                  <input type="text" class="form-control form-control" id="description" name="description" ng-model="ai.description" ng-class="{failed:addItem.description.$dirty && addItem.description.$invalid}" disabled required>
+                </div>
+                <div class="form-group">
+                  <label for="qty">qty.</label>
+                  <input type="text" class="form-control form-control" id="qty" name="qty" ng-model="ai.qty" ng-disabled="ai.quantity" ng-class="{failed:addItem.qty.$dirty && addItem.qty.$invalid}" ng-change="ai.qtyChanged()" required>
+                </div>
+                <div class="form-group ">
+                  <input type="submit" class="btn btn-success col-md-5" value="Add" ng-click="ai.addItemToList()" ng-disabled="ai.validQty">
+                  <input type="submit" class="btn btn-danger col-md-5" value="Cancel" ng-click="ai.cancelAddItems()" ng-disabled="ai.cancelItem">
+                </div>
+              </form>
+            </div>
+          </div>
+          <br />
+         <div class="row">
+            <div class="col-md-12 padding-left-3 border-top-bluesmoke">
+            <div class="tab-content">
+              <div class="tab-pane container active " id="items">
+                <div class="row" >
+                  <div class="col-md-12 padding-0 border-bottom-bluesmoke" style="box-shadow: 0px 3px 3px #e4d9d9;">
+                    <input type="text" class="col-md-5 form-control" name="" style="margin-top:5px; margin-bottom: 5px; margin-left: 3px;" placeholder="Search Item" ng-model="ai.filterAddedItem">
+                  </div>
+                  <div class="col-md-12 padding-0" style="overflow: scroll; min-height: 170px; max-height: 170px;" ng-if="!ic.hasSelected">
+                      <table class="table table-sm table-striped table-bordered" style="margin-top:3px; min-width: 500px; ">
+                        <thead>
+                            <th>*</th>
+                            <th>Item Name.</th>
+                            <th>Description.</th>
+                            <th>Qty.</th>
+                        </thead>
+                        <tbody ng-if="!ic.isLoading">
+                          <tr ng-repeat="item in ai.addedItems | filter: ai.filterAddedItem">
+                            <td style="width: 20px;">
+                              <button class="btn btn-info btn-sm" type="button" style="border-radius: 18px;">
+                                <i class="fa fa-book"></i>
+                              </button>
+                            </td>
+                            <td>{{ item.item_name }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.qty }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <strong ng-if="ai.isLoading">Loading...</strong>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="col-md-12 center">
+            <button type="button" class="btn btn-info" style="width: 200px;width: 200px;border-top-left-radius: 35px; border-bottom-left-radius: 35px;" ng-click="ai.saveAddedItems()">
+                Save
+            </button>
+            <button type="button" class="btn btn-danger" style="width: 200px;width: 200px;border-top-right-radius: 35px; border-bottom-right-radius: 35px;" data-dismiss="modal" ng-click="ai.closeAddItemModal()">
+                Close
+            </button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

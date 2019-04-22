@@ -1,42 +1,30 @@
-<nav class="navbar navbar-expand-md bg-dark navbar-dark" style="background-color: #c6dcf3 !important; height: 70px;" ></nav>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark" style="background-color: #c6dcf3 !important; height: 60px;" ></nav>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top" style="background: linear-gradient(90deg,#2a90bb,#175c9c 40%,#30a1c5);" >
-  <a class="navbar-brand" style="font-family: ver; color: white;">PPMS</a>
+  <a class="navbar-brand padding-right-10 padding-left-10"  href="#!/dashboard" style="font-family: Times New Roman; color: white;">
+    <i class="fa fa-home"></i>
+    &nbsp;PPMS
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" ng-if="header">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="col-md-9 collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav" ng-if="header">
       <li class="nav-item">
-        <a class="nav-link" ng-class="{actives: isSelected(1)}" ng-click="selectedTown(1)" href="#!/dashboard">
-          <i class="fa fa-home"></i>&nbsp;Dashboard
+        <a class="nav-link actives">
+          <span class="col-md-1 red notification">7</span>
+          <i class="fa fa-globe" style="color: whitesmoke;font-size: 20px;"></i>
         </a>
       </li>
-      <li class="nav-item" ng-if="superAdmin">
-        <a class="nav-link" ng-class="{actives: isSelected(2)}" ng-click="selectedTown(2)" href="#!/manage_users">
-          <i class="fa fa-user"></i>&nbsp;Manage User
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ng-class="{actives: isSelected(3)}" ng-click="selectedTown(3)" href="#!/reservation">
-          <i class="fa fa-book"></i>&nbsp;Facilities
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ng-class="{actives: isSelected(4)}" ng-click="selectedTown(4)" href="#!/maintenance">
-          <i class="fa fa-cogs"></i>&nbsp;Maintenance
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ng-class="{actives: isSelected(5)}" ng-click="selectedTown(5)" href="#!/department">
-          <i class="fa fa-building"></i>&nbsp;Department
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ng-class="{actives: isSelected(6)}" ng-click="selectedTown(5)" href="#!/reports">
-          <i class="fa fa-book"></i>&nbsp;Reports
+      <li class="nav-item margin-left-7">
+        <a href="#!/profile" class="nav-link actives">
+          <span class="col-md-1 red notification2">20</span>
+          <i class="fa fa-wrench" style="color: whitesmoke;font-size: 20px;"></i>
         </a>
       </li>
       <li class="nav-item" id="signOut">
+          <a class="nav-link">
+            <i class="fa fa-user"></i>&nbsp;Edit Profile
+          </a>
           <a class="nav-link" ng-click="logout()">
             <i class="fa fa-sign-out"></i>&nbsp;Sign Out
           </a>
@@ -49,11 +37,13 @@
         <i class="fa fa-user-circle"></i>&nbsp;{{ userLogName }}
       </a>
       <div class="dropdown-menu" >
+        <a href="#!/profile"  class="dropdown-item arrow" style="color:#2aabc7;">
+          <i class="fa fa-user"></i>&nbsp;Edit Profile
+        </a>
         <a class="dropdown-item arrow" ng-click="logout()" style="color:#2aabc7;">
           <i class="fa fa-sign-out"></i>&nbsp;Sign Out
         </a>
       </div>
     </div>
   </div>
-  </div>  
 </nav>

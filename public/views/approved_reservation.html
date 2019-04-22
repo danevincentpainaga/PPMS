@@ -1,70 +1,69 @@
  <div class="tab-content" ng-controller="venueCtrl as vc">
-  <div id="users" class="container tab-pane active padding-0" >
-    <div id="accordion" style="margin-top: 0.4em;">
-    <div class="card" ng-if="!vc.isLoading">
-      <div class="card-header">
-        <button class="btn btn-info btn-sm" data-toggle="collapse" data-target="#collapseOne" style="float: right;" ng-click="vc.eMessage()">
-          {{ vc.eventMessage }}
-        </button> 
-      </div>
-      <div id="collapseOne" class="collapse" data-parent="#accordion">
-        <div class="card-body">
-          <div ui-calendar="vc.uiConfig2.calendar2" ng-model="vc.eventSources2" class="calendar"></div>
-        </div>
-      </div>
-    </div>
-    <br>
+  <div id="users" class="container-fluid tab-pane active padding-0" >
     <div class="row">
-      <div class="col-md-12">
-        <!-- this is the edit area         -->
-      </div>
+     <div class="col-md-6" style="border-right: 2px solid teal;">
+      <br />
+        <!-- <div id="accordion" style="margin-top: 0.4em;"> -->
+        <!-- <div class="card" ng-if="!vc.isLoading"> -->
+          <!-- <div class="card-header"  ng-if="!vc.editing"> -->
+<!--             <button class="btn btn-info btn-sm" data-toggle="collapse" data-target="#collapseOne" style="float: right;" ng-click="vc.eMessage()">
+              {{ vc.eventMessage }}
+            </button>  -->
+          <!-- </div> -->
+          <!-- <div id="collapseOne" class="collapse" data-parent="#accordion"> -->
+            <!-- <div class="card-body"> -->
+              <div ui-calendar="vc.uiConfig2.calendar2" ng-model="vc.eventSources2" class="calendar" ng-if="!vc.editing" ng-if="!vc.isLoading"></div>
+            <!-- </div> -->
+          <!-- </div> -->
+        <!-- </div> -->
+        <br />
+      <!-- </div>        -->
+     </div>
+     <div class="col-md-6">
+        <div class="row" style="margin-top: 7px; margin-bottom: 7px;">
+          <div class="col-md-7">
+            <input type="text" class="form-control" ng-model="vc.search" placeholder="search"> 
+          </div>
+        </div>
+        <div class="row" style="overflow-x: auto; min-height: 475px;">
+          <div class="col-md-12">
+            <table class="table table-sm table-striped table-bordered" style="min-width: 1000px; ">
+              <thead>
+                <tr>
+                  <th>Requester Name</th>
+                  <th>Department</th>
+                  <th>Venue</th>
+                  <th>Status</th>
+                  <th class="center" style="width: 130px;">Details</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="areserved in vc.approvedReservationsData | filter: vc.search">
+                  <td>{{areserved.client_name}}</td>
+                  <td>{{areserved.department_name}}</td>
+                  <td style="min-width: 150px;">{{areserved.venue_name}}</td>
+                  <td>
+                    <label style="background-color: #17a2b8;color: white;text-align: center;border-radius: 10px;margin-bottom: .0rem;font-family: cooper;width: 77px;height: 18px;padding-top: 0px;font-size: 12px;">
+                      {{areserved.status}}
+                    </label>
+                  </td>
+                  <td class="center" style="width: 130px;">
+                    <button class="btn btn-basic btn-sm" type="button" data-toggle="modal" data-target="#viewDetailsModal"   data-backdrop="static" data-keyboard="false" ng-click="vc.viewDetails(areserved)">View Details</button>
+                  </td>
+                  <td style="width: 10px; text-align: center; ">
+                    <button class="btn btn-outline-danger btn-sm" type="button" ng-click="vc.removeApprovedReservationDetails(areserved)">
+                      <i class="fa fa-remove"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <strong ng-if="vc.isLoading">Loading...</strong>
+          </div>
+        </div>
+     </div>   
     </div>
-    <br />
-    <div class="row" style="overflow-x: auto; min-height: 320px;">
-      <div class="col-md-12">
-        <table class="table table-striped" style="min-width: 1440px; ">
-          <thead>
-            <tr>
-              <th>Requester Name</th>
-              <th>Department</th>
-              <th>Venue</th>
-              <th>Start Date and time</th>
-              <th>End Date and time</th>
-              <!-- <th>Purpose</th> -->
-              <!-- <th>Date Requested</th> -->
-              <th>Status</th>
-              <th class="center min-width-155">Details</th>
-              <th class="center min-width-155">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="areserved in vc.approvedReservationsData">
-              <td>{{areserved.client_name}}</td>
-              <td>{{areserved.department_name}}</td>
-              <td>{{areserved.venue_name}}</td>
-              <td><label style="font-style: italic;">{{areserved.start_date}} {{areserved.start_time}}</label></td>
-              <td><label style="font-style: italic;">{{areserved.end_date}} {{areserved.end_time}}</label></td>
-              <!-- <td>{{areserved.purpose}}</td> -->
-              <!-- <td>{{areserved.date_created}}</td> -->
-              <td>
-                <label style="background-color: #17a2b8;color: white;text-align: center;border-radius: 10px;margin-bottom: .0rem;font-family: cooper;width: 77px;height: 18px;padding-top: 0px;font-size: 12px;">
-                  {{areserved.status}}
-                </label>
-              </td>
-              <td class="center min-width-155">
-                <button class="btn btn-basic btn-sm" type="button" data-toggle="modal" data-target="#viewDetailsModal"  ng-click="vc.viewDetails(areserved)">View Details</button>
-              </td>
-              <td class="center min-width-155">
-                <button class="btn btn-outline-danger btn-sm" type="button" ng-click="vc.deleteApprovedReservation(areserved)">
-                  <i class="fa fa-remove"></i>&nbsp;Remove
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <strong ng-if="vc.isLoading">Loading...</strong>
-      </div>
-    </div>
-  </div>
+
 </div>
 </div>

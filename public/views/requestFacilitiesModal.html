@@ -1,0 +1,126 @@
+  <div class="modal fade" id="requestModal" ng-controller="addReservationCtrl as ar" >
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content" >
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: whitesmoke;">
+          <h4 class="modal-title">Request Form</h4>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+<!--           <div class="alert alert-success alert-dismissible" ng-if="ar.response">
+            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{ ar.message }}!</strong>
+          </div> -->
+           <form name="reservation">
+            <div class="form-group">
+              <label for="requester">Requester Name:</label>
+              <input type="text" class="form-control form-control-sm" id="requester" name="requester" ng-model="ar.requester" required>
+            </div>
+            <div class="form-group">
+              <label for="modalDepartment">Department:</label>
+              <select  class="form-control form-control-sm" id="modalDepartment" name="modalDepartment" ng-model="ar.selectedDepartment" ng-options="department as department.department_name for department in ar.departments track by department.department_name " required ng-disabled="disableDepartment">
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="venues">Venue:</label>
+              <select  class="form-control form-control-sm" id="venues" name="venues" ng-model="ar.selectedVenue" ng-options="venue as venue.venue_name for venue in ar.venues track by venue.venue_name " required>
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="start_date">Start Date:</label>
+                <div class="row">
+                <div class="col-md-12">
+                  <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+                      <input type="text" class="form-control form-control-sm" id="start_date" name="start_date" ng-model="ar.start_date" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" required autocomplete="off">
+                  </datepicker>
+                </div>
+                  <div class="col-md-2 col-sm-2">
+                    <label for="starthour">Hour:</label>
+                      <select class="form-control form-control-sm height-30px" id="starthour" name="starthour" ng-model="ar.starthour" required>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                      </select>
+                  </div>
+                  <div class="col-md-2 col-sm-2">
+                    <label for="startminutes">Minutes:</label>
+                      <select class="form-control form-control-sm height-30px" id="startminutes" name="startminutes" ng-model="ar.startminutes" required>
+                        <option ng-repeat="m in ar.minutes">{{m}}</option>
+                      </select>
+                  </div>
+                  <div class="col-md-2 col-sm-2">
+                    <label for="starttimezone">AM/PM:</label>
+                      <select class="form-control form-control-sm height-30px" id="starttimezone" name="starttimezone" ng-model="ar.starttimezone" required>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                      </select>
+                  </div>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="end_date">End Date:</label>
+                <div class="row">
+                <div class="col-md-12">
+                  <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+                      <input type="text" class="form-control form-control-sm" id="end_date" name="end_date" ng-model="ar.end_date" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" required autocomplete="off">
+                  </datepicker>
+                </div>
+                  <div class="col-md-2 col-sm-2">
+                    <label for="endhour">Hour:</label>
+                      <select class="form-control form-control-sm height-30px" id="endhour" name="endhour" ng-model="ar.endhour" required>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                      </select>
+                  </div>
+                  <div class="col-md-2 col-sm-2">
+                    <label for="endminutes">Minutes:</label>
+                      <select class="form-control form-control-sm height-30px" id="endminutes" name="endminutes" ng-model="ar.endminutes" required>
+                        <option ng-repeat="m in ar.minutes">{{m}}</option>
+                      </select>
+                  </div>
+                  <div class="col-md-2 col-sm-2">
+                    <label for="endtimezone">AM/PM:</label>
+                      <select class="form-control form-control-sm height-30px" id="endtimezone" name="endtimezone" ng-model="ar.endtimezone" required>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                      </select>
+                  </div>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="purpose">Purpose:</label>
+              <textarea type="text" class="form-control form-control-sm" id="purpose" name="purpose" ng-model="ar.purpose" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success btn-sm" ng-click="ar.addReservation()">
+              <i class="fa fa-paper-plane"></i>&nbsp;Submit
+            </button>
+            <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">
+              <i class="fa fa-times-circle"></i>&nbsp;Close
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/services/allServices.js": "/services/allServices.js",
+    "/alertServices/alertServices.js": "/alertServices/alertServices.js",
     "/controller/mainCtrl.js": "/controller/mainCtrl.js"
 }

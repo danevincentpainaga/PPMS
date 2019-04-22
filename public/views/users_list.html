@@ -1,8 +1,24 @@
 <div class="tab-content" ng-controller="userCtrl as au">
   <div id="users" class="container tab-pane active">
     <br />
-    <div class="row" style="overflow-x: auto;">
-      <table class="table table-striped" style="min-width: 915px;">
+    <div class="ph-item margin-bottom-0 padding-0 custom-placeholder" ng-if="au.isLoading">
+      <div class="ph-col-12">
+          <div class="ph-row">
+            <div class="ph-col-4"></div>
+            <div class="ph-col-12 big"></div>
+            <div class="ph-col-4 "></div>
+            <div class="ph-col-12 big"></div>
+            <div class="ph-col-4 "></div>
+            <div class="ph-col-12 big"></div>
+            <div class="ph-col-4 "></div>
+            <div class="ph-col-12 big"></div>
+            <div class="ph-col-4 "></div>
+            <div class="ph-col-12 big"></div>
+          </div>
+      </div>
+    </div>
+    <div class="row" style="overflow-x: auto;" ng-if="!au.isLoading">
+      <table class="table table-sm table-striped" style="min-width: 915px;">
         <thead>
           <tr>
             <th>Name</th>
@@ -21,11 +37,11 @@
             <td>{{ user.department_name }}</td>
             <td>{{ user.created_at }}</td>
             <td class="center min-width-155">
-              <button class="btn btn-outline-success btn-sm" type="button" >
-                <i class="fa fa-edit"></i>Edit
+              <button class="btn btn-outline-success btn-sm" type="button" ng-click="au.updateUser(user)" data-toggle="modal" data-target="#updateUserModal"  data-backdrop="static" data-keyboard="false">
+                <i class="fa fa-edit"></i>
               </button>
               <button class="btn btn-outline-danger btn-sm" type="button" ng-click="au.deleteUser(user)">
-                <i class="fa fa-times-circle"></i>&nbsp;Delete
+                <i class="fa fa-times-circle"></i>
               </button>
             </td>
           </tr>

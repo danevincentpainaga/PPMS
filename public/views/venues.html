@@ -1,24 +1,25 @@
- <div class="tab-content" ng-controller="venueCtrl as vc">
+<div class="tab-content" ng-controller="venueCtrl as vc">
   <div id="users" class="container tab-pane active">
     <br /> 
     <div class="row" ng-if="vc.editing" style="margin-bottom: 1em;">
-      <div class="col-md-8">
+      <div class="col-md-10">
            <form name="venueData">
             <div class="form-group">
               <label for="venue">Venue Name:</label>
-              <input type="text" class="form-control form-control" id="venue" name="venue" ng-model="vc.venue" required>
-              <span ng-show="venueData.venue.$touched  && venueData.venue.$error.required" style="color: red; font-size: 14px;">Venue is Required*</span>
+              <i class="fa fa-spinner fa-spin font-17px" ng-if="vc.updating"></i>
+              <input type="text" class="form-control form-control" id="venue" name="venue" ng-model="vc.venue.venue_name" required>
+              <span ng-show="venueData.venue.venue_name.$touched  && venueData.venue.venue_name.$error.required" style="color: red; font-size: 14px;">Venue is Required*</span>
             </div>
           </form>   
       </div>
-      <div class="col-md-4">
+      <div class="col-md-2">
           <div class="row" style="margin-top: 2.4em;">
-            <button type="submit" class="btn btn-outline-success btn-sm" ng-click="vc.updateVenue(vc.venue)">
+            <button type="submit" class="btn btn-outline-success btn-sm" ng-click="vc.updateVenue(vc.venue.venue_name)">
               <i class="fa fa-save"></i>&nbsp;Save
             </button>
             &nbsp;
             <button type="button" class="btn btn-outline-info btn-sm" ng-click="vc.cancelEdit()">
-              <i class="fa fa-times-circle"></i>&nbsp;Cancel
+              <i class="fa fa-times-circle"></i>&nbsp;Close
             </button>
           </div>
       </div>
@@ -34,9 +35,9 @@
           <button class="btn btn-success btn-md" style="font-size: 13px;">Update</button>
         </div>
     </div>
-    <div class="row" >
+    <div class="row" ng-if="!vc.editing">
       <div class="col-md-9">
-        <button class="btn btn-outline-info btn-sm " type="button" data-toggle="modal" data-target="#myModal">
+        <button class="btn btn-outline-info btn-sm " type="button" data-toggle="modal" data-target="#myModal"  data-backdrop="static" data-keyboard="false">
           <i class="fa fa-plus"></i>&nbsp;Add Venue
         </button>
       </div>
@@ -46,30 +47,28 @@
     </div>
     <br />
     <div class="row">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Venue</th>
-            <th>Date Created</th>
-            <th class="center">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="venue in vc.venues | filter: vc.search">
-            <td>{{ venue.venue_name }}</td>
-            <td>{{ venue.created_at }}</td>
-            <td class="center min-width-155">
-              <button class="btn btn-outline-success btn-sm" type="button" class="btn btn-primary" ng-click="vc.editVenue(venue)" >
-                <i class="fa fa-edit"></i>&nbsp;Edit
-              </button>
-              <button class="btn btn-outline-danger btn-sm" type="button" class="btn btn-primary" ng-click="vc.deleteVenue(venue)" ng-disabled="vc.disableDeleteBtn" >
-                <i class="fa fa-times-circle"></i>&nbsp;Delete
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <strong ng-if="vc.isLoading">Loading...</strong>
+      <div class="col-md-4" ng-repeat="venue in vc.venues | filter: vc.search" >
+        <div class="ph-item ph-item-dept margin-bottom-07" ng-if="vc.isLoading">
+            <div class="ph-col-12 padding-0">
+                <div class="ph-row">
+                  <div class="ph-col-12 "></div>
+                  <div class="ph-col-12 venue-holder"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card margin-bottom-07 departmentBox" ng-if="!vc.isLoading">
+          <div class="card-body center">
+            <h4 class="card-title">{{ venue.venue_name }}</h4>
+            <p class="card-text">{{ venue.created_at }}</p>
+            <button class="btn btn-outline-success btn-sm card-link border-radius-2" type="button" ng-click="vc.editVenue(venue)">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button class="btn btn-outline-danger btn-sm card-link border-radius-2" type="button" ng-click="vc.deleteVenue(venue)" ng-disabled="dept.disableDelete">
+              <i class="fa fa-times-circle"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

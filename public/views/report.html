@@ -1,0 +1,133 @@
+<div class="container" ng-controller="reportCtrl as rc">
+	<br />
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs">
+	  <li class="nav-item hidden-print">
+	    <a class="nav-link active" data-toggle="tab" data-target="#home">Invetory Report</a>
+	  </li>
+	  <li class="nav-item hidden-print">
+	    <a class="nav-link" data-toggle="tab" data-target="#items">Requested Facilities Report</a>
+	  </li>
+	  <li class="nav-item hidden-print">
+	    <a class="nav-link" data-toggle="tab" data-target="#works">Requested Works Report</a>
+	  </li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+	  <div class="tab-pane container active padding-0" id="home">
+		<br />
+		<div class="row hidden-print">
+			<div class="col-md-6">
+		      <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+		          <input type="text" class="form-control form-control-sm" id="filteredDate" name="filteredDate" ng-model="rc.filteredDate" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" placeholder="filter by date">
+		      </datepicker>
+			</div>
+			<div class="btn-group">
+				<input type="button" ng-click="rc.searchStocksBtn()" class="btn btn-success btn-sm" value="Search" style="width: 100px;">
+				<input type="button" ng-click="rc.print()" class="btn btn-info btn-sm" value="Print" style="width: 100px; float: left;">
+			</div>
+		</div>
+	  	<div class="row">
+			<div class="col-md-12">
+			<br />
+			<h5>Stocks Details</h5>
+		      <table style="margin-top:3px; " class="table table-sm table-striped table-bordered" >
+		        <thead>
+		          <tr>
+		            <th>Item Name.</th>
+		            <th>Description.</th>
+		            <th>qty.</th>
+		            <th>Date Updated.</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		          <tr ng-repeat="stock in rc.stockDetails ">
+		            <td>{{ stock.item_name }}</td>
+		            <td>{{ stock.description }}</td>
+		            <td>{{ stock.qty }}</td>
+		            <td>{{ stock.date_updated }}</td>
+		          </tr>
+		        </tbody>
+		      </table>
+			</div>
+		</div>
+	  </div>
+	  <div class="tab-pane container fade padding-0" id="items">
+		<br />
+		<div class="row hidden-print">
+			<div class="col-md-6">
+		      <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+		          <input type="text" class="form-control form-control-sm" id="filteredDate" name="filteredDate" ng-model="rc.filteredDate" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" placeholder="filter by date">
+		      </datepicker>
+			</div>
+			<div class="btn-group">
+				<input type="button" ng-click="rc.searchItemsBtn()" class="btn btn-success btn-sm" value="Search" style="width: 100px;">
+				<input type="button" ng-click="rc.print()" class="btn btn-info btn-sm" value="Print" style="width: 100px; float: left;">
+			</div>
+		</div>
+		<br />
+		<h5>Requested Facilities</h5>
+	    <table style="margin-top:3px; " class="table table-sm table-striped table-bordered" >
+	        <thead>
+	            <th>Requestee.</th>
+	            <th>Department.</th>
+	            <th>Venue.</th>
+	            <th>Purpose</th>
+	            <th>Reservation Date</th>
+	            <th>Date</th>
+	            <th>Status</th>
+	        </thead>
+	        <tbody>
+	          <tr ng-repeat="item in rc.requestedItems">
+	            <td>{{ item.client_name }}</td>
+	            <td>{{ item.department_name }}</td>
+	            <td>{{ item.venue_name }}</td>
+	            <td>{{ item.purpose }}</td>
+	            <td>{{ item.start_date }}&nbsp;-&nbsp;{{ item.end_date }}</td>
+	            <td>{{ item.date_created }}</td>
+	            <td>{{ item.status }}</td>
+	          </tr>
+	        </tbody>
+	     </table>
+	  </div>
+	  <div class="tab-pane container fade padding-0" id="works">
+		<br />
+		<div class="row hidden-print">
+			<div class="col-md-6">
+		      <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+		          <input type="text" class="form-control form-control-sm" id="filteredDate" name="filteredDate" ng-model="rc.filteredDate" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" placeholder="filter by date">
+		      </datepicker>
+			</div>
+			<div class="btn-group">
+				<input type="button" ng-click="rc.searchWorksBtn()" class="btn btn-success btn-sm" value="Search" style="width: 100px;">
+				<input type="button" ng-click="rc.print()" class="btn btn-info btn-sm" value="Print" style="width: 100px; float: left;">
+			</div>
+		</div>
+		<br />
+		<h5>Requested Works</h5>
+	    <table style="margin-top: 3px;" class="table table-sm table-striped table-striped table-bordered" style="margin-top:7px;" >
+	      <thead>
+	          <th>Request No.</th>
+	          <th>Requestee</th>
+	          <th>Department</th>
+	          <th>Purpose</th>
+	          <th>Remarks</th>
+	          <th>Work Status</th>
+	          <th>Date</th>
+	      </thead>
+	      <tbody>
+	        <tr ng-repeat="work in rc.list_of_work" >
+	          <td>{{ work.request_number }}</td>
+	          <td>{{ work.requestee }}</td>
+	          <td>{{ work.purpose }}</td>
+	          <td>{{ work.department_name }}</td>
+	          <td>{{ work.post_remarks }}</td>
+	          <td>{{ work.work_status }}</td>
+	          <td>{{ work.date_requested }}</td>
+	        </tr>
+	      </tbody>
+	    </table>
+	  </div>
+	</div>
+</div>
