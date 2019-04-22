@@ -35,6 +35,7 @@
         <script src="{{asset('node_modules/angular-confirm/dist/angular-confirm.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('node_modules/angularjs-datepicker/dist/angular-datepicker.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('node_modules/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset('node_modules/socket.io-client/dist/socket.io.js')}}" type="text/javascript"></script>
 
         <script>var baseUrl = "{{url('/')}}/";</script>
         <script type="text/javascript" src="{{asset('controller/mainCtrl.js')}}"></script>

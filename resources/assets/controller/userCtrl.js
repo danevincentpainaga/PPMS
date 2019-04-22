@@ -9,8 +9,8 @@
  */
 var app = angular.module('myApp')
   app.controller('userCtrl',['$scope', '$rootScope', '$cookies', '$ngConfirm', 
-                             '$window', '$location', '$timeout', 'apiService', 'debounce', 'swalert',
-  function ($scope, $rootScope, $cookies, $ngConfirm, $window, $location, $timeout, apiService, debounce, swalert) {
+                             '$window', '$location', '$timeout', 'apiService', 'debounce', 'swalert', 'socket',
+  function ($scope, $rootScope, $cookies, $ngConfirm, $window, $location, $timeout, apiService, debounce, swalert, socket) {
 
   var au = this;
   au.response = false;
@@ -35,6 +35,9 @@ var app = angular.module('myApp')
      }
   },500), true);
 
+  socket.on('messageSend', function(data) {
+      console.log(data);
+  });
 
   $scope.$on('reloading_userlist', function(){
     users();
@@ -154,4 +157,28 @@ app.factory('debounce', function($timeout) {
             }, interval);
         };
     }; 
+});
+
+app.factory('socket', function ($rootScope) {
+var socket = io.connect('127.0.0.1:8000');
+return {
+    on: function (eventName, callback) {
+        socket.on(eventName, function () {
+            var args = arguments;
+            $rootScope.$apply(function () {
+                callback.apply(socket, args);
+            });
+        });
+    },
+    emit: function (eventName, data, callback) {
+        socket.emit(eventName, data, function () {
+            var args = arguments;
+            $rootScope.$apply(function () {
+                if (callback) {
+                    callback.apply(socket, args);
+                }
+            });
+        })
+    }
+};
 });

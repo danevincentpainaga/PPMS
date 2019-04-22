@@ -5,6 +5,8 @@ namespace App\Listeners;
 use App\Events\Event;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Redis;
+use Response;
 
 class EventListener
 {
@@ -26,6 +28,8 @@ class EventListener
      */
     public function handle(Event $event)
     {
-        //
+        // dd($event->message);
+        $redis = Redis::connection();
+        $redis->publish('test-channel', $event->message);
     }
 }

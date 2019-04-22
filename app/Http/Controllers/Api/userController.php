@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Events\Event;
 use DB;
 use \Crypt;
 use Auth;
@@ -59,7 +60,7 @@ class userController extends Controller
       ->select('users.id', 'users.name', 'users.email', 'users.created_at', 'user_types.usertype_id', 'user_types.userType', 'departments.department_name')
       ->orderBy('id')
       ->get();
-
+      event(new Event($users));
       return $users;  
     }
 
