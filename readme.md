@@ -6,11 +6,11 @@ PPMS a facilities and repair reservation web application.
 
 ## PPMS Dependencies
 
-*Nodejs
-*Composer
-*redis
-*laravel
-*laravel passport
+* Nodejs
+* Composer
+* redis
+* laravel
+* laravel passport
 
 # Database tables
 
