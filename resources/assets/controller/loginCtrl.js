@@ -18,9 +18,9 @@ var app = angular.module('myApp')
   lg.loginBtn = false;
 
   lg.login =function(){
-    lg.loginBtn = true;
     if(!lg.email || !lg.password){
-        console.log('unAuthenticated');
+      lg.loginBtn = true;
+      console.log('unAuthenticated');
     }else{
       lg.buttonMessage = 'Signing In...';
       swalert.successInfo("<label class='green'>Checking Identity...</label>", 'info', );
