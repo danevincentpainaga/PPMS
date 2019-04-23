@@ -11,19 +11,19 @@
   </div>
 </div>
 <br />
-<div class="row" ng-if="dept.editing" style="margin-bottom: 1em;">
+<div class="row margin-top-1em" ng-if="dept.editing">
   <div class="col-md-10">
        <form name="departmentForm">
         <div class="form-group">
           <label for="department">Department Name:</label>
           <i class="fa fa-spinner fa-spin font-17px" ng-if="dept.updating"></i>
           <input type="text" class="form-control uppercase" id="department" name="department" ng-model="dept.department.department_name" required>
-          <span ng-show="departmentForm.department.$touched  && departmentForm.department.$error.required" style="color: red; font-size: 14px;">Department is Required*</span>
+          <span ng-show="departmentForm.department.$touched  && departmentForm.department.$error.required" class="required-error">Department is Required*</span>
         </div>
       </form>   
   </div>
   <div class="col-md-2">
-    <div class="row" style="margin-top: 2.4em;">
+    <div class="row margin-top-2point4">
       <button type="submit" class="btn btn-outline-success btn-sm" ng-click="dept.update(dept.department.department_name)">
         <i class="fa fa-save"></i>
           &nbsp;Save
@@ -38,7 +38,7 @@
 <div class="tab-content" >
   <div id="users" class="container tab-pane active">
     <br />
-    <div class="row" style="overflow-x: auto;">
+    <div class="row auto-scroll-x">
       <div class="col-md-3" ng-repeat="department in dept.departments | filter: dept.search" >
         <div class="ph-item ph-item-dept margin-bottom-07" ng-if="dept.isLoading">
             <div class="ph-col-12 padding-0">

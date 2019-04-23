@@ -13,7 +13,6 @@ var app = angular.module('myApp')
   function ($scope, $rootScope, $cookies, $ngConfirm, $window, $location, $timeout, apiService, debounce, swalert, socket) {
 
   var au = this;
-  au.response = false;
   au.isLoading = false;
   au.disableSave = true;
 
@@ -22,7 +21,6 @@ var app = angular.module('myApp')
   users();
 
   $scope.$watch('au.email', debounce(function() {
-     console.log(au.email);
      if(!au.email){
         au.passedOrFail = null;
         au.success = false;
@@ -68,7 +66,6 @@ var app = angular.module('myApp')
 
   function departments(){
     apiService.getDepartments().then(function(response){
-      console.log(response);
       au.departments = response.data;
       $scope.$emit('departmentsData', au.departments);
     }, function(error){
@@ -88,9 +85,6 @@ var app = angular.module('myApp')
 
   function addUserDetails(userDetails){
     apiService.addUser(userDetails).then(function(response){
-      console.log(response);
-      au.message = 'Successfully Added!';
-      au.response = true;
       au.name = "";
       au.email = "";
       au.password = "";
@@ -98,9 +92,7 @@ var app = angular.module('myApp')
       au.selectedDepartment = "";
       swalert.successInfo('Successfully Added!', 'success', 3000);
     }, function(error){
-      console.log(error);
-      au.message = 'failed! try again.';
-      au.response = true;
+      swalert.successInfo('failed! try again.', 'error', 3000);
     });
   }
 
@@ -119,7 +111,6 @@ var app = angular.module('myApp')
       swalert.successAlert("User has been deleted");
       au.users.splice(au.users.indexOf(user), 1);
     }, function(error){
-      console.log(error);
       checkIntegrityError(error.status);
     });
   }

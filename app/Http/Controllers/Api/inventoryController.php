@@ -67,9 +67,3 @@ class inventoryController extends Controller
       return response()->json(['message' => 'Quantity Updated'], 200);
    }
 }
-
-
-    // public function getUserIds($id){
-    //     $user = DB::table('users')->offset($id)->limit(10)->get();
-    //     return $user;
-    // }

@@ -17,13 +17,13 @@
         <label for="qty">qty.</label>
         <input type="text" class="form-control form-control" id="qty" name="qty" ng-model="is.items.qty" ng-disabled="is.quantity" ng-class="{failed:addstocks.qty.$dirty && addstocks.qty.$invalid}" number required>
       </div>
-      <button type="submit" class="btn btn-info btn-sm" ng-click="is.addItems(is.items)" ng-hide="is.addBtn" style="width: 115px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12)">
+      <button type="submit" class="btn btn-info btn-sm btn-box-shadow width-115" ng-click="is.addItems(is.items)" ng-hide="is.addBtn" >
         <i class="fa fa-plus"></i>&nbsp;ADD
       </button>
-      <button type="submit" class="btn btn-success btn-sm" ng-click="is.updateStocks(is.items)" ng-if="is.updateBtn" style="width: 115px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12)">
+      <button type="submit" class="btn btn-success btn-sm btn-box-shadow width-115" ng-click="is.updateStocks(is.items)" ng-if="is.updateBtn">
         <i class="fa fa-plus"></i>&nbsp;Update
       </button>
-      <button type="submit" class="btn btn-info btn-sm" ng-click="is.cancelButton()" ng-if="is.cancelBtn" style="width: 115px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12)">
+      <button type="submit" class="btn btn-info btn-sm btn-box-shadow width-115" ng-click="is.cancelButton()" ng-if="is.cancelBtn">
         <i class="fa fa-plus"></i>&nbsp;Cancel
       </button>
     </form>
@@ -93,6 +93,5 @@
       </div>
     </div>
   </div>
-  <!-- <div ui-view="new-view"></div> -->
   <br />
 </div>

@@ -13772,17 +13772,14 @@ angular.module('myApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'u
     views: {
       'maintenance-view@maintenance': {
         templateUrl: 'views/request_work.html'
-        // controller: 'mainAppCtrl',
       }
     }
   }).state('report', {
     url: '/report',
     templateUrl: 'views/report.html'
-    // controller: 'departmentCtrl',
   }).state('profile', {
     url: '/profile',
     templateUrl: 'views/editProfile.html'
-    // controller: 'departmentCtrl',
   });
   $urlRouterProvider.otherwise('/');
 }).run(['$transitions', '$rootScope', 'apiService', '$cookies', function ($transitions, $rootScope, apiService, $cookies) {

@@ -105,19 +105,16 @@ angular
       views:{
         'maintenance-view@maintenance':{
           templateUrl: 'views/request_work.html',
-          // controller: 'mainAppCtrl',
         }
       }
     })
     .state('report', {
       url: '/report',
       templateUrl: 'views/report.html',
-      // controller: 'departmentCtrl',
     })
     .state('profile', {
       url: '/profile',
       templateUrl: 'views/editProfile.html',
-      // controller: 'departmentCtrl',
     })
     $urlRouterProvider.otherwise('/');
 })

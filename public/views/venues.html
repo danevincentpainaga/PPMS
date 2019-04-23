@@ -1,19 +1,19 @@
 <div class="tab-content" ng-controller="venueCtrl as vc">
   <div id="users" class="container tab-pane active">
     <br /> 
-    <div class="row" ng-if="vc.editing" style="margin-bottom: 1em;">
+    <div class="row margin-top-1em" ng-if="vc.editing">
       <div class="col-md-10">
            <form name="venueData">
             <div class="form-group">
               <label for="venue">Venue Name:</label>
               <i class="fa fa-spinner fa-spin font-17px" ng-if="vc.updating"></i>
               <input type="text" class="form-control form-control" id="venue" name="venue" ng-model="vc.venue.venue_name" required>
-              <span ng-show="venueData.venue.venue_name.$touched  && venueData.venue.venue_name.$error.required" style="color: red; font-size: 14px;">Venue is Required*</span>
+              <span ng-show="venueData.venue.venue_name.$touched  && venueData.venue.venue_name.$error.required" class="required-error">Venue is Required*</span>
             </div>
           </form>   
       </div>
       <div class="col-md-2">
-          <div class="row" style="margin-top: 2.4em;">
+          <div class="row margin-top-2point4">
             <button type="submit" class="btn btn-outline-success btn-sm" ng-click="vc.updateVenue(vc.venue.venue_name)">
               <i class="fa fa-save"></i>&nbsp;Save
             </button>

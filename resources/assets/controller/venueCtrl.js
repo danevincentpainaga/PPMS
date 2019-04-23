@@ -170,10 +170,6 @@ app.controller('venueCtrl', ['$scope', '$rootScope', '$location', '$http', '$ngC
     $scope.$emit('selected_reservation', viewReservation );
   }
 
-  vc.showInput = function(){
-
-  }
-
   vc.selectedVenueId = function(){
     if(vc.selectedvenueList != undefined){
       getAllReservations('*', vc.selectedvenueList.venue_id);

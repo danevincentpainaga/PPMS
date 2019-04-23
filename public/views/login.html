@@ -3,7 +3,7 @@
 <br />
     <div class="container" ng-controller="loginCtrl as lg">
       <br />
-      <h1 class="center" style="font-size:47px;">
+      <h1 class="center font-47px">
         <i class="fa fa-user-circle"></i>
       </h1>
       <div class="row center login-text-header">
@@ -16,9 +16,11 @@
         <div class="col-md-12">
        <form>
         <div class="form-group">
-          <label for="emailType" style="color: #17a2b8;"><i class="fa fa-envelope" ></i>&nbsp;Email:</label>
+          <label for="emailType" style="color: #17a2b8;">
+            <i class="fa fa-envelope" ></i>&nbsp;Email:
+          </label>
           <input type="text" class="form-control" ng-model="lg.email" required>
-          <label class="margin-top-15" for="passwordType" style="margin-top: 5px; color: #17a2b8;">
+          <label class="margin-top-15" for="passwordType" style="color: #17a2b8;">
             <i class="fa fa-lock font-21px"></i>&nbsp;Password:
           </label>
           <input type="password" class="form-control" ng-model="lg.password" required>
