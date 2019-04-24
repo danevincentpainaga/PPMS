@@ -6,11 +6,12 @@ Notice: Still working on the updates.
 
 ## PPMS Dependencies
 
+* laravel
+* laravel passport
 * Nodejs
 * Composer
 * redis
-* laravel
-* laravel passport
+* socket.io
 
 # Database tables
 
