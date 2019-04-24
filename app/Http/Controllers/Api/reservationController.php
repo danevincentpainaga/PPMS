@@ -78,15 +78,20 @@ class reservationController extends Controller
       }
       else
       {
+
+        $requestDetails = [
+          'name' => $request->input('requester_name'),
+          'purpose' => $request->input('purpose'),
+          'department' => $request->input('departmentId'),
+          'venue' => $request->input('venueId'),
+          'startDate' => $request->input('start_date'),
+          'startTime' => $request->input('start_time'),
+          'endDate' => $request->input('end_date'),
+          'endTime' => $request->input('end_time'),
+          'date_created' => $request->input('requested_date'),
+        ];
+
         $name = $request->input('requester_name');
-        $purpose = $request->input('purpose');
-        $department = $request->input('departmentId');
-        $venue = $request->input('venueId');
-        $startDate = $request->input('start_date');
-        $startTime = $request->input('start_time');
-        $endDate = $request->input('end_date');
-        $endTime = $request->input('end_time');
-        $date_created = $request->input('requested_date');
 
         $client = null;
         $clientId = null;
@@ -99,20 +104,31 @@ class reservationController extends Controller
         };
 
         if($client){
+          $this->saveReservation($requestDetails, $clientId);
+        }else{
+          $this->createClientAndReserve($name);
+        }   
+      }
+
+    }
+
+    public function saveReservation($rdetails, $clientId){
             $cl = new client_reservation;
             $cl->clientId = $clientId;
-            $cl->purpose = $purpose;
-            $cl->departmentId = $department;
-            $cl->venueId = $venue;
+            $cl->purpose = $rdetails['purpose'];
+            $cl->departmentId = $rdetails['department'];
+            $cl->venueId = $rdetails['venue'];
             $cl->statusId = 1;
-            $cl->start_date = $startDate;
-            $cl->start_time = $startTime;
-            $cl->end_date = $endDate;
-            $cl->end_time = $endTime;
-            $cl->date_created = $date_created;
+            $cl->start_date = $rdetails['startDate'];
+            $cl->start_time = $rdetails['startTime'];
+            $cl->end_date = $rdetails['endDate'];
+            $cl->end_time = $rdetails['endTime'];
+            $cl->date_created = $rdetails['date_created'];
             $cl->save();
             return response()->json(['message'=>'Request Sent'], 200);
-        }else{
+    }
+    
+    public function createClientAndReserve($name){
             $c = new client;
             $c->client_name = $name;
             $c->save();
@@ -129,9 +145,6 @@ class reservationController extends Controller
             $cl->date_created = $date_created;
             $cl->save();
             return response()->json(['message'=>'Request Sent'], 200);
-        }   
-      }
-
     }
 
     public function getReservations($reserveDate, $departmentId, $venue = null)

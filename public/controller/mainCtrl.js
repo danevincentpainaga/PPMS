@@ -1132,9 +1132,9 @@ var app = angular.module('myApp')
 
   lg.login =function(){
     if(!lg.email || !lg.password){
-      lg.loginBtn = true;
       console.log('unAuthenticated');
     }else{
+      lg.loginBtn = true;
       lg.buttonMessage = 'Signing In...';
       swalert.successInfo("<label class='green'>Checking Identity...</label>", 'info', );
       var credentials = {
@@ -1144,7 +1144,6 @@ var app = angular.module('myApp')
 
       apiService.validateLogin(credentials)
         .then(function(response){
-          console.log(response);
           $cookies.putObject('auth', response.data);
           $scope.$emit("Authenticated");
           $location.path('/dashboard');
@@ -1158,7 +1157,6 @@ var app = angular.module('myApp')
           $timeout(function(){
             lg.valid = true;
           }, 3000);
-          console.log(error);
       });
     }
   }
