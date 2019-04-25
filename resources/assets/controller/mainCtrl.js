@@ -87,21 +87,25 @@ app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ng
     $scope.$broadcast('refreshStockTable');
   });
 
+  //Recieved from workCtrl
   $scope.$on('itemToBeUpdated', function(val, obj){
     $timeout(function(){
        $scope.$broadcast('emittedItem', obj);
     });
   });
+
   $scope.$on('newItemDetails', function(val, obj){
     $timeout(function(){
        $scope.$broadcast('emittedNewItem', obj);
     });
   });
+
   $scope.$on('work_id', function(val, obj){
     $timeout(function(){
        $scope.$broadcast('emittedWorkId', obj);
     });
   });
+  
   $scope.$on('EmitRefreshItems', function(){
     $timeout(function(){
        $scope.$broadcast('broadcastedRefreshItems');

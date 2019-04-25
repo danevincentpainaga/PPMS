@@ -94,7 +94,6 @@ var app = angular.module('myApp')
       $scope.$emit('EmitRefreshItems');
       swalert.successAlert("Item Removed");
     }, function(error){
-      console.log(error);
       swalert.errorAlert("Failed!");
     });    
   }
@@ -102,7 +101,6 @@ var app = angular.module('myApp')
   function getAllWorkReq(){
     apiService.getAllWorkRequest($cookies.getObject('auth').departmentId).then(function(response){
       wc.list_of_work = response.data;
-      console.log(wc.list_of_work);
       $timeout(function(){
         wc.loaded = true;
       }, 500);
@@ -113,7 +111,6 @@ var app = angular.module('myApp')
 
   function updateWorkRequest(workDetails){
     apiService.updateRequestedWork(workDetails).then(function(response){
-      console.log(response);
       getAllWorkReq();
       $ngConfirm('Request Updated');
     }, function(error){

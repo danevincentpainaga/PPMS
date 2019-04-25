@@ -2,13 +2,10 @@
 <div class="modal fade" id="viewDetailsModal" ng-controller="viewVenueCtrl as v">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-    
-      <!-- Modal Header -->
       <div class="modal-header whitesmoke " >
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       
-      <!-- Modal body -->
       <div class="modal-body" >
         <div class="container mt-3">
           <h5><i class="fa fa-book"></i>&nbsp;Request Details</h5>
@@ -42,10 +39,10 @@
           </ul>
           <br />
           <label>Purpose:</label>
-          <textarea style="font-size: 20px;" class="form-control" disabled>{{ v.viewReservation.purpose }}</textarea>
+          <textarea class="form-control font-20px" disabled>{{ v.viewReservation.purpose }}</textarea>
         </div>
       </div>
-      <!-- Modal footer -->
+      
       <div class="modal-footer padding-7px">
         <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal" >Close</button>
       </div>

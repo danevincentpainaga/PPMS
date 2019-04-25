@@ -34,7 +34,6 @@ var app = angular.module('myApp')
   }
 
   is.addQty = function(item){
-    console.log(item);
     $scope.$emit('emittedItem', item);  
   }
 

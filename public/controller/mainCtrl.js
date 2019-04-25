@@ -585,7 +585,6 @@ var app = angular.module('myApp')
   }
 
   is.addQty = function(item){
-    console.log(item);
     $scope.$emit('emittedItem', item);  
   }
 
@@ -892,13 +891,11 @@ var app = angular.module('myApp')
     stockId = item.stock_id;
     ic.remarks = item.pre_remarks;
     ic.showUpdate = true;
-    // ic.selectedRequestNum.request_num = item.request_number;
     angular.forEach(ic.departments, function(val, i){
       if(val.department_id == item.i_deptId){
         ic.selectedDepartment = val;
       }
     });
-    // console.log(item);
   }
 
   ic.updateRequestedItem = function(){
@@ -1253,21 +1250,25 @@ app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ng
     $scope.$broadcast('refreshStockTable');
   });
 
+  //Recieved from workCtrl
   $scope.$on('itemToBeUpdated', function(val, obj){
     $timeout(function(){
        $scope.$broadcast('emittedItem', obj);
     });
   });
+
   $scope.$on('newItemDetails', function(val, obj){
     $timeout(function(){
        $scope.$broadcast('emittedNewItem', obj);
     });
   });
+
   $scope.$on('work_id', function(val, obj){
     $timeout(function(){
        $scope.$broadcast('emittedWorkId', obj);
     });
   });
+  
   $scope.$on('EmitRefreshItems', function(){
     $timeout(function(){
        $scope.$broadcast('broadcastedRefreshItems');
@@ -2336,7 +2337,6 @@ var app = angular.module('myApp')
       $scope.$emit('EmitRefreshItems');
       swalert.successAlert("Item Removed");
     }, function(error){
-      console.log(error);
       swalert.errorAlert("Failed!");
     });    
   }
@@ -2344,7 +2344,6 @@ var app = angular.module('myApp')
   function getAllWorkReq(){
     apiService.getAllWorkRequest($cookies.getObject('auth').departmentId).then(function(response){
       wc.list_of_work = response.data;
-      console.log(wc.list_of_work);
       $timeout(function(){
         wc.loaded = true;
       }, 500);
@@ -2355,7 +2354,6 @@ var app = angular.module('myApp')
 
   function updateWorkRequest(workDetails){
     apiService.updateRequestedWork(workDetails).then(function(response){
-      console.log(response);
       getAllWorkReq();
       $ngConfirm('Request Updated');
     }, function(error){

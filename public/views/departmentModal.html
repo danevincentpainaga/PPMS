@@ -2,15 +2,12 @@
 <div class="modal fade" id="departmentModal" ng-controller="addDepartmentCtrl as adept">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-    
-      <!-- Modal Header -->
       <div class="modal-header whitesmoke " >
         <h4 class="modal-title">
           <i class="fa fa-building"></i>&nbsp;Add Department
         </h4>
       </div>
-      
-      <!-- Modal body -->
+    
       <div class="modal-body" >
         <div class="alert alert-success alert-dismissible" ng-if="adept.response">
           <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -23,14 +20,14 @@
                 <input type="text" class="form-control uppercase" id="department" ng-model="adept.department" placeholder="Enter department name" ng-class="adept.passedOrFail == null? 'default' : (adept.passedOrFail)? 'passed' : 'failed'">
               </div>
               <div class="col-md-1 padding-right-0 padding-left-0">
-                <i class="fa fa-check-circle" ng-show="adept.success" style="font-size:32px;margin-top: 2px;margin-left: 5px;color:#28a745;"></i>
-                <i class="fa fa-times-circle" ng-show="adept.fail" style="font-size:32px;margin-top: 2px;margin-left: 5px;color:red;"></i>
+                <i class="fa fa-check-circle font-32 margin-top-2 margin-left-5 green" ng-show="adept.success"></i>
+                <i class="fa fa-times-circle font-32 margin-top-2 margin-left-5 red" ng-show="adept.fail"></i>
               </div>
             </div>
           </div>
         </form>
       </div>
-      <!-- Modal footer -->
+
       <div class="modal-footer padding-7px">
           <button type="button" class="btn btn-outline-success btn-sm" ng-click="adept.addDepartment(adept.department)" ng-disabled="adept.disableSave">
             <i class="fa fa-save"></i>&nbsp;Save
@@ -39,7 +36,6 @@
             <i class="fa fa-times-circle"></i>&nbsp;Close
           </button>
       </div>
-      
     </div>
   </div>
 </div>

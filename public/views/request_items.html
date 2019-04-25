@@ -61,7 +61,7 @@
                 <div class="form-group">
                   <label for="requester">Requestee:</label>
                   <input type="text" class="form-control" id="requestee" name="requestee" ng-model="ic.requestee" required>
-                  <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" style="color: red; font-size: 14px;">Name is Required*</span>
+                  <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" class="required-error">Name is Required*</span>
                 </div>
                 <div class="form-group">
                   <label for="modalDepartment">Department:</label>
@@ -79,7 +79,7 @@
                   </textarea>
                 </div>
                 <br />
-                <div class="form-group" >
+                <div class="form-group" ng-if="admin">
                   <div class="form-group">
                     <div class="row font-17px">
                       <div class="col-md-3">
@@ -91,17 +91,16 @@
                   </div>
                 </div>
                 <br />
-                <button type="submit" class="btn btn-success" ng-click="ic.addWorkRequest()" ng-if="!ic.showUpdate" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                <button type="submit" class="btn btn-success btn-box-shadow" ng-click="ic.addWorkRequest()" ng-if="!ic.showUpdate">
                   <i class="fa fa-save"></i>&nbsp;Save
                 </button>
-                <button type="button" class="btn btn-info" ng-click="ic.cancelItemRequest()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                <button type="button" class="btn btn-info btn-box-shadow" ng-click="ic.cancelItemRequest()">
                   <i class="fa fa-times-circle"></i>&nbsp;Cancel
                 </button>
               </form>   
           </div>
         </div>
         <br />
-      <!-- </div>        -->
      </div>
      <div class="col-md-3"></div>   
   </div>
@@ -111,7 +110,7 @@
      <div class="col-md-6" style="border-right: 2px solid teal;">
         <br />
         <div class="row" ng-if="!ic.editing">
-          <div class="col-md-12" style="min-height: 480px; max-height: 480px; overflow: auto;">
+          <div class="col-md-12 auto-scroll min-height-480 max-height-480">
                <form name="reservation">
                <div class="form-group">
                   <label for="requester">Request No.</label>
@@ -121,7 +120,7 @@
                 <div class="form-group">
                   <label for="requester">Requestee:</label>
                   <input type="text" class="form-control" id="requestee" name="requestee" ng-model="ic.requestee" required>
-                  <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" style="color: red; font-size: 14px;">Name is Required*</span>
+                  <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" class="required-error">Name is Required*</span>
                 </div>
                 <div class="form-group">
                   <label for="modalDepartment">Department:</label>
@@ -153,38 +152,35 @@
                 </div>
                 <br />
                 <br />
-                <button type="submit" class="btn btn-success" ng-click="ic.updateRequestedItem()" ng-if="ic.showUpdate" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                <button type="submit" class="btn btn-success btn-box-shadow" ng-click="ic.updateRequestedItem()" ng-if="ic.showUpdate" >
                   <i class="fa fa-save"></i>&nbsp;Update
                 </button>
-                <button type="submit" class="btn btn-success" ng-click="ic.addWorkRequest()" ng-if="!ic.showUpdate" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                <button type="submit" class="btn btn-success btn-box-shadow" ng-click="ic.addWorkRequest()" ng-if="!ic.showUpdate">
                   <i class="fa fa-save"></i>&nbsp;Save
                 </button>
-                <button type="button" class="btn btn-info" ng-click="ic.cancelItemRequest()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                <button type="button" class="btn btn-info btn-box-shadow" ng-click="ic.cancelItemRequest()">
                   <i class="fa fa-times-circle"></i>&nbsp;Cancel
                 </button>
               </form>   
           </div>
         </div>
         <br />
-      <!-- </div>        -->
      </div>
      <div class="col-md-6">
         <div class="row" >
           <div class="col-md-12 padding-0">
-            <!-- Nav tabs -->
             <ul class="nav nav-tabs">
-              <li class="nav-item" style="border-top: 1px solid #298eba;">
+              <li class="nav-item list-border-top">
                 <a class="nav-link active" data-toggle="tab" data-target="#items">
                   List of Items
                 </a>
               </li>
             </ul>
-            <!-- Tab panes -->
             <div class="tab-content">
               <div class="tab-pane container active " id="items">
                 <div class="row" style="border-bottom: 2px solid #1f73aa;">
                   <div class="col-md-12 padding-0 border-bottom-bluesmoke">
-                    <input type="text" class="col-md-5 form-control" name="" style="margin-top:5px; margin-bottom: 5px; margin-left: 3px;" placeholder="Search Item" ng-model="ic.filterItem">
+                    <input type="text" class="col-md-5 form-control margin-top-5 margin-bottom-5 margin-left-3" placeholder="Search Item" ng-model="ic.filterItem">
                   </div>
                   <div class="col-md-12 padding-0 itemTable" ng-if="!ic.hasSelected"  when-scrolled="ic.loadImages()">
                     <div class="ph-item margin-bottom-0 padding-0" ng-if="ic.isLoading">
@@ -202,7 +198,7 @@
                         </div>
                     </div>
                     <!-- ng-style="style()" resize> -->
-                      <table class="table table-sm table-striped table-bordered" style="margin-top:1px; min-width: 500px;" ng-if="!ic.isLoading">
+                      <table class="table table-sm table-striped table-bordered margin-top-1 min-width-500" ng-if="!ic.isLoading">
                         <thead>
                             <th>*</th>
                             <th>Item Name.</th>
@@ -211,7 +207,7 @@
                         </thead>
                         <tbody>
                           <tr ng-repeat="item in ic.list_of_stocks | filter: ic.filterItem">
-                            <td style="width: 20px;">
+                            <td class="width-20">
                               <button class="btn btn-success btn-sm" type="button" ng-click="ic.selectedItem(item)">
                                 {{item.item_selected}}
                               </button>
@@ -223,34 +219,34 @@
                         </tbody>
                       </table>
                   </div>
-                  <div class="col-md-12" style="overflow: auto; min-height: 200px; max-height: 200px;" ng-if="ic.hasSelected" >
+                  <div class="col-md-12 auto-scroll-x min-height-200 max-height-200" ng-if="ic.hasSelected" >
                     <div class="row" ng-repeat="selected in ic.selectedItems">
                       <div class="col-md-6">
                         <h4 class="margin-top-7">Item</h4>
-                        <span style="font-size: 17px;">
+                        <span class="font-17px">
                           {{ selected.item_name }}
                         </span>
                         <h4>description</h4>
-                        <span style="font-size: 17px;">
+                        <span class="font-17px">
                           {{ selected.description }}
                         </span>
                         <br />
                         <br />
                         <span ng-show="!ic.invalid">
-                          <label style="font-size: 20px;">Remaining Qty:</label>
-                          <label style="font-size: 22px;" class="red">{{ic.remainingQty}}</label>
+                          <label class="font-20px">Remaining Qty:</label>
+                          <label class="font-22px red">{{ic.remainingQty}}</label>
                         </span>
-                        <span ng-show="ic.invalid" class="blink red" style="font-size: 20px;">Not Enough Stocks</span>
+                        <span ng-show="ic.invalid" class="blink red font-20px" >Not Enough Stocks</span>
                       </div>
                       <div class="col-md-6">
-                        <label style="font-size: 17px;">Qty:</label>&nbsp;&nbsp;
-                          <span style="font-size: 21px; color:red;">
+                        <label class="font-17px">Qty:</label>&nbsp;&nbsp;
+                          <span class="font-21px red">
                             {{ selected.qty }}
                           </span>
                         <br />
                         <br />
                         <h4>Deduct Quantity</h4>
-                        <input type="text" class="form-control " ng-change="ic.deducted(selected)" ng-model="ic.enteredQty" number style="margin-bottom: 10px;">
+                        <input type="text" class="form-control margin-bottom-10" ng-change="ic.deducted(selected)" ng-model="ic.enteredQty" number >
                         <button type="button" class="btn btn-success col-md-5" ng-click="ic.addItem(selected)" ng-disabled="ic.add">Add</button>
                         <button type="button" class="btn btn-danger col-md-5" ng-click="ic.cancel()" >Cancel</button>
                       </div>
@@ -262,11 +258,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12 border-bottom-bluesmoke" style="padding-left: 3px !important;">
-            <input type="text" class="col-md-4 form-control" name="" style="margin-top:5px; margin-bottom: 5px;" placeholder="OR no." ng-model="ic.filterOr">
+          <div class="col-md-12 border-bottom-bluesmoke padding-left-3">
+            <input type="text" class="col-md-4 form-control margin-top-5 margin-bottom-5" placeholder="OR no." ng-model="ic.filterOr">
           </div>
-          <div class="col-md-12 padding-0" style="overflow: scroll; min-height: 255px; max-height: 255px;">
-              <table style="margin-top:3px; min-width: 500px; " class="table table-sm table-striped table-bordered" >
+          <div class="col-md-12 padding-0 min-height-255 max-height-255 scroll" >
+              <table class="table table-sm table-striped table-bordered margin-top-3 min-width-500" >
                 <thead>
                     <th>*</th>
                     <th>Item Name.</th>
@@ -275,7 +271,7 @@
                 </thead>
                 <tbody ng-if="!ic.isLoading">
                   <tr ng-repeat="item in ic.addedItems | filter: { request_number:ic.filterOr } ">
-                    <td style="width: 20px;">
+                    <td class="width-20">
                       <button class="btn btn-danger btn-sm" ng-click="ic.removeItem(item)">
                         <i class="fa fa-times-circle"></i>
                       </button>

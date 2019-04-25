@@ -133,13 +133,11 @@ var app = angular.module('myApp')
     stockId = item.stock_id;
     ic.remarks = item.pre_remarks;
     ic.showUpdate = true;
-    // ic.selectedRequestNum.request_num = item.request_number;
     angular.forEach(ic.departments, function(val, i){
       if(val.department_id == item.i_deptId){
         ic.selectedDepartment = val;
       }
     });
-    // console.log(item);
   }
 
   ic.updateRequestedItem = function(){

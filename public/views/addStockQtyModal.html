@@ -2,14 +2,11 @@
 <div class="modal fade" id="addQtyModal" ng-controller="inventoryModalCtrl as im">
   <div class="modal-dialog">
     <div class="modal-content" ng-repeat="selecteditem in im.selectedItem">
-    
-      <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title"><i class="fa fa-plus"></i></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       
-      <!-- Modal body -->
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6">
@@ -20,7 +17,7 @@
           </div>
           <div class="col-md-6">
             <label class="whitesmoke">Current Qty:</label>&nbsp;&nbsp;
-              <span style="font-size: 20px;">
+              <span class="font-20px">
                 {{ selecteditem.qty }}
               </span>
             <br />
@@ -30,16 +27,14 @@
           </div>
         </div>
         <hr>
-        <h3 style="color:green;">Total qty:&nbsp;&nbsp;<label class="font-27px red">{{im.totalQty}}</label></h3>
+        <h3 class="green">Total qty:&nbsp;&nbsp;<label class="font-27px red">{{im.totalQty}}</label></h3>
       </div>
       
-      <!-- Modal footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-success col-md-12" ng-click="im.addStockQuantity()">
             Save
         </button>
       </div>
-      
     </div>
   </div>
 </div>

@@ -22932,6 +22932,11 @@ body {
   margin: 0;
 }
 
+.box-shadow {
+  -webkit-box-shadow: 0px 2px 3px #e4d9d9 !important;
+          box-shadow: 0px 2px 3px #e4d9d9 !important;
+}
+
 .required-error {
   color: red;
   font-size: 14px;
@@ -22945,10 +22950,16 @@ body {
   border-top: 1px solid #298eba;
 }
 
-.btn-work {
+.btn-work-save {
   width: 200px;
   border-top-left-radius: 35px;
   border-bottom-left-radius: 35px;
+}
+
+.btn-work-close {
+  width: 200px;
+  border-top-right-radius: 35px;
+  border-bottom-right-radius: 35px;
 }
 
 .profile-icon {
@@ -23045,6 +23056,10 @@ body {
 
 #signOut {
   display: none;
+}
+
+.white {
+  color: white;
 }
 
 .red {
@@ -23160,6 +23175,14 @@ body {
   margin-bottom: 1em;
 }
 
+.margin-top-1 {
+  margin-top: 1px;
+}
+
+.margin-top-2 {
+  margin-top: 2px;
+}
+
 .margin-top-2point4 {
   margin-top: 2.4em;
 }
@@ -23188,8 +23211,16 @@ body {
   margin-left: 3px;
 }
 
+.margin-left-5 {
+  margin-left: 5px;
+}
+
 .margin-bottom-07 {
   margin-bottom: 0.7em;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
 }
 
 .margin-top-10 {
@@ -23212,6 +23243,10 @@ body {
   min-width: 155px !important;
 }
 
+.max-height-190 {
+  max-height: 190px;
+}
+
 .min-width-240 {
   min-width: 240px !important;
 }
@@ -23224,6 +23259,10 @@ body {
   max-width: 1155px !important;
 }
 
+.min-height-190 {
+  min-height: 190px;
+}
+
 .min-height-215 {
   min-height: 215px;
 }
@@ -23232,16 +23271,56 @@ body {
   min-width: 915px;
 }
 
+.min-width-500 {
+  min-width: 500px;
+}
+
+.min-width-1100 {
+  min-width: 1100px;
+}
+
 .min-height-170 {
   min-height: 170px;
+}
+
+.min-height-200 {
+  min-height: 200px;
+}
+
+.min-height-255 {
+  min-height: 255px !important;
+}
+
+.min-height-280 {
+  min-height: 280px;
+}
+
+.min-height-480 {
+  min-height: 480px;
+}
+
+.max-height-200 {
+  max-height: 200px;
 }
 
 .max-height-215 {
   max-height: 215px;
 }
 
+.max-height-255 {
+  max-height: 255px !important;
+}
+
+.max-height-280 {
+  max-height: 280px;
+}
+
 .max-height-170 {
   max-height: 170px;
+}
+
+.max-height-480 {
+  max-height: 480px;
 }
 
 /*font-family*/
@@ -23254,6 +23333,10 @@ body {
 
 .whitesmoke {
   background-color: whitesmoke !important;
+}
+
+.border-right-teal2 {
+  border-right: 2px solid teal !important;
 }
 
 .border-bottom-bluesmoke {
@@ -23315,6 +23398,10 @@ body {
   padding-bottom: 0px !important;
 }
 
+.padding-bottom-3 {
+  padding-bottom: 3px !important;
+}
+
 .padding-left-10 {
   padding-left: 10px !important;
 }
@@ -23340,12 +23427,20 @@ body {
   font-size: 21px !important;
 }
 
+.font-22px {
+  font-size: 22px !important;
+}
+
 .font-20px {
   font-size: 20px !important;
 }
 
 .font-27px {
   font-size: 27px !important;
+}
+
+.font-32 {
+  font-size: 32px !important;
 }
 
 .font-47px {
@@ -23374,16 +23469,16 @@ body {
   width: 100px;
 }
 
+.width-73 {
+  width: 73px;
+}
+
 .width-115 {
   width: 115px !important;
 }
 
 .width-20 {
   width: 20px !important;
-}
-
-.min-width-500 {
-  min-width: 500px;
 }
 
 .ng-enter {

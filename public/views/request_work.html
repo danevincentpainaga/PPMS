@@ -14,16 +14,16 @@
     <div class="row">
       <div class="col-md-12">
         <br />
-        <div class="row border-bottom-bluesmoke" style="padding-bottom: 3px; box-shadow: 0px 2px 3px #e4d9d9;">
+        <div class="row border-bottom-bluesmoke box-shadow padding-bottom-3">
           <div class="col-md-5">
             <input type="text" ng-model="wc.search" placeholder="search" class="form-control">
           </div>
         </div>
-        <div class="row" style="overflow-x: auto; min-height: 190px; max-height: 190px;">
+        <div class="row auto-scroll-x min-height-190 max-height-190">
           <div class="col-md-12">
-            <table class="table table-sm table-striped table-bordered" style="margin-top:7px; min-width: 1100px;" >
+            <table class="table table-sm table-striped table-bordered margin-top-7 min-width-1100">
               <thead>
-                  <th style="width: 20px"></th>
+                  <th class="width-20"></th>
                   <th>Request No.</th>
                   <th>Requestee</th>
                   <th>Work to be Done</th>
@@ -34,7 +34,7 @@
               </thead>
               <tbody ng-if="!wc.isLoading">
                 <tr ng-repeat="work in wc.list_of_work | filter:wc.search" >
-                  <td style="width: 20px">
+                  <td class="width-20">
                     <button class="btn btn-success btn-sm" type="button" ng-click="wc.editWork(work)">
                       <i class="fa fa-pencil"></i>
                     </button>
@@ -58,11 +58,10 @@
           <div class="col-md-12">
             <div id="users" class="container-fluid tab-pane active padding-0" >
               <div class="row">
-               <div class="col-md-6" style="border-right: 2px solid teal;">
+               <div class="col-md-6 border-right-teal2">
                   <br />
                   <div class="row" ng-if="!wc.editing">
-                    <div class="col-md-12" style="min-height: 280px; max-height: 280px; overflow: auto;">
-                         <!-- <h4>Date:</h4> -->
+                    <div class="col-md-12 auto-scroll min-height-280 max-height-280">
                          <form name="reservation">
                          <div class="form-group">
                             <label for="requester">Request No.</label>
@@ -71,7 +70,7 @@
                           <div class="form-group">
                             <label for="requester">Requestee:</label>
                             <input type="text" class="form-control" id="requestee" name="requestee" ng-model="wc.requestee" ng-disabled="admin" required>
-                            <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" style="color: red; font-size: 14px;">Name is Required*</span>
+                            <span ng-show="reservation.requester.$touched  && reservation.requester.$error.required" class="required-error">Name is Required*</span>
                           </div>
                           <div class="form-group">
                             <label for="modalDepartment">Department:</label>
@@ -99,31 +98,30 @@
                             </textarea>
                           </div>
                           <br />
-                          <button type="submit" class="btn btn-success" ng-click="wc.updateRequestedItem()" ng-if="wc.showUpdate" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);">
+                          <button type="submit" class="btn btn-success btn-box-shadow" ng-click="wc.updateRequestedItem()" ng-if="wc.showUpdate">
                             <i class="fa fa-save"></i>&nbsp;Update
                           </button>
-                          <button type="submit" class="btn btn-success" ng-click="wc.updateWorkDetails()" ng-if="!wc.showUpdate" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);" ng-disabled="!wc.updatingWork">
+                          <button type="submit" class="btn btn-success btn-box-shadow" ng-click="wc.updateWorkDetails()" ng-if="!wc.showUpdate" ng-disabled="!wc.updatingWork">
                             <i class="fa fa-save"></i>&nbsp;Save
                           </button>
-                          <button type="button" class="btn btn-info" ng-click="wc.cancelUpdate()" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);" ng-disabled="!wc.updatingWork">
+                          <button type="button" class="btn btn-info btn-box-shadow" ng-click="wc.cancelUpdate()" ng-disabled="!wc.updatingWork">
                             <i class="fa fa-times-circle"></i>&nbsp;Cancel
                           </button>
                         </form>   
                     </div>
                   </div>
                   <br />
-                <!-- </div>        -->
                </div>
                <div class="col-md-6">
                   <div class="row">
-                    <div class="col-md-10 border-bottom-bluesmoke" style="padding-left: 3px !important;">
-                      <input type="text" class="col-md-5 form-control" name="" style="margin-top:5px; margin-bottom: 5px;" placeholder="Search" ng-model="wc.filterItem">
+                    <div class="col-md-10 border-bottom-bluesmoke padding-left-3">
+                      <input type="text" class="col-md-5 form-control margin-top-5 margin-bottom-5" placeholder="Search" ng-model="wc.filterItem">
                     </div>
                     <div class="col-md-2 center margin-top-10 border-bottom-bluesmoke" ng-if="admin">
                       <input type="button" class="btn btn-success btn-sm" value="Add Item" data-toggle="modal" data-target="#addWorkItemModal" data-backdrop="static" ng-if="wc.updatingWork" ng-click="wc.addItem()">
                     </div>
-                    <div class="col-md-12 padding-0" style="overflow: auto; min-height: 255px; max-height: 255px;">
-                        <table style="margin-top:3px; min-width: 500px; " class="table table-sm table-striped table-bordered" >
+                    <div class="col-md-12 padding-0 auto-scroll min-height-255 max-height-255">
+                        <table class="table table-sm table-striped table-bordered margin-top-3 min-width-500" >
                           <thead>
                               <th ng-if="admin">*</th>
                               <th>Item Name.</th>
@@ -132,7 +130,7 @@
                           </thead>
                           <tbody ng-if="!wc.isLoading">
                             <tr ng-repeat="item in wc.workItems | filter: wc.filterItem ">
-                              <td style="width: 73px;" ng-if="admin">
+                              <td class="width-73" ng-if="admin">
                                 <button class="btn btn-danger btn-sm" ng-click="wc.removeItem(item)">
                                   <i class="fa fa-times-circle"></i>
                                 </button>
@@ -150,7 +148,6 @@
                   </div>
                </div>   
               </div>
-
           </div>
           </div>
         </div>       
