@@ -79,17 +79,6 @@
                   </textarea>
                 </div>
                 <br />
-                <div class="form-group" ng-if="admin">
-                  <div class="form-group">
-                    <div class="row font-17px">
-                      <div class="col-md-3">
-                        <label for="status">Status:</label>
-                        <select class="form-control" ng-model="ic.selectedStatus" ng-options="c for c in ic.statuses" disabled>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <br />
                 <button type="submit" class="btn btn-success btn-box-shadow" ng-click="ic.addWorkRequest()" ng-if="!ic.showUpdate">
                   <i class="fa fa-save"></i>&nbsp;Save
@@ -133,28 +122,12 @@
                   </textarea>
                 </div>
                 <div class="form-group">
-                  <label for="remarks">Remarks:</label>
-                  <textarea type="text" class="form-control" id="remarks" name="remarks" ng-model="ic.remarks" ng-disabled="ic.disableRemarks" required>
+                  <label>Remarks:</label>
+                  <textarea type="text" class="form-control" ng-model="ic.remarks" ng-disabled="ic.disableRemarks">
                   </textarea>
                 </div>
                 <br />
-                <div class="form-group">
-                  <div class="form-group" ng-if="admin">
-                    <div class="row font-17px">
-                      <div class="col-md-3">
-                        <label for="status">Status:</label>
-                        <select class="form-control" ng-model="ic.selectedStatus" ng-options="c for c in ic.statuses" disabled>
-                        </select>
-                      </div>
-                    </div>
-                    <br />
-                  </div>
-                </div>
                 <br />
-                <br />
-                <button type="submit" class="btn btn-success btn-box-shadow" ng-click="ic.updateRequestedItem()" ng-if="ic.showUpdate" >
-                  <i class="fa fa-save"></i>&nbsp;Update
-                </button>
                 <button type="submit" class="btn btn-success btn-box-shadow" ng-click="ic.addWorkRequest()" ng-if="!ic.showUpdate">
                   <i class="fa fa-save"></i>&nbsp;Save
                 </button>

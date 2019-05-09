@@ -775,8 +775,6 @@ var app = angular.module('myApp')
   var inProgress = false;
   var d = new Date();
   ic.isLoading = true;
-  ic.statuses = ["Undone"];
-  ic.selectedStatus = "Undone";
   ic.loading = true;
   ic.list_of_stocks = [];
   ic.addedItems = [];
@@ -865,19 +863,21 @@ var app = angular.module('myApp')
   }
 
   ic.addWorkRequest = function(){
-    var itemRequested = {
-      "request_id": ic.selectedRequestNum.request_id,
-      "request_number": ic.selectedRequestNum.request_num + 1,
-      "requestee": ic.requestee,
-      "w_deptId": ic.selectedDepartment.department_id,
-      "w_userId": $cookies.getObject('auth').user_id,
-      "date_requested": d.toISOString().split('T')[0],
-      "purpose": ic.purpose,
-      "post_remarks": ic.remarks,
-      "work_status": ic.selectedStatus,
-      "item_requested": ic.addedItems
-    };
-    saveItemRequest(itemRequested);  
+    if(ic.requestee && ic.purpose){
+      var itemRequested = {
+        "request_id": ic.selectedRequestNum.request_id,
+        "request_number": ic.selectedRequestNum.request_num + 1,
+        "requestee": ic.requestee,
+        "w_deptId": ic.selectedDepartment.department_id,
+        "w_userId": $cookies.getObject('auth').user_id,
+        "date_requested": d.toISOString().split('T')[0],
+        "purpose": ic.purpose,
+        "post_remarks": ic.remarks,
+        "work_status": 'Undone',
+        "item_requested": ic.addedItems
+      };
+      saveItemRequest(itemRequested);
+    }
   }
 
   ic.addRemarks = function(item){
