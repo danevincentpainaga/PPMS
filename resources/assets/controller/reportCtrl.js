@@ -18,13 +18,9 @@ var app = angular.module('myApp')
   getRequestedWorksPerDate();
 
   rc.searchStocksBtn = function(){
-    if(!rc.filteredDate){
-      getStockByDate();
-    }
-    else{
-      getStockByDate(rc.filteredDate);      
-    }
-    console.log(rc.filteredDate);   
+    let filteredDate = {startdate: rc.startdate, enddate:rc.enddate};
+    console.log(filteredDate);
+    getStockByDate(filteredDate);
   }
 
   rc.searchItemsBtn = function(){

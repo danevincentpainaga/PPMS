@@ -55,7 +55,6 @@ app.controller('venueCtrl', ['$scope', '$rootScope', '$location', '$http', '$ngC
           else{
             getAllReservationsDate(start);
           }
-          console.log(start);
       },
       eventClick: pendingEventClick
     }
@@ -78,15 +77,15 @@ app.controller('venueCtrl', ['$scope', '$rootScope', '$location', '$http', '$ngC
     }
   }
 
-  vc.eMessage = function(){
-    if(vc.Hidden){
-      vc.Hidden = false;
-      vc.eventMessage = 'Hide calendar';
-    }else{
-      vc.Hidden = true;
-      vc.eventMessage = 'Show calendar';
-    }
-  }
+  // vc.eMessage = function(){
+  //   if(vc.Hidden){
+  //     vc.Hidden = false;
+  //     vc.eventMessage = 'Hide calendar';
+  //   }else{
+  //     vc.Hidden = true;
+  //     vc.eventMessage = 'Show calendar';
+  //   }
+  // }
 
   vc.editVenue = function(venueData){
     vc.selected_venue = angular.copy(venueData);

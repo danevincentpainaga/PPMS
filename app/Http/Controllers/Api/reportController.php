@@ -14,11 +14,21 @@ use App\request_id_number;
 
 class reportController extends Controller
 {
-   public function getStocksPerDate($date_updated = null){
-    if($date_updated != 'null'){
-      return stocks::where('date_updated', $date_updated)->get();
+  //  public function getStocksPerDate($date_updated = null){
+  //   if($date_updated != 'null'){
+  //     return stocks::where('date_updated', $date_updated)->get();
+  //   }
+  //   else{
+  //     return stocks::all(); 
+  //   }
+  // }
+
+  public function getStocksPerDate(Request $request){
+    if($request->startdate != "" && $request->enddate != ""){
+      return stocks::whereBetween('date_updated', [$request->startdate, $request->enddate])->get();
     }
-    else{
+    else
+    {
       return stocks::all(); 
     }
   }

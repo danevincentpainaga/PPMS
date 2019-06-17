@@ -513,13 +513,24 @@ app.factory('apiService', ['$http', '$cookies', '$rootScope', function ($http, $
         }
       });
     },
-    getStocksPerDate: function getStocksPerDate(date) {
+    // getStocksPerDate: function(date){
+    //   return $http({
+    //     method:'GET',
+    //     url: baseUrl+'api/getStocksPerDate/'+date,
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Accept": "application/json",
+    //       Authorization : 'Bearer '+ $rootScope.token
+    //     }
+    //   });
+    // },
+    getStocksPerDate: function getStocksPerDate(filteredDate) {
       return $http({
-        method: 'GET',
-        url: baseUrl + 'api/getStocksPerDate/' + date,
+        method: 'POST',
+        url: baseUrl + 'api/getStocksPerDate',
+        data: filteredDate,
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
           Authorization: 'Bearer ' + $rootScope.token
         }
       });

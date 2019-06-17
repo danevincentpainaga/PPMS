@@ -1203,7 +1203,7 @@ app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ng
   //Recieved Emitted Data from Controllers
 
   $scope.$on('Authenticated', function(){
-    swalert.successInfo("<label class='green'>Welcome Back "+$cookies.getObject('auth').name+"!</label>", 'success', 3000);
+    swalert.successInfo("<label class='green'>Welcome "+$cookies.getObject('auth').name+"!</label>", 'success', 3000);
   });
 
   $scope.$on('selected_reservation', function(val, obj){
@@ -1314,12 +1314,18 @@ var app = angular.module('myApp')
 
   pc.updatePassword = function(){
     if(pc.password && pc.newpassword){
-      var credentials = {
-        id: auth.user_id,
-        password: pc.password,
-        newpassword: pc.newpassword,
+      if(pc.newpassword == pc.repassword){
+        var credentials = {
+            id: auth.user_id,
+            password: pc.password,
+            newpassword: pc.newpassword,
+          }
+        updatedUserPassword(credentials);
       }
-      updatedUserPassword(credentials);
+      else
+      {
+        swalert.errorAlert("password not matched!");
+      }
     }
   }
 
@@ -1392,13 +1398,9 @@ var app = angular.module('myApp')
   getRequestedWorksPerDate();
 
   rc.searchStocksBtn = function(){
-    if(!rc.filteredDate){
-      getStockByDate();
-    }
-    else{
-      getStockByDate(rc.filteredDate);      
-    }
-    console.log(rc.filteredDate);   
+    let filteredDate = {startdate: rc.startdate, enddate:rc.enddate};
+    console.log(filteredDate);
+    getStockByDate(filteredDate);
   }
 
   rc.searchItemsBtn = function(){
@@ -1916,7 +1918,6 @@ app.controller('venueCtrl', ['$scope', '$rootScope', '$location', '$http', '$ngC
           else{
             getAllReservationsDate(start);
           }
-          console.log(start);
       },
       eventClick: pendingEventClick
     }
@@ -1939,15 +1940,15 @@ app.controller('venueCtrl', ['$scope', '$rootScope', '$location', '$http', '$ngC
     }
   }
 
-  vc.eMessage = function(){
-    if(vc.Hidden){
-      vc.Hidden = false;
-      vc.eventMessage = 'Hide calendar';
-    }else{
-      vc.Hidden = true;
-      vc.eventMessage = 'Show calendar';
-    }
-  }
+  // vc.eMessage = function(){
+  //   if(vc.Hidden){
+  //     vc.Hidden = false;
+  //     vc.eventMessage = 'Hide calendar';
+  //   }else{
+  //     vc.Hidden = true;
+  //     vc.eventMessage = 'Show calendar';
+  //   }
+  // }
 
   vc.editVenue = function(venueData){
     vc.selected_venue = angular.copy(venueData);

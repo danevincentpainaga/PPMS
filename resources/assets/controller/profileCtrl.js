@@ -34,12 +34,18 @@ var app = angular.module('myApp')
 
   pc.updatePassword = function(){
     if(pc.password && pc.newpassword){
-      var credentials = {
-        id: auth.user_id,
-        password: pc.password,
-        newpassword: pc.newpassword,
+      if(pc.newpassword == pc.repassword){
+        var credentials = {
+            id: auth.user_id,
+            password: pc.password,
+            newpassword: pc.newpassword,
+          }
+        updatedUserPassword(credentials);
       }
-      updatedUserPassword(credentials);
+      else
+      {
+        swalert.errorAlert("password not matched!");
+      }
     }
   }
 

@@ -40,7 +40,7 @@ app.controller('mainAppCtrl',['$scope', '$rootScope', '$location', '$http', '$ng
   //Recieved Emitted Data from Controllers
 
   $scope.$on('Authenticated', function(){
-    swalert.successInfo("<label class='green'>Welcome Back "+$cookies.getObject('auth').name+"!</label>", 'success', 3000);
+    swalert.successInfo("<label class='green'>Welcome "+$cookies.getObject('auth').name+"!</label>", 'success', 3000);
   });
 
   $scope.$on('selected_reservation', function(val, obj){

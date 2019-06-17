@@ -39,7 +39,8 @@ Route::group(['middleware'=>'auth:api'], function(){
 	Route::get('currentRequestNumber', 'API\maintenanceController@currentRequestNumber');
 	Route::get('getRequestedItems/{rid}', 'API\maintenanceController@getRequestedItems');
 	Route::get('getAllWorkRequest/{wid}', 'API\maintenanceController@getAllWorkRequest');
-	Route::get('getStocksPerDate/{date?}', 'API\reportController@getStocksPerDate');
+	// Route::get('getStocksPerDate/{date?}', 'API\reportController@getStocksPerDate');
+	Route::post('getStocksPerDate', 'API\reportController@getStocksPerDate');
 	Route::get('getRequestedWorksPerDate/{date?}', 'API\reportController@getRequestedWorksPerDate');
 	Route::get('getRequestedItemsPerDate/{date?}', 'API\reportController@getRequestedItemsPerDate');
 	// Route::post('approvedReservationsDetails', 'API\reservationController@approvedReservationsDetails');

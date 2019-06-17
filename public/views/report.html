@@ -15,10 +15,15 @@
 	  <div class="tab-pane container active padding-0" id="home">
 		<br />
 		<div class="row hidden-print">
-			<div class="col-md-6">
-		      <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
-		          <input type="text" class="form-control form-control-sm border-top-bottom-4" id="filteredDate" name="filteredDate" ng-model="rc.filteredDate" placeholder="filter by date">
-		      </datepicker>
+			<div class="col-md-3">
+		       <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+	          		<input type="text" class="form-control form-control-sm border-top-bottom-4" id="filteredDate" name="filteredDate" ng-model="rc.startdate" placeholder="Enter start date" autocomplete="off">
+		       </datepicker>
+			</div>
+			<div class="col-md-3">
+		       <datepicker datepicker-mobile="true" date-format="yyyy-MM-dd" selector="form-control" >
+	          		<input type="text" class="form-control form-control-sm border-top-bottom-4" id="filteredDate" name="filteredDate" ng-model="rc.enddate" placeholder="Enter end date" autocomplete="off">
+		       </datepicker>
 			</div>
 			<div class="btn-group">
 				<input type="button" ng-click="rc.searchStocksBtn()" class="btn btn-success btn-sm width-100" value="Search">
