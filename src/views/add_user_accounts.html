@@ -6,14 +6,6 @@
     <form name="u.addUserForm">
       <div>
           <div layout="row" layout-xs="column" style="margin-bottom: 15px;">
-              <div flex="13" class="image-holder">
-                <div class="file-input">
-                  <button ng-click="u.editPhoto()">edit</button>
-                </div>
-                <div layout="column" class="file-image">
-                  <img ng-src="{{ u.photo | checkScholarPhoto }}" style="border-radius: 1em;">
-                </div>
-              </div>
               <md-input-container flex="">
                 <label>Name</label>
                 <input type="text" ng-model="u.name" name="name" required>

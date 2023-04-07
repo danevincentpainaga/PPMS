@@ -47,7 +47,6 @@ angular.module('psmsApp')
     }
 
     u.saveUser = function(){
-
       console.log(u.selectedDegree.length, u.selectedMunicipalities.length);
       if (!u.name && !u.email && !u.password && !u.c_password && !u.user_type && !u.status && !u.year_level && !u.selectedDegree.length <= 0 && !u.selectedMunicipalities.length <= 0) {
         return;
@@ -59,7 +58,6 @@ angular.module('psmsApp')
       }
 
       u.isSaving = true;
-
       let newUser = {
         name: u.name,
         email: u.email,
@@ -69,8 +67,7 @@ angular.module('psmsApp')
         user_type: u.user_type,
         status: u.status
       }
-      console.log(newUser);
-
+      
       usersApiService.createUsersAccount(newUser).then(response => {
         console.log(response);
         swalert.toastInfo('User saved!', 'success', 'top-right');
@@ -82,7 +79,6 @@ angular.module('psmsApp')
         swalert.toastInfo(err.data.message,  'error', 'top-right');
         u.isSaving = false;
       });
-
     }
 
     u.close = function(){
@@ -120,9 +116,7 @@ angular.module('psmsApp')
     }
 
     u.queryMunicipality = function(searched){
-
       return u.municipalities.filter(value => value.municipality.toLowerCase().match(searched));
-
     }
 
     u.queryDegree = function(searched){
@@ -131,7 +125,6 @@ angular.module('psmsApp')
 
     function getUserAccounts(details = ""){
       usersApiService.getUserAccounts(details).then(response => {
-        console.log(response.data);
         u.users_list = response.data;
         u.disable_linear_loader = true;
         u.users_list_loaded = true;
@@ -142,7 +135,6 @@ angular.module('psmsApp')
 
     function getMunicipalities(){
       municipalitiesApiService.getMunicipalities().then(response => {
-        console.log(response);
         u.municipalities = response.data;
       }, err => {
         console.log(err);

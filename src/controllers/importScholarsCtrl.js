@@ -335,7 +335,6 @@ var app = angular.module('psmsApp');
     $q.all([importScholarApiService.getAddresses({municipality: ic.municipality}), schoolApiService.getListOfSchool(), importScholarApiService.getCourses({degree: ic.degree}), academicContractService.getAcademicContractDetails()]).then(response=>{
       console.log(response);
       $mdSidenav('importScholars').toggle();
-
       ic.imported_scholars.forEach(function(val, i){
         $timeout(()=>{
           validateScholarsName(response, val, i);
@@ -353,10 +352,10 @@ var app = angular.module('psmsApp');
   }
 
   function validateScholarsName(response, scholarsObj, idx){
-
+    
       if (!ic.isChecking) return;
 
-      var total = ic.imported_scholars.length - 1;
+      let total = ic.imported_scholars.length - 1;
 
       ic.show_spinner = false;
 

@@ -63,7 +63,7 @@ angular.module('psmsApp')
   }
 
   function getApprovedScholarsCount(){
-      dashboardApiService.getApprovedScholarsCount().then(response => {
+    dashboardApiService.getApprovedScholarsCount().then(response => {
       dc.undergraduate_total = response.data.undergraduate;
       dc.masters_total = response.data.masters;
       dc.doctorate_total = response.data.doctorate;
@@ -73,7 +73,7 @@ angular.module('psmsApp')
   }
 
   function getNewOldTotalPerDegree(){
-      dashboardApiService.getNewOldTotalPerDegree().then(response => {
+    dashboardApiService.getNewOldTotalPerDegree().then(response => {
       dc.degree_labels = response.data.degree;
       dc.degree = response.data.scholars_count;
     }, err => {
@@ -82,7 +82,7 @@ angular.module('psmsApp')
   }
 
   function getContractStatusTotalPerDegree(){
-      dashboardApiService.getContractStatusTotalPerDegree().then(response => {
+    dashboardApiService.getContractStatusTotalPerDegree().then(response => {
       dc.contract_status = response.data;
     }, err => {
       console.log(err);
