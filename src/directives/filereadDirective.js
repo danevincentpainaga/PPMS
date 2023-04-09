@@ -35,11 +35,11 @@ angular.module('psmsApp').directive("fileread",
                   scope.json_data = [];
                   let errors = [];
                   let headers = [
-                                  'Lastname', 'Firstname', 'Middlename', 'Date of Birth', 'Age',
-                                  'Gender', 'Father_firstname', 'Father_lastname', 'Father_middlename',
-                                  'Mother_firstname', 'Mother_maiden_name', 'Mother_middlename', 'School',
-                                  'Student ID NO', 'Degree', 'Course', 'Section', 'Year level', 'Semester', 'Academic year',
-                                  'Status', 'IP'
+                                  'lastname', 'firstname', 'middlename', 'date_of_birth', 'age',
+                                  'gender', 'father_firstname', 'father_lastname', 'father_middlename',
+                                  'mother_firstname', 'mother_maiden_name', 'mother_middlename', 'school',
+                                  'student_id_number', 'degree', 'civil_status', 'course', 'section', 'year_level', 'semester', 'academic_year',
+                                  'scholar_status', 'IP'
                                 ];
 
                   let data = evt.target.result;

@@ -99,6 +99,9 @@ angular.module('psmsApp')
 						{ value: 'V', display: '5th year'},
 						{ value: 'VI', display: '6th year'}
 					];
+				},
+				contractStatus: function(){
+					return ['Pre-Approved', 'Approved', 'Pending', 'In-Active'];
 				}
 			}
 }]);
