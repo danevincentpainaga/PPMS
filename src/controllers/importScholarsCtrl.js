@@ -177,7 +177,7 @@ var app = angular.module('psmsApp');
       student_id_number: upperCase(value.student_id_number),
       lastname: value.lastname.toUpperCase(),
       firstname: value.firstname.toUpperCase(),
-      middlename: upperCase(value.middlename || null),
+      middlename: upperCase(value.middlename || ""),
       addressId: value.addressId,
       date_of_birth: value.date_of_birth,
       age: addScholarsService.calcAge(value.date_of_birth),
@@ -187,17 +187,17 @@ var app = angular.module('psmsApp');
       section: value.section.toUpperCase(),
       year_level: value.year_level,
       IP: value.IP,
-      middlename: value.middlename || null,
+      middlename: value.middlename || "",
       age: addScholarsService.calcAge(value.date_of_birth),
       father_details: {
         firstname: upperCase(value.father_firstname || ""),
         lastname: upperCase(value.father_lastname || ""),
-        middlename: upperCase(value.father_middlename || null),
+        middlename: upperCase(value.father_middlename || ""),
       },
       mother_details: { 
-        firstname: upperCase(value.mother_firstname), 
-        maiden_name: upperCase(value.mother_maiden_name), 
-        middlename: upperCase(value.mother_middlename || null), 
+        firstname: upperCase(value.mother_firstname || ""),
+        maiden_name: upperCase(value.mother_maiden_name || ""),
+        middlename: upperCase(value.mother_middlename || ""), 
       },
       degree: value.degree,
       scholar_status: value.scholar_status,
@@ -586,7 +586,7 @@ var app = angular.module('psmsApp');
       });
   }
 
-  function doneCheckingNotif(){
+  function doneCheckingNotif() {
     ic.checking_in = 'Checking: Finished';
     ic.check_finished = ic.total_errors > 0 ? false : true;
     swalert.toastInfo('Check Finished', 'success', 'top-right');   

@@ -18,14 +18,13 @@ angular.module('psmsApp').factory('validateContractStatusService', ['$rootScope'
 			this.dialog(response.statusText, 'Connection lost.');
 			$state.go($state.$current.name);
 			$rootScope.route_loader = false;			
-		}
-	    
+		} 
   	},
 	dialog: function(title, message){
 		$mdDialog.show(
 	        $mdDialog.alert()
 	          .parent(angular.element(document.body))
-	          .clickOutsideToClose(true)
+	          .clickOutsideToClose(false)
 	          .title(title)
 	          .textContent(message)
 	          .ariaLabel('Access failed')

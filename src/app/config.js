@@ -68,7 +68,7 @@ angular
             $mdDialog.show(
               $mdDialog.alert()
                 .parent(angular.element(document.body))
-                .clickOutsideToClose(true)
+                .clickOutsideToClose(false)
                 .title('ERROR!')
                 .textContent('Failed to load route')
                 .ariaLabel('Access failed')
@@ -262,7 +262,7 @@ angular
             $mdDialog.show(
               $mdDialog.alert()
                 .parent(angular.element(document.body))
-                .clickOutsideToClose(true)
+                .clickOutsideToClose(false)
                 .title('ERROR!')
                 .textContent('Connection lost')
                 .ariaLabel('Access failed')

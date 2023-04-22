@@ -1,7 +1,7 @@
 import { baseUrl } from '../apiServices/baseUrl';
 
 angular.module('psmsApp')
-  .factory('academicSemesterYearApiService', ['$http', '$cookies', '$rootScope', '$q', function($http, $cookies, $rootScope, $q){
+  .factory('academicSemesterYearApiService', ['$http', '$rootScope', function($http, $rootScope){
 
   return{
    getAcademicYearList: function(){
@@ -14,29 +14,39 @@ angular.module('psmsApp')
         }
       });
     },
-   storeAcademicYearList: function(details){
+    storeAcademicYearSem: function(payload){
       return $http({
         method:'POST',
-        url: baseUrl+'api/academic/storeAcademicYearList',
-        data: details,
+        url: baseUrl+'api/academic/storeAcademicYearSem',
+        data: payload,
         headers: {
           "Content-Type": "application/json",
           Authorization : 'Bearer '+ $rootScope.token
         }
       });
     },
-   updateAcademicYearList: function(details){
+    updateAcademicYearSem: function(payload){
       return $http({
         method:'POST',
-        url: baseUrl+'api/academic/updateAcademicYearList',
-        data: details,
+        url: baseUrl+'api/academic/updateAcademicYearSem',
+        data: payload,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization : 'Bearer '+ $rootScope.token
+        }
+      });
+    },
+    updateAcademicYearSemAmounts: function(payload){
+      return $http({
+        method:'POST',
+        url: baseUrl+'api/academic/updateAcademicYearSemAmounts',
+        data: payload,
         headers: {
           "Content-Type": "application/json",
           Authorization : 'Bearer '+ $rootScope.token
         }
       });
     }
-    
 
 	}
 }]);

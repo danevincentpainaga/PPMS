@@ -26,21 +26,31 @@
                   <input type="text" ng-model="c.display_academic_year" accept-only-numbers autocomplete="off" disabled contract-academic-year required>
                 </md-input-container>
               </div>
+              <div style="margin-bottom: 1.5em" ng-if="!c.isSaveMode">
+                <md-button class="md-raised md-primary" ng-disabled="c.invalid_year || !c.add_update_contract.academic_year_from.$dirty" ng-click="c.updateAcademicYearSem()" style="width: 100%;margin: 10px 0px !important;">UPDATE</md-button>
+              </div>
               <div layout="column">
                 <span>Undergraduate:</span>
                 <md-input-container flex="">
                   <label>Amount</label>
-                  <input type="text" ng-model="c.undergraduate_amount" accept-only-numbers currency-formatter autocomplete="off" required>
+                  <input type="text" ng-model="c.undergraduate_amount" name="undergraduate_amount" accept-only-numbers currency-formatter autocomplete="off" required>
                 </md-input-container>
                 <span>Master/Doctorate:</span>
                 <md-input-container flex="">
                   <label>Amount</label>
-                  <input type="text" ng-model="c.masteral_doctorate_amount" accept-only-numbers currency-formatter autocomplete="off" required>
+                  <input type="text" ng-model="c.masteral_doctorate_amount" name="masteral_doctorate_amount" accept-only-numbers currency-formatter autocomplete="off" required>
                 </md-input-container>
               </div>
             </div>
-            <div style="margin-bottom: 1.5em">
-              <md-button class="md-raised md-primary" ng-disabled="c.add_update_contract.$invalid || !c.add_update_contract.$dirty" ng-click="c.saveOrUpdateAcademicYearList()" style="width: 100%;margin: 10px 0px !important;">{{ c.buttonText }}</md-button>
+            <div style="margin-bottom: 1.5em" ng-if="c.isSaveMode">
+              <md-button class="md-raised md-primary" ng-disabled="c.add_update_contract.$invalid || !c.add_update_contract.$dirty" ng-click="c.saveAcademicYearSem()" style="width: 100%;margin: 10px 0px !important;">SAVE</md-button>
+            </div>
+            <div style="margin-bottom: 1.5em" ng-if="!c.isSaveMode">
+              <md-button class="md-raised md-primary"
+                ng-disabled="(c.add_update_contract.undergraduate_amount.$invalid || c.add_update_contract.masteral_doctorate_amount.$invalid) ? true : (c.add_update_contract.undergraduate_amount.$dirty || c.add_update_contract.masteral_doctorate_amount.$dirty) ? false : true"
+                ng-click="c.updateAcademicYearSemAmounts()" style="width: 100%;margin: 10px 0px !important;">
+                  UPDATE
+                </md-button>
             </div>
           </form>
         </div>
