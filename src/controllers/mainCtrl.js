@@ -13,20 +13,16 @@ angular.module('psmsApp')
       '$scope',
       '$rootScope',
       '$mdSidenav',
-      '$mdDialog',
       '$cookies',
       '$location',
-      '$timeout',
       '$window',
       'authApiService',
      function (
       $scope,
       $rootScope,
       $mdSidenav,
-      $mdDialog,
       $cookies,
       $location,
-      $timeout,
       $window,
       authApiService) {
 
@@ -46,6 +42,7 @@ angular.module('psmsApp')
       $rootScope.route_loader = true;
       authApiService.logout().then(response => {
         $cookies.remove('auth');
+        $window.localStorage.clear();
         $location.path('/');
       }, err =>{
         console.log(err);

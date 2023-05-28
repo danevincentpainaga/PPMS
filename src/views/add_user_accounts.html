@@ -36,7 +36,7 @@
             <md-input-container flex="35">
               <label>Status</label>
               <md-select ng-model="u.status" name="status" required>
-                <md-option ng-repeat="status in u.status_list" ng-value="status"><em>{{ status }}</em></md-option>
+                <md-option ng-repeat="stat in u.status_list" ng-value="stat.status"><em>{{ stat.label }}</em></md-option>
               </md-select>
             </md-input-container>
           </div>

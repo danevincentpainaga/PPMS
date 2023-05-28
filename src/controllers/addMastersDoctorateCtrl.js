@@ -237,7 +237,7 @@ app.controller('addMastersDoctorateCtrl',
   md.addressSearchQuery = function(searched){
     return addScholarsService.getAddresses(searched).then(response => {
       for (var i = 0; i < response.length; i++) {
-        Object.assign(response[i], { fulladdress: response[i].address+' '+response[i].municipality+', ANTIQUE' });
+        Object.assign(response[i], { fulladdress: response[i].brgy+' '+response[i].municipality+', ANTIQUE' });
       }
       return response;
     });

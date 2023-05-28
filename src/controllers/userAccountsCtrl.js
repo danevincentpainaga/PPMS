@@ -16,7 +16,7 @@ angular.module('psmsApp')
     var u = this;
     u.user_type_list = ['Admin', 'User'];
     u.degree_list = ['Undergraduate', 'Masters', 'Doctorate'];
-    u.status_list = ['Active', 'In-Active'];
+    u.status_list = [{ status: 1, label: 'Active'}, {status: 0, label: 'In-Active' }];
     u.degree_options = "All";
     u.selected_degree_options = "*";
     u.selected_municipality_options = "*";
@@ -25,7 +25,6 @@ angular.module('psmsApp')
     u.selectedDegree = ["*"];
 
     // showCustomDegreeMunicpality($rootScope.isAdmin);
-    getMunicipalities();
 
     $scope.$watch('u.searched_user', debounce(function() {
 
@@ -163,5 +162,7 @@ angular.module('psmsApp')
       u.addUserForm.$setPristine();
       u.addUserForm.$setUntouched();
     }
+    
+    getMunicipalities();
 
 }]);

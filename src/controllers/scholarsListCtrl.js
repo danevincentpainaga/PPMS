@@ -11,11 +11,8 @@
 angular.module('psmsApp')
   .controller('scholarsListCtrl', [
     '$scope',
-    '$window',
     '$timeout',
     '$mdSidenav',
-    'schoolApiService',
-    'addressApiService',
     'scholarApiService',
     'municipalitiesApiService',
     'academicContractDetails',
@@ -23,11 +20,8 @@ angular.module('psmsApp')
     'debounce',
     function (
       $scope,
-      $window,
       $timeout,
       $mdSidenav,
-      schoolApiService,
-      addressApiService,
       scholarApiService,
       municipalitiesApiService,
       academicContractDetails,

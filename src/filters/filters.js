@@ -111,7 +111,7 @@ app.filter('formatYear', function(){
 
 app.filter('formatAddress', function(){
   return function(addressObj){
-    return addressObj.address+' '+addressObj.municipality+', ANTIQUE';
+    return addressObj.brgy+' '+addressObj.municipality+', ANTIQUE';
   }
 });
 
@@ -157,7 +157,7 @@ app.filter('displayAmount', function(){
 app.filter('formatGovernor', function(){
   return function(gov){
     let suffix = gov.suffix !== 'NONE'? (", "+gov.suffix) : "";
-    return gov.firstname +" "+ gov.initial +". "+ gov.lastname + suffix;
+    return gov.firstname +" "+ gov.mi +". "+ gov.lastname + suffix;
   }
 });
 

@@ -13,13 +13,6 @@ angular.module('psmsApp')
   .controller('addUndergraduateCtrl',
     [
       '$scope',
-      '$rootScope',
-      '$cookies',
-      '$window',
-      '$location',
-      '$timeout',
-      'schoolApiService',
-      'addressApiService',
       'scholarApiService',
       'academicContractDetails',
       'debounce',
@@ -30,13 +23,6 @@ angular.module('psmsApp')
       '$mdSidenav',
     function (
       $scope,
-      $rootScope,
-      $cookies,
-      $window,
-      $location,
-      $timeout,
-      schoolApiService,
-      addressApiService,
       scholarApiService,
       academicContractDetails,
       debounce,
@@ -228,7 +214,7 @@ angular.module('psmsApp')
     ac.addressSearchQuery = function(searched){
       return addScholarsService.getAddresses(searched).then(response => {
         for (var i = 0; i < response.length; i++) {
-          Object.assign(response[i], { fulladdress: response[i].address+' '+response[i].municipality+', ANTIQUE' });
+          Object.assign(response[i], { fulladdress: response[i].brgy+' '+response[i].municipality+', ANTIQUE' });
         }
         return response;
       });
@@ -325,6 +311,5 @@ angular.module('psmsApp')
 
     loadSuffix();
     hasSemester();
-
 
 }]);

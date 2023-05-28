@@ -24,23 +24,23 @@ angular.module('psmsApp')
           return false;
         }
     },
-    getAuthenticatedUser: function(){
+    // getAuthenticatedUser: function(){
         
-      let defer = $q.defer();
+    //   let defer = $q.defer();
 
-      if (userData) {
-          defer.resolve(userData);
-          return defer.promise;
-      }
+    //   if (userData) {
+    //       defer.resolve(userData);
+    //       return defer.promise;
+    //   }
       
-      return $http.get(baseUrl+'api/getAuthenticatedUser', {
-        headers: {
-          Accept: "application/json",
-          Authorization : 'Bearer '+ $rootScope.token
-        }
-      });
+    //   return $http.get(baseUrl+'api/getAuthenticatedUser', {
+    //     headers: {
+    //       Accept: "application/json",
+    //       Authorization : 'Bearer '+ $rootScope.token
+    //     }
+    //   });
       
-    },
+    // },
     getCsrfToken: function(){
       return $http.get(baseUrl+'sanctum/csrf-cookie', {
         headers: {

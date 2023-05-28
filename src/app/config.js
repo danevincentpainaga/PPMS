@@ -198,12 +198,14 @@ angular
   '$cookies',
   'authApiService',
   '$mdDialog',
+  '$q',
   function(
     $transitions,
     $rootScope,
     $cookies,
     authApiService,
-    $mdDialog){
+    $mdDialog,
+    $q){
 
     $transitions.onBefore({}, function(transition) {
 
@@ -225,17 +227,19 @@ angular
         var $state = transition.router.stateService;
         var auth = $cookies.getObject('auth');
         console.log(auth);
+        console.log(JSON.parse(localStorage.getItem('user')));
 
+          let user = JSON.parse(localStorage.getItem('user'));
           $rootScope.token = auth.token;
           $rootScope.uid = auth.id;
 
-          return authApiService.getAuthenticatedUser().then(response=>{
-            console.log(response);
-            $rootScope.user_type = response.data.user_type;
-            $rootScope.access_degree =  JSON.parse(response.data.degree_access).indexOf("*") > -1? ['Masters', 'Doctorate', 'Undergraduate'] :  JSON.parse(response.data.degree_access);
-            $rootScope.username = response.data.name;
+          // return authApiService.getAuthenticatedUser().then(response=>{
+          if(auth) {
+            $rootScope.user_type = user.user_type;
+            $rootScope.access_degree =  user.degree_access.indexOf("*") > -1? ['Masters', 'Doctorate', 'Undergraduate'] :  user.degree_access;
+            $rootScope.username = user.name;
 
-            if (response.data.user_type === 'Supervisor') {
+            if (user.user_type === 'Supervisor') {
               $rootScope.contractAccess = true;
               $rootScope.userAccountAccess = true;
               $rootScope.importAccess = true;
@@ -245,20 +249,21 @@ angular
               return;
             }
 
-            if (response.data.user_type === 'Admin') {
+            if (user.user_type === 'Admin') {
               validateDegree($rootScope.access_degree, adminCannotAccess);
               validateRoute(adminCannotAccess);
               $rootScope.userAccountAccess = true;
               $rootScope.importAccess = true;
+              return;
             }
 
-            if (response.data.user_type === 'User') {
+            if (user.user_type === 'User') {
               validateDegree($rootScope.access_degree, usersCannotAccess);
               validateRoute(usersCannotAccess);
+              return;
             }
-
-          }, function(err){
-            console.log(err);
+          }
+          else {
             $mdDialog.show(
               $mdDialog.alert()
                 .parent(angular.element(document.body))
@@ -268,7 +273,19 @@ angular
                 .ariaLabel('Access failed')
                 .ok('Okay')
             );
-          });
+          }
+          // }, function(err){
+          //   console.log(err);
+          //   $mdDialog.show(
+          //     $mdDialog.alert()
+          //       .parent(angular.element(document.body))
+          //       .clickOutsideToClose(false)
+          //       .title('ERROR!')
+          //       .textContent('Connection lost')
+          //       .ariaLabel('Access failed')
+          //       .ok('Okay')
+          //   );
+          // });
 
           function validateDegree(degree_access, protected_route) {
 

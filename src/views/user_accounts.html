@@ -35,9 +35,9 @@
               <table>
                 <thead>
                   <tr>
-                    <th style="background-color: #dddddd; width: 20px;"><span>Name.</span></th>
+                    <th style="background-color: #dddddd; width: 20px;"><span>No.</span></th>
+                    <th style="background-color: #dddddd;"><span>Name</span></th>
                     <th style="background-color: #dddddd;"><span>Email</span></th>
-                    <th style="background-color: #dddddd;"><span>Password</span></th>
                     <th style="background-color: #dddddd;"><span>Status</span></th>
                   </tr>
                 </thead>
@@ -53,7 +53,7 @@
                     <td>
                       <div style="display: flex; align-items: center;justify-content: space-between;">
                         <div>
-                          <span>{{ user.status }}</span>
+                          <span>{{ user.status ? 'Active' : 'In-Active' }}</span>
                         </div>
                         <div>
                           <md-icon class="material-icons" style="font-size: 17px; box-sizing: border-box;padding: 3px;cursor: pointer;outline-style: none;" ng-click="u.edit(user)">

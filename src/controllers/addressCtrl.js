@@ -43,7 +43,7 @@ angular.module('psmsApp')
 	ad.edit = function(selected_address){
 		ad.binded_address = selected_address;
 		ad.address_id = selected_address.address_id;
-		ad.address = selected_address.address;
+		ad.brgy = selected_address.brgy;
 		ad.municipality = selected_address.municipality;
 		ad.isUpdating = true;
 		ad.saveUpdateBtnText = 'Update';
@@ -58,27 +58,27 @@ angular.module('psmsApp')
 
 	ad.saveUpdateAddress = function(){
 
-		if (ad.address && ad.municipality) {
+		if (ad.brgy && ad.municipality) {
 
 			ad.saving_updating = true;
 
-			let address_details = {
-				address: ad.address.toUpperCase(),
+			let payload = {
+				brgy: ad.brgy.toUpperCase(),
 				municipality: ad.municipality.toUpperCase(),
 			};
 
 			if (!ad.isUpdating) {
-				storeAddress(address_details);
+				storeAddress(payload);
 			}
 			else{
-				updateAddress(address_details);
+				updateAddress(payload);
 			}
 		}
 	}
 
 
-	function storeAddress(address_details){
-		addressApiService.storeAddress(address_details).then(response => {
+	function storeAddress(payload){
+		addressApiService.storeAddress(payload).then(response => {
 			console.log(response);
 			ad.addresses.push(response.data);
 			clearInputs();
@@ -91,12 +91,12 @@ angular.module('psmsApp')
 		})
 	}
 
-	function updateAddress(address_details){
+	function updateAddress(payload){
 
-		Object.assign(address_details, { address_id: ad.address_id });
+		Object.assign(payload, { address_id: ad.address_id });
 
-		addressApiService.updateAddress(address_details).then(response => {
-			ad.binded_address.address = response.data.address;
+		addressApiService.updateAddress(payload).then(response => {
+			ad.binded_address.brgy = response.data.brgy;
 			ad.binded_address.municipality = response.data.municipality;
 			ad.saving_updating = false;
 			swalert.dialogBox('Address updated.', 'success',  'successful');
@@ -127,7 +127,7 @@ angular.module('psmsApp')
 
 	function clearInputs(){
 		ad.binded_address = "";
-		ad.address = "";
+		ad.brgy = "";
 		ad.municipality = "";
 		ad.addressForm.$setPristine();
 		ad.addressForm.$setUntouched();

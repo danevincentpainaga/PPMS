@@ -33,7 +33,7 @@ angular.module('psmsApp').directive("fileread",
                 scope.$apply(function () {
                   
                   scope.json_data = [];
-                  let errors = [];
+                  let errors = '';
                   let headers = [
                                   'lastname', 'firstname', 'middlename', 'date_of_birth', 'age',
                                   'gender', 'father_firstname', 'father_lastname', 'father_middlename',
@@ -43,11 +43,8 @@ angular.module('psmsApp').directive("fileread",
                                 ];
 
                   let data = evt.target.result;
-                  
                   let workbook = XLSX.read(data, {type: 'binary'});
-
                   scope.json_data = XLSX.utils.sheet_to_json(workbook.Sheets['Scholars list']);
-                  
                   let sheet_name = workbook.SheetNames.indexOf('Scholars list');
 
                   if (sheet_name === -1){
@@ -67,23 +64,20 @@ angular.module('psmsApp').directive("fileread",
                   let headerNames = XLSX.utils.sheet_to_json(workbook.Sheets['Scholars list'], { header: 1 })[0];
                   
                   headers.forEach(function(val, i){ 
-            
                       if (headerNames.indexOf(val) === -1) {
-                          errors.push(' Can\'t find header name '+val);
+                          errors += '<li style="text-align:left;">'+ val +'</li>';
                       }
-            
                   })
-
-                  if (errors.length > 0) {
-                      scope.state = false;
-                      console.log(errors);
-                      $elm.val(null);
-                      swalert.dialogBox(errors, 'error', 'Invalid');
-                      return;
+                    
+                  if(errors !== ''){
+                    scope.state = false;
+                    console.log(errors);
+                    $elm.val(null);
+                    swalert.fileErrors(errors);
+                    return;
                   }
                   
                   scope.opts.data = scope.json_data;
-                  // $elm.val(null);
                   scope.state = false;
                 });
 

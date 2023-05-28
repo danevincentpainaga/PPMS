@@ -72,6 +72,7 @@ angular.module('psmsApp')
     }
 
     c.edit = function(selected){
+      if(selected.state === 'Closed') return
       let ay = selected.academic_year.split('-');
       c.asc_id = selected.asc_id;
       c.semester = selected.semester;
@@ -92,6 +93,7 @@ angular.module('psmsApp')
     }
 
     c.setContract = function(selected){
+      if(selected.state !== 'Available') return
       $mdDialog.show({
         contentElement: '#confirmPasswordDialog',
         parent: angular.element(document.body)

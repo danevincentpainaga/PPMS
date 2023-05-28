@@ -10,7 +10,7 @@
             <div layout="column" >
               <md-input-container>
                 <label>Semester</label>
-                <md-select ng-model="c.semester" required>
+                <md-select ng-model="c.semester" name="semester" required>
                   <md-option ng-value="sem.semester" ng-repeat="sem in c.semester_list"><em>{{ sem.semester }}</em></md-option>
                 </md-select>
               </md-input-container>
@@ -27,7 +27,10 @@
                 </md-input-container>
               </div>
               <div style="margin-bottom: 1.5em" ng-if="!c.isSaveMode">
-                <md-button class="md-raised md-primary" ng-disabled="c.invalid_year || !c.add_update_contract.academic_year_from.$dirty" ng-click="c.updateAcademicYearSem()" style="width: 100%;margin: 10px 0px !important;">UPDATE</md-button>
+                <md-button class="md-raised md-primary"
+                  ng-disabled="c.invalid_year ? true : (c.add_update_contract.academic_year_from.$dirty || c.add_update_contract.semester.$dirty)? false : true"
+                  ng-click="c.updateAcademicYearSem()"
+                  style="width: 100%;margin: 10px 0px !important;">UPDATE</md-button>
               </div>
               <div layout="column">
                 <span>Undergraduate:</span>

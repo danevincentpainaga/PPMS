@@ -24,25 +24,25 @@ angular.module('psmsApp')
     var gov = this;
 	gov.suffix = "NONE";
 
-	$scope.$watch('gov.initial', function(n, o){
+	$scope.$watch('gov.mi', function(n, o){
 		if(n){
-			gov.initial = gov.initial.replace(/[^A-Z]+/g, '');
-			if(gov.initial.length > 1){
-				gov.initial = gov.initial.slice(0, 1);
+			gov.mi = gov.mi.replace(/[^A-Z]+/g, '');
+			if(gov.mi.length > 1){
+				gov.mi = gov.mi.slice(0, 1);
 			}
 		}
 	});
 
 	gov.updateGovernor = function(){
 		
-		if(!gov.firstname || !gov.initial || !gov.lastname) return;
+		if(!gov.firstname || !gov.mi || !gov.lastname) return;
 		gov.updating = true;
 		
 		let governor = {
 			firstname: gov.firstname,
-			initial: gov.initial,
+			mi: gov.mi,
 			lastname: gov.lastname,
-			suffix: gov.suffix? gov.suffix : "",
+			suffix: gov.suffix //? gov.suffix : "",
 		}
 		
 		governorService.updateGovernor(governor).then(response => {
@@ -67,7 +67,7 @@ angular.module('psmsApp')
 			if(response.data){
 				let gov_details = response.data.governor;
 				gov.firstname = gov_details.firstname;
-				gov.initial = gov_details.initial;
+				gov.mi = gov_details.mi;
 				gov.lastname = gov_details.lastname;
 				gov.suffix = gov_details.suffix? gov_details.suffix.toUpperCase() : 'NONE';
 				gov.governor_loaded = true;

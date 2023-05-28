@@ -39,7 +39,9 @@ app.controller('loginCtrl',['$scope', '$rootScope', '$cookies', '$window', '$loc
               .then(function(response){
                 let now = new Date();
                 let exp = new Date(now.getFullYear()+1, now.getMonth(), now.getDate());
-                $cookies.putObject('auth', response.data,  {'expires' : exp});
+                console.log(response.data);
+                $cookies.putObject('auth', { token: response.data.token },  {'expires' : exp});
+                $window.localStorage.setItem('user', JSON.stringify(response.data.user));
                 $location.path('/dashboard');
                 $timeout(() => { swalert.toastInfo('Welcome', 'success', 'top-right', 2500); }, 200);
             }, function(err){

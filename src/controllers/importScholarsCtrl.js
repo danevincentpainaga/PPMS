@@ -364,7 +364,7 @@ var app = angular.module('psmsApp');
     }
 
     const address = addressesArray.find(item => {
-      if ((item.address+item.municipality+'antique').replace(/ |,/g,'').toLowerCase() === scholarsObj.address.replace(/ |,/g,'').toLowerCase()) {
+      if ((item.brgy+item.municipality+'antique').replace(/ |,/g,'').toLowerCase() === scholarsObj.address.replace(/ |,/g,'').toLowerCase()) {
           scholarsObj.addressId = item.address_id;
           return true;
       }

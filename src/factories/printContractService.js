@@ -6,11 +6,9 @@ angular.module('psmsApp').
   factory('printContract', 
   [
     '$timeout',
-    '$q',
     '$filter',
   function (
     $timeout,
-    $q,
     $filter) {
   
   var self = this;

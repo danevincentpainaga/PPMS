@@ -1,4 +1,4 @@
-const { result } = require('lodash');
+// const { result } = require('lodash');
 var Swal = require('sweetalert2');
 angular.module('psmsApp')
   .factory('swalert', ['$timeout', '$q', 'authApiService', function($timeout, $q, authApiService){
@@ -133,6 +133,12 @@ angular.module('psmsApp')
           }
         });
       };
-    
+      self.fileErrors = function(htmlString){
+        Swal.fire({
+          title: 'Can\'t find Header',
+          html: '<div style="display: flex;"><ul>'+ htmlString +'<ul></div>'
+        });
+      }
+
       return self;
 }]);
